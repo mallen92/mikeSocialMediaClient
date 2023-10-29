@@ -36,8 +36,8 @@ export const LoginPage = () => {
           <div className="formTitle">TheSocial</div>
 
           <div className="formInputs">
-            <input type="email" id="emailInput" className="formInput" placeholder="Enter email address" onChange={(e) => setEmail(e.target.value)} required/>
-            <input type="password" id="passwordInput" className="formInput" placeholder="Enter password" onChange={(e) => setPassword(e.target.value)} required/>
+            <input type="email" id="emailInput" className="formInput" placeholder="Enter email address" onChange={(e) => setEmail(e.target.value)}/>
+            <input type="password" id="passwordInput" className="formInput" placeholder="Enter password" onChange={(e) => setPassword(e.target.value)}/>
           </div>
 
           { error ?
