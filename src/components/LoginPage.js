@@ -24,7 +24,7 @@ export const LoginPage = () => {
       dispatch(setUser(response.data));
       navigate("/test");
     } catch (error) {
-        console.log(error);
+      setError(error.response.data.error);
     }
 
   }
@@ -40,9 +40,11 @@ export const LoginPage = () => {
             <input type="password" id="passwordInput" className="formInput" placeholder="Enter password" onChange={(e) => setPassword(e.target.value)} required/>
           </div>
 
-          <div className="errorMessage">
+          { error ?
+          <div className="errorContainer">
             {error}
           </div>
+          : <></>}
 
           <div className="formButtonContainer">
             <button type="submit" className="formButton logInButton">Log In</button>
