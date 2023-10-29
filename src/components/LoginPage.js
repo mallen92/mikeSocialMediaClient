@@ -1,9 +1,9 @@
-import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
 import { useDispatch } from "react-redux";
-import { setUser } from "./userSlice";
-import "./LoginRegistration.css";
+import { setUser } from "../state/userSlice";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import "../styles/LoginRegistration.css";
 
 export const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -26,7 +26,6 @@ export const LoginPage = () => {
     } catch (error) {
       setError(error.response.data.error);
     }
-
   }
 
   return (
