@@ -24,7 +24,8 @@ export const LoginPage = () => {
       dispatch(setUser(response.data));
       navigate("/test");
     } catch (error) {
-      setError(error.response.data.error);
+      console.log(error);
+      setError(error.response.data.message);
     }
   }
 
