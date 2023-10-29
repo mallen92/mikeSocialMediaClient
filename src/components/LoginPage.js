@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setUser } from "../state/userSlice";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/LoginRegistration.css";
 
@@ -47,8 +47,8 @@ export const LoginPage = () => {
           : <></>}
 
           <div className="formButtonContainer">
-            <button type="submit" className="formButton logInButton">Log In</button>
-            <button className="formButton signUpButton"><Link to="/register" className="signUpButtonLabel">Sign Up</Link></button>
+            <button type="submit" className="formButton loginFormLogInButton">Log In</button>
+            <button className="formButton loginFormSignUpButton" onClick={(e) => navigate("/signup")}>Sign Up</button>
           </div>
         </form>
       </div>

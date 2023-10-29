@@ -44,6 +44,10 @@
     outline: 2px solid black;
   }
 
+  .birthDateButtonContainer {
+    background-color: grey;
+  }
+
   .errorContainer {
     text-align: center;
     padding: 10px;
@@ -70,20 +74,17 @@
     box-shadow: -2px 2px 5px grey;
   }
 
-  .logInButton {
+  .loginFormLogInButton,
+  .signupFormSignUpButton {
     background-color: #ce1212;
     color: white;
     font-weight: bold;
   }
 
-  .signUpButton {
+  .loginFormSignUpButton,
+  .signupFormLogInButton {
     background-color: #fafafae8;
     font-weight: bold;
-  }
-
-  .signUpButtonLabel {
-    color: black;
-    text-decoration: none;
   }
 }
 
@@ -114,7 +115,8 @@
     outline: 3px solid #810000;
   }
 
-  .signUpButton {
+  .loginFormSignUpButton,
+  .signupFormLogInButton {
     margin-bottom: 10px;
   }
 }
