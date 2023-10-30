@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 
-export const UserTest = () => {
+export const StateTest = () => {
   const user = useSelector((state) => state.userSlice.user);
 
   const showState = () => {

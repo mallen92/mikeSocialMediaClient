@@ -1,17 +1,17 @@
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setUser } from "../state/userSlice";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { months, days, years } from "../lists/birthDate";
-import "../styles/LoginRegistration.css";
+import "../styles/loginSignup.css";
 
 export const SignupPage = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [error, setError] = useState("");
   const [birthMonthValue, setBirthMonthValue] = useState(months[new Date().getMonth()].name);
   const [birthDayValue, setBirthDayValue] = useState(new Date().getDate());
-  const [error, setError] = useState("");
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const signUpUser = async (event) => {
     event.preventDefault();
@@ -67,7 +67,7 @@ export const SignupPage = () => {
             </div>
           </div>
 
-          <input type="email" name="email" className="formInput" placeholder="Email address" />
+          <input type="email" name="email" className="formInput" placeholder="Email address" autoComplete="off" />
           <input type="password" name="password" className="formInput" placeholder="Password" />
         </div>
 

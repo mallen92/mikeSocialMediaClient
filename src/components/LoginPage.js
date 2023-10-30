@@ -1,18 +1,18 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { setUser } from "../state/userSlice";
 import { useNavigate } from "react-router-dom";
+import { setUser } from "../state/userSlice";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
 import axios from "axios";
-import "../styles/LoginRegistration.css";
+import "../styles/loginSignup.css";
 
 export const LoginPage = () => {
-  const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [error, setError] = useState("");
 
   const logInUser = async (event) => {
     event.preventDefault();
-    
+
     const formData = new FormData(event.target);
     const formEntries = Object.fromEntries(formData.entries());
     const { email, password } = formEntries;
@@ -26,7 +26,6 @@ export const LoginPage = () => {
       dispatch(setUser(response.data));
       navigate("/test");
     } catch (error) {
-      console.log(error);
       setError(error.response.data.message);
     }
   }
@@ -38,7 +37,7 @@ export const LoginPage = () => {
           <div className="formTitle">TheSocial</div>
 
           <div className="formInputs">
-            <input type="email" name="email" className="formInput" placeholder="Enter email address" />
+            <input type="email" name="email" className="formInput" placeholder="Enter email address" autoComplete="off" />
             <input type="password" name="password" className="formInput" placeholder="Enter password" />
           </div>
 

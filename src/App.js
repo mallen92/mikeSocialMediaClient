@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LoginPage } from "./components/LoginPage";
 import { SignupPage } from "./components/SignupPage";
-import { UserTest } from "./components/UserTest";
+import { StateTest } from "./components/StateTest";
 import "./App.css";
 import "./breakpoints.css";
 
@@ -12,7 +12,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
-          <Route path="/test" element={<UserTest />} />
+          <Route path="/test" element={<StateTest />} />
         </Routes>
       </BrowserRouter>
     </div>
