@@ -7,6 +7,8 @@ import { months, days, years } from "../lists/birthDate";
 import "../styles/LoginRegistration.css";
 
 export const SignupPage = () => {
+  const [birthMonthValue, setBirthMonthValue] = useState(months[new Date().getMonth()].name);
+  const [birthDayValue, setBirthDayValue] = useState(new Date().getDate());
   const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -26,7 +28,6 @@ export const SignupPage = () => {
 
     const birthDate = `${birthMonthNum}/${birthDay}/${birthYear}`;
     console.log(birthDate);
-
   }
 
   return (
@@ -42,14 +43,14 @@ export const SignupPage = () => {
           <div className="birthDateContainer">
             <span>Date of Birth:</span>
             <div className="birthDateSelectsContainer">
-              <select name="birthMonth" className="birthDateSelect">
+              <select name="birthMonth" className="birthDateSelect" value={birthMonthValue} onChange={(e) => setBirthMonthValue(e.target.value)}>
                 {months.map(month => (
                   <option key={month.id} value={month.name}>
                     {month.name}
                   </option>
                 ))}
               </select>
-              <select name="birthDay" className="birthDateSelect">
+              <select name="birthDay" className="birthDateSelect" value={birthDayValue} onChange={(e) => setBirthDayValue(e.target.value)}>
                 {days.map(day => (
                   <option key={day.id} value={day.name}>
                     {day.name}

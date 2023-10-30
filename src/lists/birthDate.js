@@ -23,10 +23,9 @@ for (let i = 0; i < 31; i++) {
 }
 
 export let years = [];
-let currentYear = 2023;
-let startYear = currentYear - 13;
+let startYear = new Date().getFullYear();
 
-for (let i = 0; i <= 103; i++) {
+for (let i = 0; i <= 116; i++) {
   years[i] = {
     id: startYear,
     name: `${startYear}`,
