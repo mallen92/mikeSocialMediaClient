@@ -44,8 +44,21 @@
     outline: 2px solid black;
   }
 
-  .birthDateButtonContainer {
-    background-color: grey;
+  .birthDateSelectsContainer {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .birthDateSelect {
+    height: 45px;
+    padding: 10px;
+    width: 32%;
+    border: 1px solid grey;
+    border-radius: 8px;
+  }
+
+  .birthDateSelect:focus {
+    outline: 1px solid black;
   }
 
   .errorContainer {
@@ -113,6 +126,10 @@
 
   .formInputs input:focus {
     outline: 3px solid #810000;
+  }
+
+  .birthDateSelect:focus {
+    outline: 2px solid #810000;
   }
 
   .loginFormSignUpButton,

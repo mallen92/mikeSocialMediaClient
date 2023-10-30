@@ -3,38 +3,71 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../state/userSlice";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { months, days, years } from "../lists/birthDate";
 import "../styles/LoginRegistration.css";
 
 export const SignupPage = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [birthDate, setBirthDate] = useState("");
   const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const registerUser = async (event) => {
+  const signUpUser = async (event) => {
     event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const formEntries = Object.fromEntries(formData.entries());
+    const { firstName, lastName, email, password, birthMonth, birthDay, birthYear } = formEntries;
+
+    let birthMonthNum = 0;
+    for(let i = 0; i < months.length; i++) {
+      if(months[i].name === birthMonth)
+        birthMonthNum = months[i].id;
+    }
+
+    const birthDate = `${birthMonthNum}/${birthDay}/${birthYear}`;
+    console.log(birthDate);
+
   }
 
   return (
     <div className="componentBody">
     <div className="formContainer">
-      <form className="formContents" onSubmit={registerUser}>
+      <form className="formContents" onSubmit={signUpUser}>
         <div className="formTitle">TheSocial</div>
 
         <div className="formInputs">
-          <input id="firstNameInput" className="formInput" placeholder="First name" onChange={(e) => setFirstName(e.target.value)}/>
-          <input id="lastNameInput" className="formInput" placeholder="Last name" onChange={(e) => setLastName(e.target.value)}/>
-          <input type="email" id="emailInput" className="formInput" placeholder="Email address" onChange={(e) => setEmail(e.target.value)}/>
+          <input name="firstName" className="formInput" placeholder="First name" />
+          <input name="lastName" className="formInput" placeholder="Last name" />
 
-          <div className="birthDateButtonContainer">
-            Birth Date buttons
+          <div className="birthDateContainer">
+            <span>Date of Birth:</span>
+            <div className="birthDateSelectsContainer">
+              <select name="birthMonth" className="birthDateSelect">
+                {months.map(month => (
+                  <option key={month.id} value={month.name}>
+                    {month.name}
+                  </option>
+                ))}
+              </select>
+              <select name="birthDay" className="birthDateSelect">
+                {days.map(day => (
+                  <option key={day.id} value={day.name}>
+                    {day.name}
+                  </option>
+                ))}
+              </select>
+              <select name="birthYear" className="birthDateSelect">
+                {years.map(year => (
+                  <option key={year.id} value={year.name}>
+                    {year.name}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
 
-          <input type="password" id="passwordInput" className="formInput" placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
+          <input type="email" name="email" className="formInput" placeholder="Email address" />
+          <input type="password" name="password" className="formInput" placeholder="Password" />
         </div>
 
         { error ?
@@ -45,7 +78,7 @@ export const SignupPage = () => {
 
         <div className="formButtonContainer">
           <button type="submit" className="formButton signupFormSignUpButton">Sign Up</button>
-          <button className="formButton signupFormLogInButton" onClick={() => navigate("/")}>Log In</button>
+          <button className="formButton signupFormLogInButton" onClick={(e) => {e.preventDefault(); navigate("/")}}>Log In</button>
         </div>
       </form>
     </div>

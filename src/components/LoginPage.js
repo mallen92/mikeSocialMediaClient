@@ -6,14 +6,16 @@ import axios from "axios";
 import "../styles/LoginRegistration.css";
 
 export const LoginPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const logInUser = async (event) => {
     event.preventDefault();
+    
+    const formData = new FormData(event.target);
+    const formEntries = Object.fromEntries(formData.entries());
+    const { email, password } = formEntries;
 
     try {
       const response = await axios.post('http://localhost:3001/auth/login', {
@@ -36,8 +38,8 @@ export const LoginPage = () => {
           <div className="formTitle">TheSocial</div>
 
           <div className="formInputs">
-            <input type="email" id="emailInput" className="formInput" placeholder="Enter email address" onChange={(e) => setEmail(e.target.value)}/>
-            <input type="password" id="passwordInput" className="formInput" placeholder="Enter password" onChange={(e) => setPassword(e.target.value)}/>
+            <input type="email" name="email" className="formInput" placeholder="Enter email address" />
+            <input type="password" name="password" className="formInput" placeholder="Enter password" />
           </div>
 
           { error ?
@@ -48,7 +50,7 @@ export const LoginPage = () => {
 
           <div className="formButtonContainer">
             <button type="submit" className="formButton loginFormLogInButton">Log In</button>
-            <button className="formButton loginFormSignUpButton" onClick={(e) => navigate("/signup")}>Sign Up</button>
+            <button className="formButton loginFormSignUpButton" onClick={(e) => {e.preventDefault(); navigate("/signup")}}>Sign Up</button>
           </div>
         </form>
       </div>
