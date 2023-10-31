@@ -10,6 +10,8 @@ import "../styles/loginSignup.css";
 export const SignupPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [showNameToolTip, setShowNameToolTip] = useState(false);
+  const [showPasswordToolTip, setShowPasswordToolTip] = useState(false);
   const [error, setError] = useState("");
   const [birthMonthValue, setBirthMonthValue] = useState(months[new Date().getMonth()].name);
   const [birthDayValue, setBirthDayValue] = useState(new Date().getDate());
@@ -58,8 +60,16 @@ export const SignupPage = () => {
         </div>
 
         <div className="formInputs">
-          <input name="firstName" className="formInput" placeholder="First name" />
-          <input name="lastName" className="formInput" placeholder="Last name" />
+          <input name="firstName" className="formInput" placeholder="First name" onFocus={(e) => 
+            setShowNameToolTip(true)} onBlur={(e) => setShowNameToolTip(false)} />
+          <input name="lastName" className="formInput" placeholder="Last name" onFocus={(e) => 
+            setShowNameToolTip(true)} onBlur={(e) => setShowNameToolTip(false)} />
+
+          { showNameToolTip ?
+          <div className="toolTipContainer">
+            Password must start with a letter, be at least 2 characters long, and contain letters, dashes, and spaces only.
+          </div>
+          : <></>}
 
           <div className="birthDateContainer">
             <span>Date of Birth:</span>
@@ -89,7 +99,16 @@ export const SignupPage = () => {
           </div>
 
           <input type="email" name="email" className="formInput" placeholder="Email address" autoComplete="off" />
-          <input type="password" name="password" className="formInput" placeholder="Password" />
+          <input type="password" name="password" className="formInput" placeholder="Password" onFocus={(e) => 
+            setShowPasswordToolTip(true)} onBlur={(e) => setShowPasswordToolTip(false)}/>
+
+          { showPasswordToolTip ?
+          <div className="toolTipContainer">
+            Password must be at least 10 characters long and contain at least 1 of each:
+            (a) uppercase letter, (b) lowercase letter, (c) number, (d) symbol
+          </div>
+          : <></>}
+
           <input type="password" name="confirmPassword" className="formInput" placeholder="Confirm password" />
         </div>
 
