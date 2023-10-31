@@ -1,9 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setUser } from "../state/userSlice";
 import axios from "axios";
 import { months, days, years } from "../lists/birthDate";
+import { URL } from "../url";
+import { setUser } from "../state/userSlice";
 import "../styles/loginSignup.css";
 
 export const SignupPage = () => {
@@ -18,23 +19,43 @@ export const SignupPage = () => {
 
     const formData = new FormData(event.target);
     const formEntries = Object.fromEntries(formData.entries());
-    const { firstName, lastName, email, password, birthMonth, birthDay, birthYear } = formEntries;
+    const { firstName, lastName, email, password, confirmPassword, birthMonth, birthDay, birthYear } = formEntries;
 
-    let birthMonthNum = 0;
-    for(let i = 0; i < months.length; i++) {
-      if(months[i].name === birthMonth)
-        birthMonthNum = months[i].id;
+    if(confirmPassword !== password)
+      setError("Passwords do not match.");
+    else {
+      let birthMonthNum = 0;
+      for(let i = 0; i < months.length; i++) {
+        if(months[i].name === birthMonth)
+          birthMonthNum = months[i].id;
+      }
+      const birthDate = `${birthYear}${birthMonthNum}${birthDay}`;
+
+      try {
+        const response = await axios.post(`${URL}/auth/signup`, {
+          firstName,
+          lastName,
+          email,
+          password,
+          birthDate
+        });
+
+        dispatch(setUser(response.data));
+        navigate("/test");
+      } catch (error) {
+        setError(error.response.data.message);
+      }
     }
-
-    const birthDate = `${birthMonthNum}/${birthDay}/${birthYear}`;
-    console.log(birthDate);
   }
 
   return (
     <div className="componentBody">
     <div className="formContainer">
       <form className="formContents" onSubmit={signUpUser}>
-        <div className="formTitle">TheSocial</div>
+        <div className="formHeader">
+          <div className="formTitle">TheSocial</div>
+          <div className="formSubtitle">Registration is FREE!</div>
+        </div>
 
         <div className="formInputs">
           <input name="firstName" className="formInput" placeholder="First name" />
@@ -69,6 +90,7 @@ export const SignupPage = () => {
 
           <input type="email" name="email" className="formInput" placeholder="Email address" autoComplete="off" />
           <input type="password" name="password" className="formInput" placeholder="Password" />
+          <input type="password" name="confirmPassword" className="formInput" placeholder="Confirm password" />
         </div>
 
         { error ?

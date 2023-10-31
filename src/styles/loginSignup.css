@@ -11,15 +11,19 @@
     display: flex;
     flex-direction: column;
     margin: auto;
-    row-gap: 20px;
+    row-gap: 10px;
     width: 90%;
+  }
+
+  .formHeader {
+    text-align: center;
   }
 
   .formTitle {
     text-align: center;
 
     color: #ce1212;
-    font-size: 45px;
+    font-size: 30px;
     font-weight: bold;
   }
 
@@ -30,7 +34,7 @@
   }
 
   .formInputs input {
-    height: 45px;
+    height: 30px;
     padding: 10px;
 
     border: none;
@@ -50,8 +54,8 @@
   }
 
   .birthDateSelect {
-    height: 45px;
-    padding: 10px;
+    height: 30px;
+    padding-left: 8px;
     width: 32%;
     border: 1px solid grey;
     border-radius: 8px;
@@ -62,25 +66,25 @@
   }
 
   .errorContainer {
+    padding: 5px;
     text-align: center;
-    padding: 10px;
 
-    border: 3px solid rgb(85, 0, 0);
+    border: 2px solid rgb(85, 0, 0);
     background-color: rgba(221, 2, 2, 0.219);
     border-radius: 10px;
     color: rgb(85, 0, 0);
     font-weight: bold;
-    font-size: 18px;
+    font-size: 13px;
   }
 
   .formButtonContainer {
     display: flex;
     flex-direction: column;
-    row-gap: 15px;
+    row-gap: 10px;
   }
 
   .formButton {
-    height: 45px;
+    height: 30px;
 
     border: none;
     border-radius: 8px;
@@ -120,16 +124,35 @@
     border-radius: 20px;
   }
 
-  .formTitle {
-    font-size: 40px;
+  .formInputs input {
+    height: 35px;
   }
 
   .formInputs input:focus {
     outline: 3px solid #810000;
   }
 
+  .birthDateSelect {
+    height: 35px;
+  }
+
   .birthDateSelect:focus {
     outline: 2px solid #810000;
+  }
+
+  .errorContainer {
+    padding: 5px;
+
+    border: 3px solid rgb(85, 0, 0);
+    font-size: 15px;
+  }
+
+  .formButtonContainer {
+    row-gap: 10px;
+  }
+
+  .formButton {
+    height: 45px;
   }
 
   .loginFormSignUpButton,
@@ -156,5 +179,30 @@
 @media (min-width: 1440px) {
   .formContainer {
     width: 30%;
+  }
+
+  .formContents {
+    row-gap: 20px;
+  }
+
+  .formTitle {
+    font-size: 40px;
+  }
+
+  .formInputs input {
+    height: 45px;
+  }
+
+  .birthDateSelect {
+    height: 45px;
+    padding: 10px;
+  }
+
+  .errorContainer {
+    font-size: 18px;
+  }
+
+  .formButtonContainer {
+    row-gap: 10px;
   }
 }

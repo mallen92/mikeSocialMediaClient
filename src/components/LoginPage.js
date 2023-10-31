@@ -3,6 +3,7 @@ import { setUser } from "../state/userSlice";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import axios from "axios";
+import { URL } from "../url";
 import "../styles/loginSignup.css";
 
 export const LoginPage = () => {
@@ -18,7 +19,7 @@ export const LoginPage = () => {
     const { email, password } = formEntries;
 
     try {
-      const response = await axios.post('http://localhost:3001/auth/login', {
+      const response = await axios.post(`${URL}/auth/login`, {
         email,
         password
       });
