@@ -60,10 +60,10 @@ export const SignupPage = () => {
         </div>
 
         <div className="formInputs">
-          <input name="firstName" className="formInput" placeholder="First name" onFocus={(e) => 
-            setShowNameToolTip(true)} onBlur={(e) => setShowNameToolTip(false)} />
-          <input name="lastName" className="formInput" placeholder="Last name" onFocus={(e) => 
-            setShowNameToolTip(true)} onBlur={(e) => setShowNameToolTip(false)} />
+          <input name="firstName" className="formInput" placeholder="First name" onFocus={() => 
+            setShowNameToolTip(true)} onBlur={() => setShowNameToolTip(false)} />
+          <input name="lastName" className="formInput" placeholder="Last name" onFocus={() => 
+            setShowNameToolTip(true)} onBlur={() => setShowNameToolTip(false)} />
 
           { showNameToolTip ?
           <div className="toolTipContainer">
@@ -99,8 +99,8 @@ export const SignupPage = () => {
           </div>
 
           <input type="email" name="email" className="formInput" placeholder="Email address" autoComplete="off" />
-          <input type="password" name="password" className="formInput" placeholder="Password" onFocus={(e) => 
-            setShowPasswordToolTip(true)} onBlur={(e) => setShowPasswordToolTip(false)}/>
+          <input type="password" name="password" className="formInput" placeholder="Password" onFocus={() => 
+            setShowPasswordToolTip(true)} onBlur={() => setShowPasswordToolTip(false)}/>
 
           { showPasswordToolTip ?
           <div className="toolTipContainer">
