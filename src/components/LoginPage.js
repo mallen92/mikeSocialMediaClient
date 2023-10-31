@@ -3,7 +3,7 @@ import { setUser } from "../state/userSlice";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import axios from "axios";
-import { URL } from "../url";
+import { URL } from "../util/url";
 import "../styles/loginSignup.css";
 
 export const LoginPage = () => {

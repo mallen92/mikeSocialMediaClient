@@ -3,7 +3,7 @@ import { LoginPage } from "./components/LoginPage";
 import { SignupPage } from "./components/SignupPage";
 import { StateTest } from "./components/StateTest";
 import "./App.css";
-import "./breakpoints.css";
+import "./util/breakpoints.css";
 
 function App() {
   return (

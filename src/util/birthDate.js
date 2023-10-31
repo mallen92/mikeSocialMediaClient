@@ -14,6 +14,8 @@ export const months = [
 ];
 
 export let days = [];
+export let years = [];
+let startYear = new Date().getFullYear();
 
 for (let i = 0; i < 31; i++) {
   days[i] = {
@@ -22,10 +24,7 @@ for (let i = 0; i < 31; i++) {
   };
 }
 
-export let years = [];
-let startYear = new Date().getFullYear();
-
-for (let i = 0; i <= 116; i++) {
+for (let i = 0; i < 117; i++) {
   years[i] = {
     id: startYear,
     name: `${startYear}`,

@@ -2,8 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { months, days, years } from "../lists/birthDate";
-import { URL } from "../url";
+import { months, days, years } from "../util/birthDate";
+import { URL } from "../util/url";
 import { setUser } from "../state/userSlice";
 import "../styles/loginSignup.css";
 
@@ -27,8 +27,8 @@ export const SignupPage = () => {
       setError("Passwords do not match.");
     else {
       let birthMonthNum = 0;
-      for(let i = 0; i < months.length; i++) {
-        if(months[i].name === birthMonth)
+      for (let i = 0; i < months.length; i++) {
+        if (months[i].name === birthMonth)
           birthMonthNum = months[i].id;
       }
       const birthDate = `${birthYear}${birthMonthNum}${birthDay}`;
@@ -100,7 +100,7 @@ export const SignupPage = () => {
 
           <input type="email" name="email" className="formInput" placeholder="Email address" autoComplete="off" />
           <input type="password" name="password" className="formInput" placeholder="Password" onFocus={() => 
-            setShowPasswordToolTip(true)} onBlur={() => setShowPasswordToolTip(false)}/>
+            setShowPasswordToolTip(true)} onBlur={() => setShowPasswordToolTip(false)} />
 
           { showPasswordToolTip ?
           <div className="toolTipContainer">
