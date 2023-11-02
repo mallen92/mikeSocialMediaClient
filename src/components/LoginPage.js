@@ -25,7 +25,8 @@ export const LoginPage = () => {
       });
 
       dispatch(setUser(response.data));
-      navigate("/test");
+      window.localStorage.setItem('USER', JSON.stringify(response.data));
+      navigate("/home");
     } catch (error) {
       setError(error.response.data.message);
     }

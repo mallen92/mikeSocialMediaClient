@@ -43,7 +43,7 @@ export const SignupPage = () => {
         });
 
         dispatch(setUser(response.data));
-        navigate("/test");
+        navigate("/home");
       } catch (error) {
         setError(error.response.data.message);
       }
