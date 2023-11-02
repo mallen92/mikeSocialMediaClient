@@ -67,7 +67,7 @@ export const SignupPage = () => {
 
           { showNameToolTip ?
           <div className="toolTipContainer">
-            Password must start with a letter, be at least 2 characters long, and contain letters, dashes, and spaces only.
+            Name must start with a letter, be at least 2 characters long, and contain letters, dashes, and spaces only.
           </div>
           : <></>}
 
