@@ -1,18 +1,18 @@
 import { useSelector } from "react-redux";
 import "../styles/home.css";
 import { NavigationPanel } from "./homePageComponents/NavigationPanel";
-import { ContentPanel } from "./homePageComponents/ContentPanel";
+import { Outlet } from "react-router-dom";
 
 export const HomePage = () => {
   const user = useSelector((state) => state.userSlice.user);
 
   return (
-    <div className="componentBody">
-      <div className="navigationPanel">
+    <div className="homePageBody">
+      <div className="navContainer">
         <NavigationPanel />
       </div>
-      <div className="contentPanel">
-        <ContentPanel />
+      <div className="contentContainer">
+        <Outlet />
       </div>
     </div>
   );

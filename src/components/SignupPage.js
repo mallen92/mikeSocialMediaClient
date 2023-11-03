@@ -51,11 +51,11 @@ export const SignupPage = () => {
   }
 
   return (
-    <div className="componentBody">
+    <div className="signupPageBody">
     <div className="formContainer">
       <form className="formContents" onSubmit={signUpUser}>
         <div className="formHeader">
-          <div className="formTitle">TheSocial</div>
+          <div className="branding">TheSocial</div>
           <div className="formSubtitle">Registration is FREE!</div>
         </div>
 

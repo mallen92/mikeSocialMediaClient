@@ -1,17 +1,16 @@
 /* Smartphones */
 @media (min-width: 320px) {
-  .componentBody {
+  .homePageBody {
     height: 100vh;
     display: flex;
     flex-direction: column;
   }
 
-  .navigationPanel {
-    background-color: rgba(255, 0, 0, 0.438);
-  }
-
-  .contentPanel {
-    background-color: rgba(255, 174, 0, 0.438);
+  .contentContainer {
+    flex: 1;
+    overflow: auto;
+    padding: 2%;
+    background-color: #eeebdd85;
   }
 }
 
@@ -21,6 +20,14 @@
 
 /* Large tablets */
 @media (min-width: 768px) {
+  .homePageBody {
+    flex-direction: row;
+  }
+
+  .contentContainer {
+    padding: 3%;
+    border: 1px solid black;
+  }
 }
 
 /* Large screens*/

@@ -19,14 +19,6 @@
     text-align: center;
   }
 
-  .formTitle {
-    text-align: center;
-
-    color: #ce1212;
-    font-size: 30px;
-    font-weight: bold;
-  }
-
   .formInputs {
     display: flex;
     flex-direction: column;
@@ -119,7 +111,8 @@
 
 /* Tablets */
 @media (min-width: 425px) {
-  .componentBody {
+  .loginPageBody,
+  .signupPageBody {
     height: 100vh;
     display: flex;
 

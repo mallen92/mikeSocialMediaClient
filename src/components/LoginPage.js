@@ -33,10 +33,10 @@ export const LoginPage = () => {
   }
 
   return (
-    <div className="componentBody">
+    <div className="loginPageBody">
       <div className="formContainer">
         <form className="formContents" onSubmit={logInUser}>
-          <div className="formTitle">TheSocial</div>
+          <div className="branding">TheSocial</div>
 
           <div className="formInputs">
             <input type="email" name="email" className="formInput" placeholder="Enter email address" autoComplete="off" />

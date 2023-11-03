@@ -3,6 +3,8 @@ import { LoginPage } from "./components/LoginPage";
 import { SignupPage } from "./components/SignupPage";
 import { StateTest } from "./components/StateTest";
 import { HomePage } from "./components/HomePage";
+import { NewsFeedView } from "./components/homePageComponents/NewsFeedView";
+import { MenuView } from "./components/homePageComponents/MenuView";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "./state/userSlice";
 import "./App.css";
@@ -30,17 +32,20 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={isLoggedIn ? <Navigate to="/home" /> : <LoginPage />}
+            element={isLoggedIn ? <HomePage /> : <Navigate to="/login" />}
+          >
+            <Route path="/" element={<NewsFeedView />} />
+            <Route path="menu" element={<MenuView />} />
+          </Route>
+
+          <Route
+            path="/login"
+            element={isLoggedIn ? <Navigate to="/" /> : <LoginPage />}
           />
 
           <Route
             path="/signup"
-            element={isLoggedIn ? <Navigate to="/home" /> : <SignupPage />}
-          />
-
-          <Route
-            path="/home"
-            element={isLoggedIn ? <HomePage /> : <Navigate to="/" />}
+            element={isLoggedIn ? <Navigate to="/" /> : <SignupPage />}
           />
 
           <Route path="/test" element={<StateTest />} />

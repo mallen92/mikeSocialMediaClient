@@ -6,3 +6,11 @@
 body {
   font-family: Lato;
 }
+
+.branding {
+  text-align: center;
+
+  color: #ce1212;
+  font-size: 30px;
+  font-weight: bold;
+}
