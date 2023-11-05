@@ -17,9 +17,9 @@ export const MobileMenu = () => {
 
   return (
     <div className="mobileMenuContents">
-      <div class="mobileMenuHeader">Menu</div>
+      <div className="mobileMenuHeader">Menu</div>
 
-      <div class="userInfoMobile">
+      <div className="userInfoMobile">
         <img
           src={user.user_profile_pic}
           className="mobileProfilePic"
@@ -28,7 +28,9 @@ export const MobileMenu = () => {
         <div className="userName">{`${user.user_first_name} ${user.user_last_name}`}</div>
       </div>
 
-      <div className="menuButton">View Your Profile</div>
+      <div className="menuButton" onClick={() => navigate("/profile")}>
+        View Your Profile
+      </div>
 
       <div className="menuButton" onClick={logOutUser}>
         Log Out
