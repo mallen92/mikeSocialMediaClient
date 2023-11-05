@@ -22,13 +22,16 @@ export const LSNavigationIcons = () => {
   return (
     <div class="lsIconsContainer">
       {location.pathname === "/" ? (
-        <div className="navTab lsCurrentComponent">
-          <HomeIcon fontSize="large" onClick={() => navigate("/")} />
+        <div
+          className="navTab lsCurrentComponent"
+          onClick={() => navigate("/")}
+        >
+          <HomeIcon fontSize="large" />
           <div>Home</div>
         </div>
       ) : (
-        <div className="navTab">
-          <HomeIcon fontSize="large" onClick={() => navigate("/")} />
+        <div className="navTab" onClick={() => navigate("/")}>
+          <HomeIcon fontSize="large" />
           <div>Home</div>
         </div>
       )}

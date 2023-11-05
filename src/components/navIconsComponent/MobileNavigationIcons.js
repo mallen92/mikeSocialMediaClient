@@ -13,60 +13,55 @@ export const MobileNavigationIcons = () => {
   return (
     <div class="mobileIconsContainer">
       {location.pathname === "/" ? (
-        <div className="mobileNavTab currentComp">
-          <HomeIcon fontSize="large" className="icon" />
+        <div className="mobileNavTab currentComp" onClick={() => navigate("/")}>
+          <HomeIcon fontSize="large" />
         </div>
       ) : (
-        <div className="mobileNavTab">
-          <HomeIcon
-            fontSize="large"
-            className="icon"
-            onClick={() => navigate("/")}
-          />
+        <div className="mobileNavTab" onClick={() => navigate("/")}>
+          <HomeIcon fontSize="large" />
         </div>
       )}
 
       {location.pathname === "/friends" ? (
         <div className="mobileNavTab">
-          <GroupIcon fontSize="large" className="icon currentComp" />
+          <GroupIcon fontSize="large" className="currentComp" />
         </div>
       ) : (
         <div className="mobileNavTab">
-          <GroupIcon fontSize="large" className="icon" />
+          <GroupIcon fontSize="large" />
         </div>
       )}
 
       {location.pathname === "/notifications" ? (
         <div className="mobileNavTab">
-          <NotificationsIcon fontSize="large" className="icon currentComp" />
+          <NotificationsIcon fontSize="large" className="currentComp" />
         </div>
       ) : (
         <div className="mobileNavTab">
-          <NotificationsIcon fontSize="large" className="icon" />
+          <NotificationsIcon fontSize="large" />
         </div>
       )}
 
       {location.pathname === "/search" ? (
         <div className="mobileNavTab">
-          <SearchIcon fontSize="large" className="icon currentComp" />
+          <SearchIcon fontSize="large" className="currentComp" />
         </div>
       ) : (
         <div className="mobileNavTab">
-          <SearchIcon fontSize="large" className="icon" />
+          <SearchIcon fontSize="large" />
         </div>
       )}
 
       {location.pathname === "/menu" ? (
-        <div className="mobileNavTab currentComp">
-          <MenuIcon fontSize="large" className="icon" />
+        <div
+          className="mobileNavTab currentComp"
+          onClick={() => navigate("/menu")}
+        >
+          <MenuIcon fontSize="large" />
         </div>
       ) : (
-        <div className="mobileNavTab">
-          <MenuIcon
-            fontSize="large"
-            className="icon"
-            onClick={() => navigate("/menu")}
-          />
+        <div className="mobileNavTab" onClick={() => navigate("/menu")}>
+          <MenuIcon fontSize="large" />
         </div>
       )}
     </div>
