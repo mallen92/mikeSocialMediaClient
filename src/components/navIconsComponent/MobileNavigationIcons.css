@@ -1,0 +1,38 @@
+/* Smartphones */
+@media (min-width: 320px) {
+  .mobileIconsContainer {
+    display: flex;
+  }
+
+  .mobileNavTab {
+    cursor: pointer;
+    width: 20%;
+    text-align: center;
+    color: #272838;
+  }
+
+  .currentComp {
+    background-color: white;
+    border-bottom: 2px solid #272838;
+  }
+
+  .largeHideable {
+    display: none;
+  }
+}
+
+/* Tablets */
+@media (min-width: 425px) {
+}
+
+/* Large tablets */
+@media (min-width: 768px) {
+}
+
+/* Large screens*/
+@media (min-width: 1024px) {
+}
+
+/* Extra large screens */
+@media (min-width: 1440px) {
+}

@@ -1,11 +1,8 @@
-import { useSelector } from "react-redux";
-import "../styles/home.css";
-import { NavigationPanel } from "./homePageComponents/NavigationPanel";
+import "./HomePage.css";
+import { NavigationPanel } from "../navigationComponent/NavigationPanel";
 import { Outlet } from "react-router-dom";
 
 export const HomePage = () => {
-  const user = useSelector((state) => state.userSlice.user);
-
   return (
     <div className="homePageBody">
       <div className="navContainer">
@@ -16,4 +13,4 @@ export const HomePage = () => {
       </div>
     </div>
   );
-}
+};

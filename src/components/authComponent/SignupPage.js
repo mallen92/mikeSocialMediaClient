@@ -2,10 +2,10 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { months, days, years } from "../util/birthDate";
-import { URL } from "../util/url";
-import { setUser } from "../state/userSlice";
-import "../styles/loginSignup.css";
+import { months, days, years } from "../../util/birthDate";
+import { URL } from "../../util/url";
+import { setUser } from "../../state/userSlice";
+import "./LoginSignup.css";
 
 export const SignupPage = () => {
   const navigate = useNavigate();
@@ -43,7 +43,8 @@ export const SignupPage = () => {
         });
 
         dispatch(setUser(response.data));
-        navigate("/home");
+        window.localStorage.setItem("user", JSON.stringify(response.data));
+        navigate("/");
       } catch (error) {
         setError(error.response.data.message);
       }

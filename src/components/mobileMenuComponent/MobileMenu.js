@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { unsetUser } from "../../state/userSlice";
 
-export const MenuView = () => {
+export const MobileMenu = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

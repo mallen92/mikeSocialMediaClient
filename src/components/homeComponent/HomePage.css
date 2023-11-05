@@ -6,11 +6,17 @@
     flex-direction: column;
   }
 
+  .navContainer {
+    border-bottom: 1px solid grey;
+
+    background-color: #f3de8a8c;
+  }
+
   .contentContainer {
     flex: 1;
     overflow: auto;
     padding: 2%;
-    background-color: #eeebdd85;
+    background-color: #f9f8f8;
   }
 }
 
@@ -24,14 +30,22 @@
     flex-direction: row;
   }
 
+  .navContainer {
+    border: none;
+    padding: none;
+    width: 25%;
+  }
+
   .contentContainer {
     padding: 3%;
-    border: 1px solid black;
   }
 }
 
 /* Large screens*/
 @media (min-width: 1024px) {
+  .navContainer {
+    width: 20%;
+  }
 }
 
 /* Extra large screens */
