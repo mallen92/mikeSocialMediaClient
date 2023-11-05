@@ -1,0 +1,78 @@
+/* Smartphones */
+@media (min-width: 320px) {
+  .profileUserInfo {
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+    position: relative;
+    justify-content: center;
+  }
+
+  .profilePic {
+    width: 150px;
+    border: 4px solid #747474b2;
+    border-radius: 50%;
+  }
+
+  .profilePic:hover {
+    cursor: pointer;
+  }
+
+  .profilePicMenu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px;
+    width: 250px;
+    position: absolute;
+    top: 160px;
+
+    background-color: #272838;
+    border-radius: 10px;
+  }
+
+  .picOption {
+    padding: 10px;
+
+    background-color: #f3de8ade;
+    font-size: 17px;
+    font-weight: bold;
+  }
+
+  .picOption:hover {
+    cursor: pointer;
+    background-color: white;
+  }
+
+  .profileUserName {
+    font-size: 25px;
+    font-weight: bold;
+  }
+}
+
+/* Tablets */
+@media (min-width: 425px) {
+  .profileUserName {
+    font-size: 30px;
+  }
+}
+
+/* Large tablets */
+@media (min-width: 768px) {
+  .profileUserInfo {
+    justify-content: start;
+  }
+
+  .profileUserName {
+    font-size: 40px;
+    font-weight: bold;
+  }
+}
+
+/* Large screens*/
+@media (min-width: 1024px) {
+}
+
+/* Extra large screens */
+@media (min-width: 1440px) {
+}

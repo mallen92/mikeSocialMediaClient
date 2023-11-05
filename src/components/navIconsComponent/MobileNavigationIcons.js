@@ -11,7 +11,7 @@ export const MobileNavigationIcons = () => {
   const location = useLocation();
 
   return (
-    <div class="mobileIconsContainer">
+    <div className="mobileIconsContainer">
       {location.pathname === "/" ? (
         <div className="mobileNavTab currentComp" onClick={() => navigate("/")}>
           <HomeIcon fontSize="large" />

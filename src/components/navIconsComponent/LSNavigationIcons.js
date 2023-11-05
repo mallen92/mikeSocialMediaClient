@@ -20,7 +20,7 @@ export const LSNavigationIcons = () => {
   };
 
   return (
-    <div class="lsIconsContainer">
+    <div className="lsIconsContainer">
       {location.pathname === "/" ? (
         <div
           className="navTab lsCurrentComponent"
