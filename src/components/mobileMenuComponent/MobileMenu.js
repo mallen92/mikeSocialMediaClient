@@ -1,9 +1,8 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { unsetUser } from "../../state/userSlice";
 
-export const NavigationPanel = () => {
+export const MobileMenu = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -13,9 +12,5 @@ export const NavigationPanel = () => {
     navigate("/");
   };
 
-  return (
-    <div>
-      <button onClick={logOutUser}>Logout</button>
-    </div>
-  );
+  return <button onClick={logOutUser}>Log Out</button>;
 };

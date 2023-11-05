@@ -1,8 +1,9 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { LoginPage } from "./components/LoginPage";
-import { SignupPage } from "./components/SignupPage";
-import { StateTest } from "./components/StateTest";
-import { HomePage } from "./components/HomePage";
+import { LoginPage } from "./components/authComponent/LoginPage";
+import { SignupPage } from "./components/authComponent/SignupPage";
+import { HomePage } from "./components/homeComponent/HomePage";
+import { NewsFeed } from "./components/newsFeedComponent/NewsFeed";
+import { MobileMenu } from "./components/mobileMenuComponent/MobileMenu";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "./state/userSlice";
 import "./App.css";
@@ -16,7 +17,7 @@ function App() {
   if (Object.keys(user).length !== 0) {
     isLoggedIn = user.user_token;
   } else {
-    const user = window.localStorage.getItem("USER");
+    const user = window.localStorage.getItem("user");
     if (user) {
       const userObj = JSON.parse(user);
       dispatch(setUser(userObj));
@@ -30,20 +31,21 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={isLoggedIn ? <Navigate to="/home" /> : <LoginPage />}
+            element={isLoggedIn ? <HomePage /> : <Navigate to="/login" />}
+          >
+            <Route path="/" element={<NewsFeed />} />
+            <Route path="menu" element={<MobileMenu />} />
+          </Route>
+
+          <Route
+            path="/login"
+            element={isLoggedIn ? <Navigate to="/" /> : <LoginPage />}
           />
 
           <Route
             path="/signup"
-            element={isLoggedIn ? <Navigate to="/home" /> : <SignupPage />}
+            element={isLoggedIn ? <Navigate to="/" /> : <SignupPage />}
           />
-
-          <Route
-            path="/home"
-            element={isLoggedIn ? <HomePage /> : <Navigate to="/" />}
-          />
-
-          <Route path="/test" element={<StateTest />} />
         </Routes>
       </BrowserRouter>
     </div>

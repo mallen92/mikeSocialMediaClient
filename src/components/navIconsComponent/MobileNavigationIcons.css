@@ -1,17 +1,23 @@
 /* Smartphones */
 @media (min-width: 320px) {
-  .componentBody {
-    height: 100vh;
+  .mobileIconsContainer {
     display: flex;
-    flex-direction: column;
   }
 
-  .navigationPanel {
-    background-color: rgba(255, 0, 0, 0.438);
+  .mobileNavTab {
+    cursor: pointer;
+    width: 20%;
+    text-align: center;
+    color: #272838;
   }
 
-  .contentPanel {
-    background-color: rgba(255, 174, 0, 0.438);
+  .currentComp {
+    background-color: white;
+    border-bottom: 2px solid #272838;
+  }
+
+  .largeHideable {
+    display: none;
   }
 }
 

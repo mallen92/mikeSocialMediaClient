@@ -2,10 +2,10 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { months, days, years } from "../util/birthDate";
-import { URL } from "../util/url";
-import { setUser } from "../state/userSlice";
-import "../styles/loginSignup.css";
+import { months, days, years } from "../../util/birthDate";
+import { URL } from "../../util/url";
+import { setUser } from "../../state/userSlice";
+import "./LoginSignup.css";
 
 export const SignupPage = () => {
   const navigate = useNavigate();
@@ -43,7 +43,8 @@ export const SignupPage = () => {
         });
 
         dispatch(setUser(response.data));
-        navigate("/home");
+        window.localStorage.setItem("user", JSON.stringify(response.data));
+        navigate("/");
       } catch (error) {
         setError(error.response.data.message);
       }
@@ -51,11 +52,11 @@ export const SignupPage = () => {
   }
 
   return (
-    <div className="componentBody">
+    <div className="signupPageBody">
     <div className="formContainer">
       <form className="formContents" onSubmit={signUpUser}>
         <div className="formHeader">
-          <div className="formTitle">TheSocial</div>
+          <div className="branding">TheSocial</div>
           <div className="formSubtitle">Registration is FREE!</div>
         </div>
 

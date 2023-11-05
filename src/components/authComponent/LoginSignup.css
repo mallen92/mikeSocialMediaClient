@@ -19,10 +19,10 @@
     text-align: center;
   }
 
-  .formTitle {
+  .branding {
     text-align: center;
 
-    color: #ce1212;
+    color: #272838;
     font-size: 30px;
     font-weight: bold;
   }
@@ -82,9 +82,9 @@
     text-align: center;
 
     border: 2px solid rgb(85, 0, 0);
-    background-color: rgba(221, 2, 2, 0.219);
+    background-color: rgba(214, 0, 0, 0.514);
     border-radius: 10px;
-    color: rgb(85, 0, 0);
+    color: rgb(0, 0, 0);
     font-weight: bold;
     font-size: 13px;
   }
@@ -105,7 +105,7 @@
 
   .loginFormLogInButton,
   .signupFormSignUpButton {
-    background-color: #ce1212;
+    background-color: #272838;
     color: white;
     font-weight: bold;
   }
@@ -119,11 +119,12 @@
 
 /* Tablets */
 @media (min-width: 425px) {
-  .componentBody {
+  .loginPageBody,
+  .signupPageBody {
     height: 100vh;
     display: flex;
 
-    background-color: #eeebdd85;
+    background-color: #f9f8f8;
   }
 
   .formContainer {
@@ -132,8 +133,12 @@
     padding: 20px;
     width: 80%;
 
-    background-color: #81000036;
+    background-color: #f3de8a8c;
     border-radius: 20px;
+  }
+
+  .branding {
+    font-size: 40px;
   }
 
   .formInputs input {
@@ -141,7 +146,7 @@
   }
 
   .formInputs input:focus {
-    outline: 3px solid #810000;
+    outline: 3px solid #7e7f9a;
   }
 
   .birthDateSelect {

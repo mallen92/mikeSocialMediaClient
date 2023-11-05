@@ -1,0 +1,53 @@
+/* Smartphones */
+@media (min-width: 320px) {
+  .homePageBody {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .navContainer {
+    border-bottom: 1px solid grey;
+
+    background-color: #f3de8a8c;
+  }
+
+  .contentContainer {
+    flex: 1;
+    overflow: auto;
+    padding: 2%;
+    background-color: #f9f8f8;
+  }
+}
+
+/* Tablets */
+@media (min-width: 425px) {
+}
+
+/* Large tablets */
+@media (min-width: 768px) {
+  .homePageBody {
+    flex-direction: row;
+  }
+
+  .navContainer {
+    border: none;
+    padding: none;
+    width: 25%;
+  }
+
+  .contentContainer {
+    padding: 3%;
+  }
+}
+
+/* Large screens*/
+@media (min-width: 1024px) {
+  .navContainer {
+    width: 20%;
+  }
+}
+
+/* Extra large screens */
+@media (min-width: 1440px) {
+}

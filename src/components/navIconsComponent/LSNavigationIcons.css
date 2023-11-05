@@ -1,0 +1,53 @@
+/* Large tablets */
+@media (min-width: 768px) {
+  .lsIconsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .navTab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
+    padding: 10px;
+    width: 90%;
+
+    background: rgb(255, 255, 255);
+    border-radius: 10px;
+    font-size: 17px;
+  }
+
+  .navTab:hover {
+    cursor: pointer;
+    background-color: #eb9486;
+  }
+
+  .lsCurrentComponent {
+    background-color: #272838;
+    color: rgb(240, 240, 240);
+    font-weight: bold;
+  }
+
+  .lsCurrentComponent:hover {
+    color: black;
+  }
+}
+
+/* Large screens*/
+@media (min-width: 1024px) {
+  .navTab {
+    font-size: 20px;
+  }
+}
+
+/* Extra large screens */
+@media (min-width: 1440px) {
+  .navTab {
+    column-gap: 30px;
+    justify-content: unset;
+    padding-left: 20px;
+  }
+}
