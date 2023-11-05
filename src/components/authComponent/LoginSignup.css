@@ -146,7 +146,7 @@
   }
 
   .formInputs input:focus {
-    outline: 3px solid #7e7f9a;
+    outline: 3px solid #282849;
   }
 
   .birthDateSelect {
