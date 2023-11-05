@@ -5,10 +5,14 @@
   }
 
   .mobileNavTab {
-    cursor: pointer;
+    padding: 5px;
     width: 20%;
-    text-align: center;
+
+    background-color: #f3de8ab2;
+    box-shadow: 2px 2px 2px grey;
+    cursor: pointer;
     color: #272838;
+    text-align: center;
   }
 
   .currentComp {
