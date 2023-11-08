@@ -1,12 +1,12 @@
 import "./HomePage.css";
-import { NavigationPanel } from "../navigationComponent/NavigationPanel";
+import { NavContainer } from "../navContainerComponent/NavContainer.js";
 import { Outlet } from "react-router-dom";
 
 export const HomePage = () => {
   return (
     <div className="homePageBody">
       <div className="navContainer">
-        <NavigationPanel />
+        <NavContainer />
       </div>
       <div className="contentContainer">
         <Outlet />

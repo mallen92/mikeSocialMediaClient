@@ -6,9 +6,9 @@ import GroupIcon from "@mui/icons-material/Group";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import SearchIcon from "@mui/icons-material/Search";
 import LogoutIcon from "@mui/icons-material/Logout";
-import "./LSNavigationIcons.css";
+import "./LargeNavContainerMenu.css";
 
-export const LSNavigationIcons = () => {
+export const LargeNavContainerMenu = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
