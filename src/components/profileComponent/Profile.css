@@ -1,86 +1,16 @@
 /* Smartphones */
 @media (min-width: 320px) {
-  .profileUserInfo {
-    display: flex;
-    align-items: center;
-    column-gap: 20px;
+  .profileViewContents {
     position: relative;
-    justify-content: center;
-  }
-
-  .profilePic {
-    width: 150px;
-    border: 4px solid #747474b2;
-    border-radius: 50%;
-  }
-
-  .profilePic:hover {
-    cursor: pointer;
-  }
-
-  .profilePicMenu {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 10px;
-    width: 300px;
-    position: absolute;
-    top: 160px;
-
-    background-color: #272838;
-    border-radius: 10px;
-  }
-
-  .picOption {
-    display: flex;
-    column-gap: 12px;
-    padding: 10px;
-
-    background-color: #f3de8ade;
-    font-size: 17px;
-    font-weight: bold;
-  }
-
-  .picOption:hover {
-    cursor: pointer;
-    background-color: white;
-  }
-
-  input[type="file"] {
-    display: none;
-  }
-
-  .picUploadPrompt {
-    background-color: rgb(96, 139, 96);
-  }
-
-  .deletePicPrompt {
-    background-color: rgba(223, 0, 0, 0.87);
-  }
-
-  .profileUserName {
-    font-size: 25px;
-    font-weight: bold;
   }
 }
 
 /* Tablets */
 @media (min-width: 425px) {
-  .profileUserName {
-    font-size: 30px;
-  }
 }
 
 /* Large tablets */
 @media (min-width: 768px) {
-  .profileUserInfo {
-    justify-content: start;
-  }
-
-  .profileUserName {
-    font-size: 40px;
-    font-weight: bold;
-  }
 }
 
 /* Large screens*/

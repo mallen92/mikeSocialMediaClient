@@ -1,0 +1,48 @@
+/* Smartphones */
+@media (min-width: 320px) {
+  .loadingGifContainer {
+    width: 96vw;
+    text-align: center;
+  }
+
+  .loadingGif {
+    margin: auto;
+    position: relative;
+    width: 40%;
+  }
+
+  .loadingNotice {
+    color: white;
+    font-size: 20px;
+    text-align: center;
+  }
+}
+
+/* Tablets */
+@media (min-width: 425px) {
+  .loadingGif {
+    width: 20%;
+  }
+}
+
+/* Large tablets */
+@media (min-width: 768px) {
+  .loadingGifContainer {
+    width: 68vw;
+  }
+}
+
+/* Large screens*/
+@media (min-width: 1024px) {
+  .loadingGifContainer {
+    width: 73vw;
+  }
+
+  .loadingGif {
+    width: 10%;
+  }
+}
+
+/* Extra large screens */
+@media (min-width: 1440px) {
+}
