@@ -4,7 +4,7 @@ import { SignupPage } from "./components/authComponent/SignupPage";
 import { HomePage } from "./components/homeComponent/HomePage";
 import { NewsFeed } from "./components/newsFeedComponent/NewsFeed";
 import { MobileMenu } from "./components/mobileMenuComponent/MobileMenu";
-import { Profile } from "./components/profileComponent/Profile";
+import { ProfileView } from "./components/profileViewComponent/ProfileView";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "./state/userSlice";
 import "./App.css";
@@ -36,7 +36,7 @@ function App() {
           >
             <Route path="/" element={<NewsFeed />} />
             <Route path="menu" element={<MobileMenu />} />
-            <Route path="profile" element={<Profile />} />
+            <Route path="profile" element={<ProfileView />} />
           </Route>
 
           <Route

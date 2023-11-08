@@ -1,64 +1,74 @@
-import Cropper from "react-easy-crop";
+import { useCallback, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import UploadIcon from "@mui/icons-material/Upload";
 import SyncIcon from "@mui/icons-material/Sync";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Cropper from "react-easy-crop";
 import imageCompression from "browser-image-compression";
-import { useCallback, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDetectClickOutside } from "react-detect-click-outside";
 import getCroppedImg from "../../util/getCroppedImage";
 import { URL } from "../../util/url";
 import { updateProfilePic } from "../../state/userSlice";
 import { Loading } from "../loadingComponent/Loading";
-import "./ProfileHeading.css";
+import "./ProfileView.css";
 
-export const ProfileHeading = () => {
+export const ProfileView = () => {
   const user = useSelector((state) => state.userSlice.user);
   const dispatch = useDispatch();
-  const [showPicMenu, setShowPicMenu] = useState(false);
-  const [showPicChangeBtn, setShowPicChangeBtn] = useState(false);
-  const [showImgModal, setShowImgModal] = useState(false);
+  const [showProfilePicOptions, setShowProfilePicOptions] = useState(false);
+  const [showUploadProfilePicModal, setShowUploadProfilePicModal] =
+    useState(false);
+  const [showCropPicAndSaveModal, setShowCropPicAndSaveModal] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
   const [imageSrc, setImageSrc] = useState(null);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
 
-  const togglePicMenu = () => {
-    if (showPicMenu) setShowPicMenu(false);
-    else setShowPicMenu(true);
+  const toggleProfilePicOptions = () => {
+    if (showProfilePicOptions) setShowProfilePicOptions(false);
+    else setShowProfilePicOptions(true);
   };
 
-  const togglePicChangeBtn = () => {
-    if (showPicChangeBtn) setShowPicChangeBtn(false);
-    else setShowPicChangeBtn(true);
+  const closeProfilePicOptions = () => {
+    setShowProfilePicOptions(false);
   };
+
+  const ref = useDetectClickOutside({ onTriggered: closeProfilePicOptions });
 
   const handleImageSrcChange = (e) => {
     const currentFile = e.target.files[0];
     const fileReader = new FileReader();
     fileReader.addEventListener("load", () => {
       setImageSrc(fileReader.result);
-      setShowPicMenu(false);
-      setShowImgModal(true);
+      setShowUploadProfilePicModal(false);
+      setShowCropPicAndSaveModal(true);
     });
 
     fileReader.readAsDataURL(currentFile);
+  };
+
+  const openChangeProfilePicModal = () => {
+    setShowUploadProfilePicModal(true);
+  };
+
+  const closeChangeProfilePicModal = () => {
+    setShowUploadProfilePicModal(false);
   };
 
   const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
   }, []);
 
-  const cancelImgCrop = () => {
-    setShowImgModal(false);
-    setShowPicMenu(true);
+  const cancelProfilePicChange = () => {
+    setShowCropPicAndSaveModal(false);
+    setShowProfilePicOptions(true);
   };
 
   const changeProfilePic = async () => {
     try {
-      setShowImgModal(false);
-      setShowPicMenu(false);
+      setShowCropPicAndSaveModal(false);
       setShowLoading(true);
 
       const uncompressedProfilePic = await getCroppedImg(
@@ -104,34 +114,21 @@ export const ProfileHeading = () => {
           src={user.user_profile_pic}
           className="profilePic"
           alt="profile_picture"
-          onClick={togglePicMenu}
+          onClick={toggleProfilePicOptions}
+          ref={ref}
         />
 
-        {showPicMenu ? (
-          <div className="profilePicMenu">
+        {showProfilePicOptions ? (
+          <div className="profilePicOptions">
             <div className="picOption">
               <VisibilityIcon />
               <div>View Profile Picture</div>
             </div>
 
-            <div className="picOption" onClick={togglePicChangeBtn}>
+            <div className="picOption" onClick={openChangeProfilePicModal}>
               <SyncIcon />
               <div>Change Profile Picture</div>
             </div>
-
-            {showPicChangeBtn ? (
-              <label className="picOption picUploadPrompt">
-                <input
-                  type="file"
-                  accept="image/png, image/jpeg, image/jpg"
-                  onChange={handleImageSrcChange}
-                />
-                <UploadIcon />
-                <div>Choose a File</div>
-              </label>
-            ) : (
-              <></>
-            )}
 
             <div className="picOption deletePicPrompt">
               <DeleteIcon />
@@ -145,7 +142,31 @@ export const ProfileHeading = () => {
         <div className="profileUserName">{`${user.user_first_name} ${user.user_last_name}`}</div>
       </div>
 
-      {showImgModal ? (
+      {showUploadProfilePicModal ? (
+        <div className="uploadProfilePicModal">
+          <label className="picUploadPrompt">
+            <input
+              type="file"
+              accept="image/png, image/jpeg, image/jpg"
+              onChange={handleImageSrcChange}
+            />
+            <UploadIcon style={{ fontSize: "70px" }} />
+            <div className="chooseFilePrompt">Choose a File</div>
+          </label>
+          <div className="modalBtns">
+            <div
+              className="modalBtn cancelBtn"
+              onClick={closeChangeProfilePicModal}
+            >
+              Cancel
+            </div>
+          </div>
+        </div>
+      ) : (
+        <></>
+      )}
+
+      {showCropPicAndSaveModal ? (
         <div className="imageModal">
           <div className="cropperContainer">
             <div className="cropper">
@@ -163,7 +184,10 @@ export const ProfileHeading = () => {
               <div className="modalBtn saveBtn" onClick={changeProfilePic}>
                 Save
               </div>
-              <div className="modalBtn cancelBtn" onClick={cancelImgCrop}>
+              <div
+                className="modalBtn cancelBtn"
+                onClick={cancelProfilePicChange}
+              >
                 Cancel
               </div>
             </div>

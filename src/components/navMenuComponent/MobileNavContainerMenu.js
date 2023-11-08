@@ -4,9 +4,9 @@ import GroupIcon from "@mui/icons-material/Group";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
-import "./MobileNavigationIcons.css";
+import "./MobileNavContainerMenu.css";
 
-export const MobileNavigationIcons = () => {
+export const MobileNavContainerMenu = () => {
   const navigate = useNavigate();
   const location = useLocation();
 

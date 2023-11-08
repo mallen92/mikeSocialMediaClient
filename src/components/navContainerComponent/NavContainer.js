@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { LSNavigationIcons } from "../navIconsComponent/LSNavigationIcons";
-import { MobileNavigationIcons } from "../navIconsComponent/MobileNavigationIcons";
-import "./NavigationPanel.css";
+import { LargeNavContainerMenu } from "../navMenuComponent/LargeNavContainerMenu";
+import { MobileNavContainerMenu } from "../navMenuComponent/MobileNavContainerMenu";
+import "./NavContainer.css";
 
-export const NavigationPanel = () => {
+export const NavContainer = () => {
   const user = useSelector((state) => state.userSlice.user);
   const navigate = useNavigate();
 
@@ -12,7 +12,7 @@ export const NavigationPanel = () => {
     <div className="navPanelContents">
       <div className="navBranding">TheSocial</div>
 
-      <div className="userInfo smallHideableComp">
+      <div className="navContainerUserInfo hideOnMobile">
         <img
           src={user.user_profile_pic}
           className="homeProfilePic"
@@ -20,17 +20,17 @@ export const NavigationPanel = () => {
           onClick={() => navigate("/profile")}
         />
         <div
-          className="userName"
+          className="navContainerUserName"
           onClick={() => navigate("/profile")}
         >{`${user.user_first_name} ${user.user_last_name}`}</div>
       </div>
 
-      <div className="smallHideableComp">
-        <LSNavigationIcons />
+      <div className="hideOnMobile">
+        <LargeNavContainerMenu />
       </div>
 
-      <div className="largeHideableComp">
-        <MobileNavigationIcons />
+      <div className="hideOnLarge">
+        <MobileNavContainerMenu />
       </div>
     </div>
   );
