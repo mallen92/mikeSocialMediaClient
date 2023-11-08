@@ -1,181 +1,22 @@
 /* Smartphones */
 @media (min-width: 320px) {
-  .profileUserInfo {
-    display: flex;
-    align-items: center;
-    column-gap: 20px;
-    justify-content: center;
+  .profileViewContents {
     position: relative;
-  }
-
-  .profilePic {
-    width: 150px;
-    border: 4px solid #747474b2;
-    border-radius: 50%;
-  }
-
-  .profilePic:hover {
-    cursor: pointer;
-  }
-
-  .profilePicMenu {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 10px;
-    width: 300px;
-    position: absolute;
-    top: 160px;
-
-    background-color: #272838;
-    border-radius: 10px;
-  }
-
-  .picOption {
-    display: flex;
-    column-gap: 12px;
-    padding: 10px;
-
-    background-color: #f3de8ade;
-    font-size: 17px;
-    font-weight: bold;
-  }
-
-  .picOption:hover {
-    cursor: pointer;
-    background-color: white;
-  }
-
-  input[type="file"] {
-    display: none;
-  }
-
-  .picUploadPrompt {
-    background-color: rgb(96, 139, 96);
-  }
-
-  .deletePicPrompt {
-    background-color: rgba(223, 0, 0, 0.87);
-  }
-
-  .imgModal {
-    left: 0;
-    top: 100px;
-    padding: 10px;
-    position: fixed;
-    width: 100%;
-    z-index: 100;
-
-    background-color: #272838;
-    border-radius: 10px;
-  }
-
-  .modalContent {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
-
-  .picContainer {
-    width: 100%;
-    max-height: 65vh;
-    overflow: scroll;
-  }
-
-  .picContainer::-webkit-scrollbar {
-    display: none;
-  }
-
-  .uploadedPic {
-    width: 100%;
-  }
-
-  .modalBtns {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
-  }
-
-  .modalBtn {
-    border-radius: 10px;
-    font-size: 20px;
-    font-weight: bold;
-    text-align: center;
-  }
-
-  .saveBtn {
-    background-color: rgb(96, 139, 96);
-  }
-
-  .cancelBtn {
-    background-color: rgba(223, 0, 0, 0.87);
-  }
-
-  .profileUserName {
-    font-size: 25px;
-    font-weight: bold;
   }
 }
 
 /* Tablets */
 @media (min-width: 425px) {
-  .imgModal {
-    left: 12%;
-    top: 100px;
-    width: 75%;
-  }
-
-  .profileUserName {
-    font-size: 30px;
-  }
 }
 
 /* Large tablets */
 @media (min-width: 768px) {
-  .imgModal {
-    left: 200px;
-    top: 50px;
-    max-width: 70vw;
-  }
-
-  .profileUserInfo {
-    justify-content: start;
-  }
-
-  .picContainer {
-    width: 100%;
-    max-height: 80vh;
-  }
-
-  .modalBtn:hover {
-    cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.877);
-  }
-
-  .profileUserName {
-    font-size: 40px;
-    font-weight: bold;
-  }
 }
 
 /* Large screens*/
 @media (min-width: 1024px) {
-  .imgModal {
-    left: 175px;
-    max-width: 50vw;
-  }
 }
 
 /* Extra large screens */
 @media (min-width: 1440px) {
-  .imgModal {
-    left: 300px;
-    max-width: 40%;
-  }
-
-  .uploadedPic {
-    width: 100%;
-  }
 }
