@@ -23,6 +23,7 @@ export const ProfilePage = () => {
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [showLoadingWindow, setShowLoadingWindow] = useState(false);
+  const [showDeleteConfWindow, setShowDeleteConfWindow] = useState(false);
 
   const newRef = useRef(null);
   useEffect(() => {
@@ -70,9 +71,8 @@ export const ProfilePage = () => {
       );
 
       const options = {
-        maxSizeMB: 1,
+        maxSizeMB: 0.05,
         maxWidthOrHeight: 1000,
-        useWebWorker: true,
       };
 
       const newProfilePic = await imageCompression(
@@ -95,10 +95,31 @@ export const ProfilePage = () => {
       localUser.user_profile_pic = response.data;
       window.localStorage.setItem("user", JSON.stringify(localUser));
       setShowLoadingWindow(false);
-    } catch (e) {
-      console.error(e);
+    } catch (error) {
+      console.error(error);
     }
-}
+  }
+
+  const deleteProfilePic = async () => {
+    try {
+      setShowDeleteConfWindow(false);
+      setShowLoadingWindow(true);
+
+      const response = await axios.delete(`${URL}/images`, {
+        headers: {
+          Authorization: `Bearer ${user.user_token}`,
+        }
+      });
+
+      dispatch(updateProfilePic(response.data));
+      let localUser = JSON.parse(window.localStorage.getItem("user"));
+      localUser.user_profile_pic = response.data;
+      window.localStorage.setItem("user", JSON.stringify(localUser));
+      setShowLoadingWindow(false);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <div className="profilePage_Content">
@@ -119,7 +140,7 @@ export const ProfilePage = () => {
                 <div>Change Profile Picture</div>
               </div>
 
-              <div className="picOption deletePicPrompt">
+              <div className="picOption deletePicOption" onClick={() => setShowDeleteConfWindow(true) }>
                 <DeleteIcon />
                 <div>Delete Profile Picture</div>
               </div>
@@ -164,10 +185,10 @@ export const ProfilePage = () => {
             </div>
 
             <div className="cropandSavePicWindowBtns">
-              <div className="windowBtn saveBtn" onClick={changeProfilePic}>
+              <div className="cropandSavePicWindowBtn saveCropBtn" onClick={changeProfilePic}>
                 Save
               </div>
-              <div className="windowBtn cancelBtn" onClick={() => setShowCropAndSavePicWindow(false)}>
+              <div className="cropandSavePicWindowBtn cancelCropBtn" onClick={() => setShowCropAndSavePicWindow(false)}>
                 Cancel
               </div>
             </div>
@@ -178,10 +199,28 @@ export const ProfilePage = () => {
       )}
 
       {showLoadingWindow ? (
-        <div className="loadingModal">
+        <div className="loadingWindow">
           <div className="loadingGifContainer">
             <Loading />
           </div>
+        </div>
+      ) : (
+        <></>
+      )}
+
+      {showDeleteConfWindow ? (
+        <div className="deleteConfWindow">
+          <div className="deleteConfMsg">
+          Are you sure you want to delete your profile picture?
+          </div>
+          <div className="deleteConfWindowBtns">
+              <div className="deleteConfWindowBtn confirmDeleteBtn" onClick={deleteProfilePic}>
+                Yes
+              </div>
+              <div className="deleteConfWindowBtn cancelDeleteBtn" onClick={() => setShowDeleteConfWindow(false)}>
+                No
+              </div>
+            </div>
         </div>
       ) : (
         <></>
