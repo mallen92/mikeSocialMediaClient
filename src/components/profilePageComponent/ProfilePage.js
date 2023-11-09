@@ -1,11 +1,29 @@
-import { useState, useRef, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { ProfilePicOptions } from "../profilePicOptionsComponent/ProfilePicOptions";
+import { useState, useCallback, useRef, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import SyncIcon from "@mui/icons-material/Sync";
+import DeleteIcon from "@mui/icons-material/Delete";
+import UploadIcon from "@mui/icons-material/Upload";
+import Cropper from "react-easy-crop";
+import getCroppedImg from "../../util/getCroppedImage";
+import imageCompression from "browser-image-compression";
+import { updateProfilePic } from "../../state/userSlice";
+import { Loading } from "../loadingComponent/Loading";
+import axios from "axios";
+import { URL } from "../../util/url";
 import "./ProfilePage.css";
 
 export const ProfilePage = () => {
   const user = useSelector((state) => state.userSlice.user);
+  const dispatch = useDispatch();
   const [showProfilePicOptions, setShowProfilePicOptions] = useState(false);
+  const [showUploadImageWindow, setShowUploadImageWindow] = useState(false);
+  const [image, setImage] = useState(null);
+  const [showCropAndSavePicWindow, setShowCropAndSavePicWindow] = useState(false);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [showLoadingWindow, setShowLoadingWindow] = useState(false);
+
   const newRef = useRef(null);
   useEffect(() => {
     document.addEventListener("mousedown", handleOutsideClick);
@@ -25,20 +43,86 @@ export const ProfilePage = () => {
     }
   };
 
+  const handleImageUpload = (e) => {
+    const currentFile = e.target.files[0];
+    const fileReader = new FileReader();
+    fileReader.addEventListener("load", () => {
+      setImage(fileReader.result);
+      setShowUploadImageWindow(false);
+      setShowCropAndSavePicWindow(true);
+    });
+
+    fileReader.readAsDataURL(currentFile);
+  };
+
+  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
+    setCroppedAreaPixels(croppedAreaPixels);
+  }, []);
+
+  const changeProfilePic = async () => {
+    try {
+      setShowCropAndSavePicWindow(false);
+      setShowLoadingWindow(true);
+
+      const uncompressedProfilePic = await getCroppedImg(
+        image,
+        croppedAreaPixels
+      );
+
+      const options = {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1000,
+        useWebWorker: true,
+      };
+
+      const newProfilePic = await imageCompression(
+        uncompressedProfilePic,
+        options
+      );
+
+      const formData = new FormData();
+      formData.append("image", newProfilePic);
+
+      const response = await axios.post(`${URL}/images`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${user.user_token}`,
+        },
+      });
+
+      dispatch(updateProfilePic(response.data));
+      let localUser = JSON.parse(window.localStorage.getItem("user"));
+      localUser.user_profile_pic = response.data;
+      window.localStorage.setItem("user", JSON.stringify(localUser));
+      setShowLoadingWindow(false);
+    } catch (e) {
+      console.error(e);
+    }
+}
+
   return (
     <div className="profilePage_Content">
       <div className="profilePage_UserInfo">
         <div className="profilePage_ProfilePicAndPicOptions" ref={newRef}>
-          <img
-            src={user.user_profile_pic}
-            className="profilePage_UserProfilePic"
-            alt="profile_picture"
-            onClick={toggleProfilePicOptions}
-          />
+          <img src={user.user_profile_pic} className="profilePage_UserProfilePic" alt="profile_picture" onClick={toggleProfilePicOptions} />
 
           {showProfilePicOptions ? (
-            <div onClick={() => setShowProfilePicOptions(false)}>
-              <ProfilePicOptions />
+            <div className="profilePicOptions" onClick={() => setShowProfilePicOptions(false)}>
+              <div className="picOption">
+                <VisibilityIcon />
+                <div>View Profile Picture</div>
+              </div>
+
+              <div
+                className="picOption" onClick={() => setShowUploadImageWindow(true)} >
+                <SyncIcon />
+                <div>Change Profile Picture</div>
+              </div>
+
+              <div className="picOption deletePicPrompt">
+                <DeleteIcon />
+                <div>Delete Profile Picture</div>
+              </div>
             </div>
           ) : (
             <></>
@@ -47,6 +131,61 @@ export const ProfilePage = () => {
 
         <div className="profilePage_UserName">{`${user.user_first_name} ${user.user_last_name}`}</div>
       </div>
+
+      {showUploadImageWindow ? (
+        <div className="uploadImageWindow">
+          <label className="imageUploadPrompt">
+            <input type="file" accept="image/png, image/jpeg, image/jpg" onChange={handleImageUpload} />
+
+            <UploadIcon style={{ fontSize: "70px" }} />
+            <div>Choose a file</div>
+          </label>
+
+          <div className="cancelUploadBtn" onClick={() => setShowUploadImageWindow(false)} >
+            Cancel
+          </div>
+        </div>
+      ) : ( 
+        <></>
+      )}
+
+      {showCropAndSavePicWindow ? (
+        <div className="cropAndSavePicWindow">
+          <div className="cropperContainer">
+            <div className="cropper">
+              <Cropper
+                image={image}
+                crop={crop}
+                aspect={1}
+                cropShape="round"
+                onCropChange={setCrop}
+                onCropComplete={onCropComplete}
+              />
+            </div>
+
+            <div className="cropandSavePicWindowBtns">
+              <div className="windowBtn saveBtn" onClick={changeProfilePic}>
+                Save
+              </div>
+              <div className="windowBtn cancelBtn" onClick={() => setShowCropAndSavePicWindow(false)}>
+                Cancel
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : ( 
+        <></>
+      )}
+
+      {showLoadingWindow ? (
+        <div className="loadingModal">
+          <div className="loadingGifContainer">
+            <Loading />
+          </div>
+        </div>
+      ) : (
+        <></>
+      )}
 
       <div>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus est

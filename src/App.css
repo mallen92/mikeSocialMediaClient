@@ -3,6 +3,11 @@
   src: url(../public/assets/fonts/Lato-Regular.ttf);
 }
 
+@font-face {
+  font-family: "Lato Black";
+  src: url(../public/assets//fonts//Lato-Black.ttf);
+}
+
 body {
   font-family: Lato;
 }
