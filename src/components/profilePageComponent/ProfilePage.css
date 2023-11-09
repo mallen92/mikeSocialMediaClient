@@ -1,0 +1,258 @@
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Smartphones */
+@media (min-width: 320px) {
+  .profilePage_Content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+
+    position: relative;
+  }
+
+  /*--------------- 1. USER INFO ---------------*/
+
+  .profilePage_UserInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    margin-top: 10px;
+  }
+
+  /*--------------- 1A. PROFILE PIC AND OPTIONS ---------------*/
+
+  .profilePage_ProfilePicAndPicOptions {
+    border-radius: 50%;
+  }
+
+  .profilePage_UserProfilePic {
+    width: 125px;
+    border: 4px solid #888888;
+    border-radius: 50%;
+  }
+
+  .profilePicOptions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    margin-left: -55px;
+    margin-top: 10px;
+    padding: 10px;
+    position: absolute;
+
+    background-color: #272838;
+    border-radius: 10px;
+  }
+
+  .picOption {
+    display: flex;
+    column-gap: 12px;
+    padding: 10px;
+
+    background-color: #f3de8ade;
+    font-size: 17px;
+    font-weight: bold;
+  }
+
+  /*--------------- 1A. END PROFILE PIC AND OPTIONS ---------------*/
+  /*--------------- 1B. PROFILE USERNAME ---------------*/
+
+  .profilePage_UserName {
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  /*--------------- 1B. END PROFILE USERNAME ---------------*/
+  /*--------------- 1. END USER INFO ---------------*/
+
+  /*--------------- 2. IMAGE UPLOAD WINDOW ---------------*/
+
+  .uploadImageWindow {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    position: absolute;
+    width: 100%;
+
+    animation: fadeInAnimation ease 0.2s;
+    animation-fill-mode: forwards;
+    background-color: rgb(238, 223, 162);
+    border: 2px solid #282849;
+    border-radius: 20px;
+  }
+
+  input[type="file"] {
+    display: none;
+  }
+
+  .imageUploadPrompt {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+
+    background-color: rgb(165, 165, 165);
+    border: 2px dashed #282849;
+    color: #282849;
+    font-size: 25px;
+    text-align: center;
+  }
+
+  .cancelUploadBtn {
+    padding: 10px;
+    width: 50%;
+
+    background-color: rgb(231, 54, 54);
+    border-radius: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  /*--------------- 2. END IMAGE UPLOAD WINDOW ---------------*/
+
+  /*--------------- 3. CROP AND SAVE PIC WINDOW ---------------*/
+
+  .cropAndSavePicWindow {
+    position: absolute;
+    top: 0;
+
+    background-color: rgb(238, 223, 162);
+  }
+
+  .cropperContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 96vw;
+    height: 50vh;
+  }
+
+  .cropper {
+    height: 90%;
+    position: relative;
+    background-color: rgb(238, 223, 162);
+  }
+
+  .cropandSavePicWindowBtns {
+    column-gap: 30px;
+    display: flex;
+    justify-content: center;
+
+    text-align: center;
+  }
+
+  .windowBtn {
+    padding: 5px;
+
+    font-size: 20px;
+    font-weight: bold;
+    width: 50%;
+  }
+
+  .saveBtn {
+    background-color: rgb(85, 185, 85);
+  }
+
+  .cancelBtn {
+    background-color: rgb(231, 54, 54);
+  }
+
+  .loadingModal {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 25vh;
+
+    animation: fadeInAnimation ease 1s;
+    animation-fill-mode: forwards;
+    background-color: rgba(0, 0, 0, 0.815);
+    border-radius: 20px;
+  }
+
+  .profileUserName {
+    font-size: 25px;
+    font-weight: bold;
+  }
+
+  /*--------------- 3. END CROP AND SAVE PIC WINDOW ---------------*/
+}
+
+/* Tablets */
+@media (min-width: 425px) {
+  .cancelUploadBtn,
+  .windowBtn {
+    width: 150px;
+  }
+}
+
+/* Large tablets */
+@media (min-width: 768px) {
+  .profilePage_Content {
+    align-items: unset;
+    gap: 30px;
+  }
+
+  .profilePage_UserInfo {
+    flex-direction: unset;
+    align-items: center;
+  }
+
+  .profilePage_UserProfilePic {
+    width: 200px;
+  }
+
+  .profilePage_UserProfilePic:hover {
+    cursor: pointer;
+  }
+
+  .profilePicOptions {
+    margin-left: unset;
+  }
+
+  .picOption:hover {
+    cursor: pointer;
+    background-color: rgb(236, 236, 236);
+  }
+
+  .profilePage_UserName {
+    font-family: "Lato Black";
+    font-size: 45px;
+    margin-left: 10px;
+  }
+
+  .cropperContainer {
+    width: 70vw;
+  }
+
+  .cancelUploadBtn:hover,
+  .windowBtn:hover {
+    cursor: pointer;
+    background-color: rgb(236, 236, 236);
+    text-decoration: underline;
+  }
+}
+
+/* Large screens*/
+@media (min-width: 1024px) {
+  .cropperContainer {
+    width: 75vw;
+  }
+}
+
+/* Extra large screens */
+@media (min-width: 1440px) {
+}
