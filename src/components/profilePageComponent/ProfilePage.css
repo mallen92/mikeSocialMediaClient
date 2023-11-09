@@ -64,6 +64,10 @@
     font-weight: bold;
   }
 
+  .deletePicOption {
+    background-color: rgb(231, 54, 54);
+  }
+
   /*--------------- 1A. END PROFILE PIC AND OPTIONS ---------------*/
   /*--------------- 1B. PROFILE USERNAME ---------------*/
 
@@ -155,7 +159,7 @@
     text-align: center;
   }
 
-  .windowBtn {
+  .cropandSavePicWindowBtn {
     padding: 5px;
 
     font-size: 20px;
@@ -163,15 +167,17 @@
     width: 50%;
   }
 
-  .saveBtn {
+  .saveCropBtn,
+  .confirmDeleteBtn {
     background-color: rgb(85, 185, 85);
   }
 
-  .cancelBtn {
+  .cancelCropBtn,
+  .cancelDeleteBtn {
     background-color: rgb(231, 54, 54);
   }
 
-  .loadingModal {
+  .loadingWindow {
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -183,18 +189,56 @@
     border-radius: 20px;
   }
 
-  .profileUserName {
-    font-size: 25px;
+  /*--------------- 3. END CROP AND SAVE PIC WINDOW ---------------*/
+
+  /*--------------- 4. DELETE CONFIRMATION WINDOW ---------------*/
+
+  .deleteConfWindow {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 50px;
+    position: absolute;
+    width: 100%;
+
+    animation: fadeInAnimation ease 0.2s;
+    animation-fill-mode: forwards;
+    background-color: rgb(238, 223, 162);
+    border: 2px solid #282849;
+    border-radius: 20px;
+  }
+
+  .deleteConfMsg {
+    font-size: 20px;
     font-weight: bold;
   }
 
-  /*--------------- 3. END CROP AND SAVE PIC WINDOW ---------------*/
+  .deleteConfWindowBtns {
+    column-gap: 30px;
+    display: flex;
+    width: 250px;
+    justify-content: center;
+
+    text-align: center;
+  }
+
+  .deleteConfWindowBtn {
+    padding: 10px;
+
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    width: 100%;
+  }
+
+  /*--------------- 4. END DELETE CONFIRMATION WINDOW ---------------*/
 }
 
 /* Tablets */
 @media (min-width: 425px) {
   .cancelUploadBtn,
-  .windowBtn {
+  .cropandSavePicWindowBtn {
     width: 150px;
   }
 }
@@ -239,7 +283,7 @@
   }
 
   .cancelUploadBtn:hover,
-  .windowBtn:hover {
+  .cropandSavePicWindowBtn:hover {
     cursor: pointer;
     background-color: rgb(236, 236, 236);
     text-decoration: underline;
