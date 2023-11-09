@@ -1,0 +1,97 @@
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Smartphones */
+@media (min-width: 320px) {
+  .profilePage_Content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+
+    position: relative;
+  }
+
+  /*--------------- 1. USER INFO ---------------*/
+
+  .profilePage_UserInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    margin-top: 10px;
+  }
+
+  /*--------------- 1A. PROFILE PIC AND OPTIONS ---------------*/
+
+  .profilePage_ProfilePicAndPicOptions {
+    border-radius: 50%;
+    background-color: grey;
+  }
+
+  .profilePage_UserProfilePic {
+    width: 125px;
+    border: 4px solid #888888;
+    border-radius: 50%;
+  }
+
+  .profilePicOptions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    margin-left: -55px;
+    margin-top: 10px;
+    padding: 10px;
+    position: absolute;
+
+    background-color: #272838;
+    border-radius: 10px;
+  }
+
+  .picOption {
+    display: flex;
+    column-gap: 12px;
+    padding: 10px;
+
+    background-color: #f3de8ade;
+    font-size: 17px;
+    font-weight: bold;
+  }
+
+  /*--------------- 1A. END PROFILE PIC AND OPTIONS ---------------*/
+
+  /*--------------- 1B. PROFILE USERNAME ---------------*/
+
+  .profilePage_UserName {
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  /*--------------- 1B. END PROFILE USERNAME ---------------*/
+
+  /*--------------- 1. END USER INFO ---------------*/
+}
+
+/* Tablets */
+@media (min-width: 425px) {
+}
+
+/* Large tablets */
+@media (min-width: 768px) {
+}
+
+/* Large screens*/
+@media (min-width: 1024px) {
+}
+
+/* Extra large screens */
+@media (min-width: 1440px) {
+}

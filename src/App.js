@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { LoginPage } from "./components/authComponent/LoginPage";
-import { SignupPage } from "./components/authComponent/SignupPage";
-import { HomePage } from "./components/homeComponent/HomePage";
+import { LoginPage } from "./components/unauthUserComponent/LoginPage";
+import { SignupPage } from "./components/unauthUserComponent/SignupPage";
+import { HomePage } from "./components/authUserComponent/HomePage";
 import { NewsFeed } from "./components/newsFeedComponent/NewsFeed";
 import { MobileMenu } from "./components/mobileMenuComponent/MobileMenu";
-import { ProfileView } from "./components/profileViewComponent/ProfileView";
+import { ProfilePage } from "./components/profilePageComponent/ProfilePage";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "./state/userSlice";
 import "./App.css";
@@ -36,7 +36,7 @@ function App() {
           >
             <Route path="/" element={<NewsFeed />} />
             <Route path="menu" element={<MobileMenu />} />
-            <Route path="profile" element={<ProfileView />} />
+            <Route path="profile" element={<ProfilePage />} />
           </Route>
 
           <Route
