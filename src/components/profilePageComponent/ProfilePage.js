@@ -1,29 +1,20 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+import Cropper from "react-easy-crop";
+import imageCompression from "browser-image-compression";
+import { Loading } from "../loadingComponent/Loading";
+import { AuthUserErrorWindow } from "../authUserErrorComponent/AuthUserErrorWindow";
+import { updateProfilePic } from "../../state/userSlice";
+import getCroppedImg from "../../util/getCroppedImage";
+import { URL } from "../../util/url";
 import SyncIcon from "@mui/icons-material/Sync";
 import DeleteIcon from "@mui/icons-material/Delete";
 import UploadIcon from "@mui/icons-material/Upload";
-import Cropper from "react-easy-crop";
-import getCroppedImg from "../../util/getCroppedImage";
-import imageCompression from "browser-image-compression";
-import { updateProfilePic } from "../../state/userSlice";
-import { Loading } from "../loadingComponent/Loading";
-import axios from "axios";
-import { URL } from "../../util/url";
 import "./ProfilePage.css";
 
 export const ProfilePage = () => {
   const user = useSelector((state) => state.userSlice.user);
-  const dispatch = useDispatch();
-  const [showProfilePicOptions, setShowProfilePicOptions] = useState(false);
-  const [showUploadImageWindow, setShowUploadImageWindow] = useState(false);
-  const [image, setImage] = useState(null);
-  const [showCropAndSavePicWindow, setShowCropAndSavePicWindow] = useState(false);
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
-  const [crop, setCrop] = useState({ x: 0, y: 0 });
-  const [showLoadingWindow, setShowLoadingWindow] = useState(false);
-  const [showDeleteConfWindow, setShowDeleteConfWindow] = useState(false);
-
   const newRef = useRef(null);
   useEffect(() => {
     document.addEventListener("mousedown", handleOutsideClick);
@@ -31,6 +22,17 @@ export const ProfilePage = () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   });
+  
+  const [showProfilePicOptions, setShowProfilePicOptions] = useState(false);
+  const [showUploadImageWindow, setShowUploadImageWindow] = useState(false);
+  const [image, setImage] = useState(null);
+  const [showCropAndSavePicWindow, setShowCropAndSavePicWindow] = useState(false);
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+  const [showLoadingWindow, setShowLoadingWindow] = useState(false);
+  const dispatch = useDispatch();
+  const [showDeleteConfWindow, setShowDeleteConfWindow] = useState(false);
+  const [error, setError] = useState(null);
 
   const toggleProfilePicOptions = () => {
     if (showProfilePicOptions) setShowProfilePicOptions(false);
@@ -89,7 +91,8 @@ export const ProfilePage = () => {
       saveNewProfilePic(response.data);
       setShowLoadingWindow(false);
     } catch (error) {
-      console.error(error);
+      setError(error.response.data.message);
+      setShowLoadingWindow(false);
     }
   }
 
@@ -107,7 +110,8 @@ export const ProfilePage = () => {
       saveNewProfilePic(response.data);
       setShowLoadingWindow(false);
     } catch (error) {
-      console.error(error);
+      setError(error.response.data.message);
+      setShowLoadingWindow(false);
     }
   }
 
@@ -143,6 +147,8 @@ export const ProfilePage = () => {
 
         <div className="profilePage_UserName">{`${user.user_first_name} ${user.user_last_name}`}</div>
       </div>
+
+      {error ? <AuthUserErrorWindow error={error} /> : <></> }
 
       {showUploadImageWindow ? (
         <div className="uploadImageWindow">

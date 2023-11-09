@@ -80,7 +80,41 @@
   /*--------------- 1B. END PROFILE USERNAME ---------------*/
   /*--------------- 1. END USER INFO ---------------*/
 
-  /*--------------- 2. IMAGE UPLOAD WINDOW ---------------*/
+  /*--------------- 2. ERROR WINDOW ---------------*/
+
+  .errorWindow {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    position: absolute;
+    top: 250px;
+    width: 75%;
+
+    background-color: rgb(238, 223, 162);
+    border: 2px solid #282849;
+    border-radius: 20px;
+    font-weight: bold;
+  }
+
+  .errorWindowTitle {
+    background-color: rgb(231, 54, 54);
+    color: black;
+    font-size: 30px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .errorWindowMsg {
+    color: #282849;
+    font-size: 20px;
+    text-align: center;
+  }
+
+  /*--------------- 2. END ERROR WINDOW ---------------*/
+
+  /*--------------- 3. IMAGE UPLOAD WINDOW ---------------*/
 
   .uploadImageWindow {
     align-items: center;
@@ -126,9 +160,9 @@
     text-align: center;
   }
 
-  /*--------------- 2. END IMAGE UPLOAD WINDOW ---------------*/
+  /*--------------- 3. END IMAGE UPLOAD WINDOW ---------------*/
 
-  /*--------------- 3. CROP AND SAVE PIC WINDOW ---------------*/
+  /*--------------- 4. CROP AND SAVE PIC WINDOW ---------------*/
 
   .cropAndSavePicWindow {
     position: absolute;
@@ -189,9 +223,9 @@
     border-radius: 20px;
   }
 
-  /*--------------- 3. END CROP AND SAVE PIC WINDOW ---------------*/
+  /*--------------- 4. END CROP AND SAVE PIC WINDOW ---------------*/
 
-  /*--------------- 4. DELETE CONFIRMATION WINDOW ---------------*/
+  /*--------------- 5. DELETE CONFIRMATION WINDOW ---------------*/
 
   .deleteConfWindow {
     align-items: center;
@@ -232,7 +266,7 @@
     width: 100%;
   }
 
-  /*--------------- 4. END DELETE CONFIRMATION WINDOW ---------------*/
+  /*--------------- 5. END DELETE CONFIRMATION WINDOW ---------------*/
 }
 
 /* Tablets */
