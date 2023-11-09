@@ -1,6 +1,5 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import SyncIcon from "@mui/icons-material/Sync";
 import DeleteIcon from "@mui/icons-material/Delete";
 import UploadIcon from "@mui/icons-material/Upload";
@@ -69,12 +68,10 @@ export const ProfilePage = () => {
         image,
         croppedAreaPixels
       );
-
       const options = {
         maxSizeMB: 0.05,
         maxWidthOrHeight: 1000,
       };
-
       const newProfilePic = await imageCompression(
         uncompressedProfilePic,
         options
@@ -82,7 +79,6 @@ export const ProfilePage = () => {
 
       const formData = new FormData();
       formData.append("image", newProfilePic);
-
       const response = await axios.post(`${URL}/images`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -90,10 +86,7 @@ export const ProfilePage = () => {
         },
       });
 
-      dispatch(updateProfilePic(response.data));
-      let localUser = JSON.parse(window.localStorage.getItem("user"));
-      localUser.user_profile_pic = response.data;
-      window.localStorage.setItem("user", JSON.stringify(localUser));
+      saveNewProfilePic(response.data);
       setShowLoadingWindow(false);
     } catch (error) {
       console.error(error);
@@ -111,14 +104,18 @@ export const ProfilePage = () => {
         }
       });
 
-      dispatch(updateProfilePic(response.data));
-      let localUser = JSON.parse(window.localStorage.getItem("user"));
-      localUser.user_profile_pic = response.data;
-      window.localStorage.setItem("user", JSON.stringify(localUser));
+      saveNewProfilePic(response.data);
       setShowLoadingWindow(false);
     } catch (error) {
       console.error(error);
     }
+  }
+
+  const saveNewProfilePic = (image) => {
+    dispatch(updateProfilePic(image));
+    let localUser = JSON.parse(window.localStorage.getItem("user"));
+    localUser.user_profile_pic = image;
+    window.localStorage.setItem("user", JSON.stringify(localUser));
   }
 
   return (
@@ -129,13 +126,7 @@ export const ProfilePage = () => {
 
           {showProfilePicOptions ? (
             <div className="profilePicOptions" onClick={() => setShowProfilePicOptions(false)}>
-              <div className="picOption">
-                <VisibilityIcon />
-                <div>View Profile Picture</div>
-              </div>
-
-              <div
-                className="picOption" onClick={() => setShowUploadImageWindow(true)} >
+              <div className="picOption" onClick={() => setShowUploadImageWindow(true)} >
                 <SyncIcon />
                 <div>Change Profile Picture</div>
               </div>
