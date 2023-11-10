@@ -1,6 +1,6 @@
-import "./HomePage.css";
 import { NavContainer } from "../navContainerComponent/NavContainer.js";
 import { Outlet } from "react-router-dom";
+import "./HomePage.css";
 
 export const HomePage = () => {
   return (

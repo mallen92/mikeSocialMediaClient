@@ -1,11 +1,12 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cropper from "react-easy-crop";
 import imageCompression from "browser-image-compression";
 import { Loading } from "../loadingComponent/Loading";
-import { AuthUserErrorWindow } from "../authUserErrorComponent/AuthUserErrorWindow";
 import { updateProfilePic } from "../../state/userSlice";
+import { unsetUser } from "../../state/userSlice";
 import getCroppedImg from "../../util/getCroppedImage";
 import { URL } from "../../util/url";
 import SyncIcon from "@mui/icons-material/Sync";
@@ -22,6 +23,7 @@ export const ProfilePage = () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   });
+  const navigate = useNavigate();
   
   const [showProfilePicOptions, setShowProfilePicOptions] = useState(false);
   const [showUploadImageWindow, setShowUploadImageWindow] = useState(false);
@@ -94,7 +96,7 @@ export const ProfilePage = () => {
       setError(error.response.data.message);
       setShowLoadingWindow(false);
     }
-  }
+  };
 
   const deleteProfilePic = async () => {
     try {
@@ -113,14 +115,20 @@ export const ProfilePage = () => {
       setError(error.response.data.message);
       setShowLoadingWindow(false);
     }
-  }
+  };
 
   const saveNewProfilePic = (image) => {
     dispatch(updateProfilePic(image));
     let localUser = JSON.parse(window.localStorage.getItem("user"));
     localUser.user_profile_pic = image;
     window.localStorage.setItem("user", JSON.stringify(localUser));
-  }
+  };
+
+  const logOutUser = () => {
+    dispatch(unsetUser());
+    window.localStorage.clear();
+    navigate("/");
+  };
 
   return (
     <div className="profilePage_Content">
@@ -148,7 +156,21 @@ export const ProfilePage = () => {
         <div className="profilePage_UserName">{`${user.user_first_name} ${user.user_last_name}`}</div>
       </div>
 
-      {error ? <AuthUserErrorWindow error={error} /> : <></> }
+      { error ? (
+        <div className="errorWindow">
+          <div className="errorWindowTitle">ERROR</div>
+          <div className="errorWindowMsg">{error}</div>
+
+          { error.includes("session") ? (
+            <div className="errorWindowCloseBtn" onClick={logOutUser}>OK</div> 
+          ) : (
+            <div className="errorWindowCloseBtn" onClick={() => setError(null)}>OK</div>
+          )}
+
+        </div>
+      ) : (
+        <></>
+      )}
 
       {showUploadImageWindow ? (
         <div className="uploadImageWindow">

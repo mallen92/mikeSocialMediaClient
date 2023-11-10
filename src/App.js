@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { setUser } from "./state/userSlice";
 import { LoginPage } from "./components/unauthUserComponent/LoginPage";
 import { SignupPage } from "./components/unauthUserComponent/SignupPage";
 import { HomePage } from "./components/authUserComponent/HomePage";
 import { NewsFeed } from "./components/newsFeedComponent/NewsFeed";
 import { MobileMenu } from "./components/mobileMenuComponent/MobileMenu";
 import { ProfilePage } from "./components/profilePageComponent/ProfilePage";
-import { useSelector, useDispatch } from "react-redux";
-import { setUser } from "./state/userSlice";
 import "./App.css";
 import "./util/breakpoints.css";
 

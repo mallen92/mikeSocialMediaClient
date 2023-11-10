@@ -112,6 +112,17 @@
     text-align: center;
   }
 
+  .errorWindowCloseBtn {
+    padding: 5px;
+    width: 75px;
+
+    background-color: #282849;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+  }
+
   /*--------------- 2. END ERROR WINDOW ---------------*/
 
   /*--------------- 3. IMAGE UPLOAD WINDOW ---------------*/
@@ -151,7 +162,7 @@
 
   .cancelUploadBtn {
     padding: 10px;
-    width: 50%;
+    width: 150px;
 
     background-color: rgb(231, 54, 54);
     border-radius: 20px;
@@ -271,7 +282,6 @@
 
 /* Tablets */
 @media (min-width: 425px) {
-  .cancelUploadBtn,
   .cropandSavePicWindowBtn {
     width: 150px;
   }
@@ -316,10 +326,17 @@
     width: 70vw;
   }
 
+  .errorWindowCloseBtn:hover {
+    background-color: rgb(236, 236, 236);
+    color: black;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
   .cancelUploadBtn:hover,
   .cropandSavePicWindowBtn:hover {
-    cursor: pointer;
     background-color: rgb(236, 236, 236);
+    cursor: pointer;
     text-decoration: underline;
   }
 }
