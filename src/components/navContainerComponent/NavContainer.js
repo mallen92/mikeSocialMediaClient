@@ -17,11 +17,11 @@ export const NavContainer = () => {
           src={user.user_profile_pic}
           className="homeProfilePic"
           alt="profile_picture"
-          onClick={() => navigate("/profile")}
+          onClick={() => navigate(`/profile/${user.user_id}`)}
         />
         <div
           className="navContainerUserName"
-          onClick={() => navigate("/profile")}
+          onClick={() => navigate(`/profile/${user.user_id}`)}
         >{`${user.user_first_name} ${user.user_last_name}`}</div>
       </div>
 

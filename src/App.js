@@ -36,7 +36,7 @@ function App() {
           >
             <Route path="/" element={<NewsFeed />} />
             <Route path="menu" element={<MobileMenu />} />
-            <Route path="profile" element={<ProfilePage />} />
+            <Route path="profile/:userId" element={<ProfilePage />} />
           </Route>
 
           <Route
