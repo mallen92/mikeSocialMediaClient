@@ -1,0 +1,38 @@
+import UploadIcon from "@mui/icons-material/Upload";
+
+export const UploadImageWindow = ({
+  setImage,
+  closeWindow,
+  openNextWindow,
+}) => {
+  const handleImageUpload = (e) => {
+    const currentFile = e.target.files[0];
+    const fileReader = new FileReader();
+    fileReader.addEventListener("load", () => {
+      setImage(fileReader.result);
+      closeWindow(false);
+      openNextWindow(true);
+    });
+
+    fileReader.readAsDataURL(currentFile);
+  };
+
+  return (
+    <div className="uploadImageWindow">
+      <label className="imageUploadPrompt">
+        <input
+          type="file"
+          accept="image/png, image/jpeg, image/jpg"
+          onChange={handleImageUpload}
+        />
+
+        <UploadIcon style={{ fontSize: "70px" }} />
+        <div>Choose a file</div>
+      </label>
+
+      <div className="cancelUploadBtn" onClick={() => closeWindow(false)}>
+        Cancel
+      </div>
+    </div>
+  );
+};

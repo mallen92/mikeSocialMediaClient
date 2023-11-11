@@ -1,7 +1,7 @@
 import loading from "./loading.gif";
-import "./Loading.css";
+import "./LoadingWindow.css";
 
-export const Loading = () => {
+export const LoadingWindow = () => {
   return (
     <>
       <img src={loading} className="loadingGif" alt="loading" />

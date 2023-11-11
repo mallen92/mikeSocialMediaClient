@@ -28,7 +28,10 @@ export const MobileMenu = () => {
         <div className="userName">{`${user.user_first_name} ${user.user_last_name}`}</div>
       </div>
 
-      <div className="menuButton" onClick={() => navigate("/profile")}>
+      <div
+        className="menuButton"
+        onClick={() => navigate(`/profile/${user.user_id}`)}
+      >
         View Your Profile
       </div>
 
