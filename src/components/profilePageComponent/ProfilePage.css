@@ -336,6 +336,11 @@
     width: 70vw;
   }
 
+  .errorWindow {
+    left: 80px;
+    width: 75%;
+  }
+
   .errorWindowCloseBtn:hover {
     background-color: rgb(236, 236, 236);
     color: black;
@@ -360,4 +365,8 @@
 
 /* Extra large screens */
 @media (min-width: 1440px) {
+  .errorWindow {
+    left: 250px;
+    width: 50%;
+  }
 }
