@@ -35,6 +35,8 @@ export const MobileMenu = () => {
         View Your Profile
       </div>
 
+      <div className="menuButton">Search</div>
+
       <div className="menuButton" onClick={logOutUser}>
         Log Out
       </div>

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-import { updateProfilePic } from "../../state/userSlice";
+import { updateProfilePic } from "../state/userSlice";
 import axios from "axios";
-import { URL } from "../../util/url";
+import { URL } from "../util/url";
 
 export const DeleteProfilePicWindow = ({
   closeWindow,

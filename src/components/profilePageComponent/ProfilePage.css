@@ -9,13 +9,23 @@
 
 /* Smartphones */
 @media (min-width: 320px) {
+  .profilePageBody {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+
   .profilePage_Content {
     display: flex;
     align-items: center;
+    flex: 1;
     flex-direction: column;
     gap: 10px;
-
+    overflow: auto;
+    padding: 2%;
     position: relative;
+
+    background-color: var(--white);
   }
 
   /*--------------- 1. USER INFO ---------------*/
@@ -51,7 +61,7 @@
     padding: 10px;
     position: absolute;
 
-    background-color: #272838;
+    background-color: var(--socialBlue);
     border-radius: 10px;
   }
 
@@ -60,13 +70,13 @@
     column-gap: 12px;
     padding: 10px;
 
-    background-color: #f3de8ade;
+    background-color: var(--socialGold);
     font-size: 17px;
     font-weight: bold;
   }
 
   .deletePicOption {
-    background-color: rgb(231, 54, 54);
+    background-color: var(--dangerRed);
   }
 
   /*--------------- 1A. END PROFILE PIC AND OPTIONS ---------------*/
@@ -98,14 +108,14 @@
     top: 250px;
     width: 75%;
 
-    background-color: rgb(238, 223, 162);
-    border: 2px solid #282849;
+    background-color: var(--socialGold);
+    border: 2px solid var(--socialBlue);
     border-radius: 20px;
     font-weight: bold;
   }
 
   .errorWindowTitle {
-    background-color: rgb(231, 54, 54);
+    background-color: var(--dangerRed);
     color: black;
     font-size: 30px;
     text-align: center;
@@ -113,7 +123,7 @@
   }
 
   .errorWindowMsg {
-    color: #282849;
+    color: var(--socialBlue);
     font-size: 20px;
     text-align: center;
   }
@@ -122,8 +132,8 @@
     padding: 5px;
     width: 75px;
 
-    background-color: #282849;
-    color: white;
+    background-color: var(--socialBlue);
+    color: var(--white);
     font-size: 20px;
     font-weight: bold;
     text-align: center;
@@ -144,8 +154,8 @@
 
     animation: fadeInAnimation ease 0.2s;
     animation-fill-mode: forwards;
-    background-color: rgb(238, 223, 162);
-    border: 2px solid #282849;
+    background-color: var(--socialGold);
+    border: 2px solid var(--socialBlue);
     border-radius: 20px;
   }
 
@@ -160,8 +170,8 @@
     padding: 10px;
 
     background-color: rgb(165, 165, 165);
-    border: 2px dashed #282849;
-    color: #282849;
+    border: 2px dashed var(--socialBlue);
+    color: var(--socialBlue);
     font-size: 25px;
     text-align: center;
   }
@@ -170,7 +180,7 @@
     padding: 10px;
     width: 150px;
 
-    background-color: rgb(231, 54, 54);
+    background-color: var(--dangerRed);
     border-radius: 20px;
     font-size: 20px;
     font-weight: bold;
@@ -185,7 +195,7 @@
     position: absolute;
     top: 0;
 
-    background-color: rgb(238, 223, 162);
+    background-color: var(--socialGold);
   }
 
   .cropperContainer {
@@ -199,7 +209,7 @@
   .cropper {
     height: 90%;
     position: relative;
-    background-color: rgb(238, 223, 162);
+    background-color: var(--socialGold);
   }
 
   .cropandSavePicWindowBtns {
@@ -220,12 +230,12 @@
 
   .saveCropBtn,
   .confirmDeleteBtn {
-    background-color: rgb(85, 185, 85);
+    background-color: var(--confirmGreen);
   }
 
   .cancelCropBtn,
   .cancelDeleteBtn {
-    background-color: rgb(231, 54, 54);
+    background-color: var(--dangerRed);
   }
 
   .loadingWindow {
@@ -255,8 +265,8 @@
 
     animation: fadeInAnimation ease 0.2s;
     animation-fill-mode: forwards;
-    background-color: rgb(238, 223, 162);
-    border: 2px solid #282849;
+    background-color: var(--socialGold);
+    border: 2px solid var(--socialBlue);
     border-radius: 20px;
   }
 
@@ -295,9 +305,14 @@
 
 /* Large tablets */
 @media (min-width: 768px) {
+  .profilePageBody {
+    flex-direction: row;
+  }
+
   .profilePage_Content {
     align-items: unset;
     gap: 30px;
+    padding: 3%;
   }
 
   .profilePage_UserInfo {
@@ -309,17 +324,8 @@
     width: 200px;
   }
 
-  .profilePage_UserProfilePic:hover {
-    cursor: pointer;
-  }
-
   .profilePicOptions {
     margin-left: unset;
-  }
-
-  .picOption:hover {
-    cursor: pointer;
-    background-color: rgb(236, 236, 236);
   }
 
   .loadingName {
@@ -332,33 +338,34 @@
     margin-left: 10px;
   }
 
-  .cropperContainer {
+  .errorWindow {
+    left: 80px;
+  }
+
+  /* "width: 70vw" for popup windows */
+  .uploadImageWindow,
+  .cropperContainer,
+  .deleteConfWindow,
+  .errorWindow {
     width: 70vw;
   }
 
-  .errorWindow {
-    left: 80px;
-    width: 75%;
-  }
-
-  .errorWindowCloseBtn:hover {
-    background-color: rgb(236, 236, 236);
-    color: black;
-    cursor: pointer;
-    text-decoration: underline;
-  }
-
+  /* button transformations on hover */
+  .picOption:hover,
+  .errorWindowCloseBtn:hover,
   .cancelUploadBtn:hover,
   .cropandSavePicWindowBtn:hover {
-    background-color: rgb(236, 236, 236);
+    background-color: var(--white);
     cursor: pointer;
-    text-decoration: underline;
   }
 }
 
 /* Large screens*/
 @media (min-width: 1024px) {
-  .cropperContainer {
+  .uploadImageWindow,
+  .cropperContainer,
+  .deleteConfWindow,
+  .errorWindow {
     width: 75vw;
   }
 }

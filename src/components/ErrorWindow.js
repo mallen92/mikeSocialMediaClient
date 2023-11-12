@@ -1,4 +1,4 @@
-import { unsetUser } from "../../state/userSlice";
+import { unsetUser } from "../state/userSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 

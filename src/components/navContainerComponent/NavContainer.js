@@ -12,26 +12,35 @@ export const NavContainer = () => {
     <div className="navPanelContents">
       <div className="navBranding">TheSocial</div>
 
-      <div className="navContainerUserInfo hideOnMobile">
-        <img
-          src={user.user_profile_pic}
-          className="homeProfilePic"
-          alt="profile_picture"
-          onClick={() => navigate(`/profile/${user.user_id}`)}
-        />
-        <div
-          className="navContainerUserName"
-          onClick={() => navigate(`/profile/${user.user_id}`)}
-        >{`${user.user_first_name} ${user.user_last_name}`}</div>
-      </div>
+      {!user.user_token ? (
+        <div className="unauthCallToAction">
+          <div className="callToActionMsg">
+            Log in or sign up to connect with family and friends TheSocial way!
+          </div>
 
-      <div className="hideOnMobile">
-        <LargeNavContainerMenu />
-      </div>
+          <div className="callToActionBtns">
+            <div className="callToActionBtn" onClick={() => navigate("/login")}>
+              Log In
+            </div>
+            <div
+              className="callToActionBtn"
+              onClick={() => navigate("/signup")}
+            >
+              Sign Up
+            </div>
+          </div>
+        </div>
+      ) : (
+        <>
+          <div className="hideOnMobile">
+            <LargeNavContainerMenu />
+          </div>
 
-      <div className="hideOnLarge">
-        <MobileNavContainerMenu />
-      </div>
+          <div className="hideOnLarge">
+            <MobileNavContainerMenu />
+          </div>
+        </>
+      )}
     </div>
   );
 };

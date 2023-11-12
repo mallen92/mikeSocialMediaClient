@@ -3,29 +3,31 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { URL } from "../../util/url";
-import { ProfilePicOptions } from "../profilePicOptionsComponent/ProfilePicOptions";
-import { UploadImageWindow } from "../uploadImageComponent/UploadImageWindow";
-import { CropAndSavePicWindow } from "../cropImageComponent/CropAndSavePicWindow";
-import { DeleteProfilePicWindow } from "../deleteProfilePicComponent/DeleteProfilePicWindow";
+import { NavContainer } from "../navContainerComponent/NavContainer";
+import { ProfilePicOptions } from "../ProfilePicOptions";
+import { UploadImageWindow } from "../UploadImageWindow";
+import { CropAndSavePicWindow } from "../CropAndSavePicWindow";
+import { DeleteProfilePicWindow } from "../DeleteProfilePicWindow";
 import { LoadingWindow } from "../loadingComponent/LoadingWindow";
-import { ErrorWindow } from "../errorWindowComponent/ErrorWindow";
+import { ErrorWindow } from "../ErrorWindow";
 import placeholder from "./Placeholder.png";
 import "./ProfilePage.css";
 
 export const ProfilePage = () => {
   const user = useSelector((state) => state.userSlice.user);
+  const [requestedUser, setRequestedUser] = useState({});
+  const [error, setError] = useState(null);
   const location = useLocation();
+
+  const userToken = user.user_token;
+  const requestedUserId = location.pathname.split("/")[1];
 
 /*------------------------- 1. LOADING PROFILE ------------------------*/
 
   const [isLoading, setLoading] = useState(true);
-  const [requestedUser, setRequestedUser] = useState({});
-  const [error, setError] = useState(null);
-
-  const requestedUserId = location.pathname.split("/")[2];
-  const userToken = user.user_token;
 
   useEffect(() => {
+
     const visitedProfilesCache = window.localStorage.getItem("visited_profiles");
 
     if (visitedProfilesCache) {
@@ -45,11 +47,8 @@ export const ProfilePage = () => {
       }
 
       if (!userFound) {
-        axios.get(`${URL}/user?id=${requestedUserId}`, {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          }
-        }).then ((response) => {
+        axios.get(`${URL}/users?id=${requestedUserId}`)
+        .then ((response) => {
           setRequestedUser(response.data);
           setLoading(false);
   
@@ -59,13 +58,9 @@ export const ProfilePage = () => {
           setError(error.response.data.message);
         })
       }
-    }
-    else {
-      axios.get(`${URL}/user?id=${requestedUserId}`, {
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-        }
-      }).then((response) => {
+    } else {
+      axios.get(`${URL}/users?id=${requestedUserId}`)
+      .then((response) => {
         setRequestedUser(response.data);
         setLoading(false);
 
@@ -75,7 +70,7 @@ export const ProfilePage = () => {
         setError(error.response.data.message);
       })
     }
-  }, [requestedUserId, userToken]);
+  }, [requestedUserId]);
 
   /*------------------------- 1. END LOADING PROFILE ------------------------*/
   
@@ -108,8 +103,9 @@ export const ProfilePage = () => {
 
   /*------------------------- 3. POP UP WINDOWs ------------------------*/
 
-  const [showUploadImageWindow, setShowUploadImageWindow] = useState(false);
   const [image, setImage] = useState(null);
+
+  const [showUploadImageWindow, setShowUploadImageWindow] = useState(false);
   const [showCropAndSavePicWindow, setShowCropAndSavePicWindow] = useState(false);
   const [showDeleteConfWindow, setShowDeleteConfWindow] = useState(false);
   const [showLoadingWindow, setShowLoadingWindow] = useState(false);
@@ -117,85 +113,91 @@ export const ProfilePage = () => {
   /*------------------------- 3. END POP UP WINDOWs ------------------------*/
 
   return (
-    <div className="profilePage_Content">
-      {isLoading ? (
-        <div className="profilePage_UserInfo">
-          <img src={placeholder} className="profilePage_UserProfilePic" alt="loading" />
-          <img src={placeholder} className="loadingName" alt="loading" />
-        </div>
-      ) : (
-        <div className="profilePage_UserInfo">
-          <div className="profilePage_ProfilePicAndPicOptions" ref={newRef}>
-            <img src={requestedUser.user_profile_pic} className="profilePage_UserProfilePic" alt="profile_picture" onClick={toggleProfilePicOptions} />
+    <div className="profilePageBody">
+      <div className="navContainer">
+        <NavContainer />
+      </div>
 
-            {showProfilePicOptions ? (
-              <ProfilePicOptions
-                closeMenu={setShowProfilePicOptions} 
-                uploadImage={setShowUploadImageWindow}
-                openDeleteConfWindow={setShowDeleteConfWindow}
-              />
-            ) : (
-              <></>
-            )}
+      <div className="profilePage_Content">
+        {isLoading ? (
+          <div className="profilePage_UserInfo">
+            <img src={placeholder} className="profilePage_UserProfilePic" alt="loading" />
+            <img src={placeholder} className="loadingName" alt="loading" />
           </div>
+        ) : (
+          <div className="profilePage_UserInfo">
+            <div className="profilePage_ProfilePicAndPicOptions" ref={newRef}>
+              <img src={requestedUser.user_profile_pic} className="profilePage_UserProfilePic" alt="profile_picture" onClick={toggleProfilePicOptions} />
 
-          <div className="profilePage_UserName">{`${requestedUser.user_first_name} ${requestedUser.user_last_name}`}</div>
-        </div>
-      )}
+              {showProfilePicOptions ? (
+                <ProfilePicOptions
+                  closeMenu={setShowProfilePicOptions} 
+                  uploadImage={setShowUploadImageWindow}
+                  openDeleteConfWindow={setShowDeleteConfWindow}
+                />
+              ) : (
+                <></>
+              )}
+            </div>
 
-      {showUploadImageWindow ? (
-        <UploadImageWindow
-          setImage={setImage}
-          closeWindow={setShowUploadImageWindow}
-          openNextWindow={setShowCropAndSavePicWindow}
-        />
-      ) : (
-      <></>
-      )}
-
-      {showCropAndSavePicWindow ? (
-        <CropAndSavePicWindow 
-          image={image}
-          token={user.user_token}
-          showThisWindow={setShowCropAndSavePicWindow}
-          showLoadingWindow={setShowLoadingWindow}
-          showErrorWindow={setError}
-          updateViewedUser={setRequestedUser}
-         />
-      ) : (
-      <></>
-      )}
-
-      {showDeleteConfWindow ? (
-        <DeleteProfilePicWindow
-          closeWindow={setShowDeleteConfWindow}
-          showLoadingWindow={setShowLoadingWindow}
-          showErrorWindow={setError}
-          updateViewedUser={setRequestedUser}
-        />
-      ) : (
-      <></>
-      )}
-
-      {showLoadingWindow ? (
-        <div className="loadingWindow">
-          <div className="loadingGifContainer">
-            <LoadingWindow />
+            <div className="profilePage_UserName">{`${requestedUser.user_first_name} ${requestedUser.user_last_name}`}</div>
           </div>
-        </div>
-      ) : (
+        )}
+
+        {showUploadImageWindow ? (
+          <UploadImageWindow
+            setImage={setImage}
+            closeWindow={setShowUploadImageWindow}
+            openNextWindow={setShowCropAndSavePicWindow}
+          />
+        ) : (
         <></>
-      )}
+        )}
 
-      {error ? (
-        <ErrorWindow
-          error={error}
-          closeWindow={setError}
-        />
-      ) : (
-      <></>
-      )}
+        {showCropAndSavePicWindow ? (
+          <CropAndSavePicWindow 
+            image={image}
+            token={userToken}
+            showThisWindow={setShowCropAndSavePicWindow}
+            showLoadingWindow={setShowLoadingWindow}
+            showErrorWindow={setError}
+            updateViewedUser={setRequestedUser}
+          />
+        ) : (
+        <></>
+        )}
 
+        {showDeleteConfWindow ? (
+          <DeleteProfilePicWindow
+            closeWindow={setShowDeleteConfWindow}
+            showLoadingWindow={setShowLoadingWindow}
+            showErrorWindow={setError}
+            updateViewedUser={setRequestedUser}
+          />
+        ) : (
+        <></>
+        )}
+
+        {showLoadingWindow ? (
+          <div className="loadingWindow">
+            <div className="loadingGifContainer">
+              <LoadingWindow />
+            </div>
+          </div>
+        ) : (
+          <></>
+        )}
+
+        {error ? (
+          <ErrorWindow
+            error={error}
+            closeWindow={setError}
+          />
+        ) : (
+        <></>
+        )}
+
+      </div>
     </div>
   )
 }

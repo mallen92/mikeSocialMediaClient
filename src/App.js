@@ -32,22 +32,23 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={isLoggedIn ? <HomePage /> : <Navigate to="/login" />}
+            element={isLoggedIn ? <HomePage /> : <Navigate to="login" />}
           >
             <Route path="/" element={<NewsFeed />} />
             <Route path="menu" element={<MobileMenu />} />
-            <Route path="profile/:userId" element={<ProfilePage />} />
           </Route>
 
           <Route
-            path="/login"
+            path="login"
             element={isLoggedIn ? <Navigate to="/" /> : <LoginPage />}
           />
 
           <Route
-            path="/signup"
+            path="signup"
             element={isLoggedIn ? <Navigate to="/" /> : <SignupPage />}
           />
+
+          <Route path=":userid" element={<ProfilePage />} />
         </Routes>
       </BrowserRouter>
     </div>

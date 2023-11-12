@@ -2,7 +2,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
 import GroupIcon from "@mui/icons-material/Group";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import SearchIcon from "@mui/icons-material/Search";
+import MailIcon from "@mui/icons-material/Mail";
 import MenuIcon from "@mui/icons-material/Menu";
 import "./MobileNavContainerMenu.css";
 
@@ -42,13 +42,13 @@ export const MobileNavContainerMenu = () => {
         </div>
       )}
 
-      {location.pathname === "/search" ? (
+      {location.pathname === "/messages" ? (
         <div className="mobileNavTab">
-          <SearchIcon fontSize="large" className="currentComp" />
+          <MailIcon fontSize="large" className="currentComp" />
         </div>
       ) : (
         <div className="mobileNavTab">
-          <SearchIcon fontSize="large" />
+          <MailIcon fontSize="large" />
         </div>
       )}
 

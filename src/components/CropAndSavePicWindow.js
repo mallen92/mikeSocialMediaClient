@@ -3,9 +3,9 @@ import { useState, useCallback } from "react";
 import Cropper from "react-easy-crop";
 import imageCompression from "browser-image-compression";
 import axios from "axios";
-import { URL } from "../../util/url";
-import getCroppedImg from "../../util/getCroppedImage";
-import { updateProfilePic } from "../../state/userSlice";
+import { URL } from "../util/url";
+import getCroppedImg from "../util/getCroppedImage";
+import { updateProfilePic } from "../state/userSlice";
 
 export const CropAndSavePicWindow = ({
   image,
