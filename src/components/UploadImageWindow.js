@@ -2,7 +2,7 @@ import UploadIcon from "@mui/icons-material/Upload";
 
 export const UploadImageWindow = ({
   setImage,
-  closeWindow,
+  showThisWindow,
   openNextWindow,
 }) => {
   const handleImageUpload = (e) => {
@@ -10,7 +10,7 @@ export const UploadImageWindow = ({
     const fileReader = new FileReader();
     fileReader.addEventListener("load", () => {
       setImage(fileReader.result);
-      closeWindow(false);
+      showThisWindow(false);
       openNextWindow(true);
     });
 
@@ -30,7 +30,7 @@ export const UploadImageWindow = ({
         <div>Choose a file</div>
       </label>
 
-      <div className="cancelUploadBtn" onClick={() => closeWindow(false)}>
+      <div className="cancelUploadBtn" onClick={() => showThisWindow(false)}>
         Cancel
       </div>
     </div>

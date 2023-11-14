@@ -12,7 +12,7 @@ export const MobileMenu = () => {
   const logOutUser = () => {
     dispatch(unsetUser());
     window.localStorage.clear();
-    navigate("/");
+    navigate("/login");
   };
 
   return (

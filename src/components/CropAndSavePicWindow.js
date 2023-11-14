@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import Cropper from "react-easy-crop";
 import imageCompression from "browser-image-compression";
 import axios from "axios";
@@ -10,20 +10,20 @@ import { updateProfilePic } from "../state/userSlice";
 export const CropAndSavePicWindow = ({
   image,
   token,
+  updateViewedUser,
   showThisWindow,
   showLoadingWindow,
   showErrorWindow,
-  updateViewedUser,
 }) => {
   const user = useSelector((state) => state.userSlice.user);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
-  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
+  const onCropComplete = (croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
-  }, []);
+  };
   const dispatch = useDispatch();
 
-  const changeProfilePic = async () => {
+  const saveProfilePic = async () => {
     try {
       showThisWindow(false);
       showLoadingWindow(true);
@@ -33,8 +33,8 @@ export const CropAndSavePicWindow = ({
         croppedAreaPixels
       );
       const options = {
-        maxSizeMB: 0.05,
-        maxWidthOrHeight: 1000,
+        maxSizeMB: 1,
+        maxWidthOrHeight: 800,
       };
       const newProfilePic = await imageCompression(
         uncompressedProfilePic,
@@ -50,7 +50,7 @@ export const CropAndSavePicWindow = ({
         },
       });
 
-      saveNewProfilePic(response.data);
+      changeProfilePic(response.data);
       showLoadingWindow(false);
     } catch (error) {
       showErrorWindow(error.response.data.message);
@@ -58,7 +58,7 @@ export const CropAndSavePicWindow = ({
     }
   };
 
-  const saveNewProfilePic = (newPic) => {
+  const changeProfilePic = (newPic) => {
     /* Update the current state we're using */
     dispatch(updateProfilePic(newPic));
 
@@ -75,12 +75,10 @@ export const CropAndSavePicWindow = ({
     let userFound = false;
 
     for (let i = 0; i < visitedProfilesCache.length; i++) {
-      const visitedProfile = visitedProfilesCache[i];
-
-      if (visitedProfile.user_id === user.user_id) {
+      if (visitedProfilesCache[i].user_id === user.user_id) {
         userFound = true;
-        visitedProfile.user_profile_pic = newPic;
-        updateViewedUser(visitedProfile);
+        visitedProfilesCache[i].user_profile_pic = newPic;
+        updateViewedUser(visitedProfilesCache[i]);
       }
       if (userFound) break;
     }
@@ -108,7 +106,7 @@ export const CropAndSavePicWindow = ({
         <div className="cropandSavePicWindowBtns">
           <div
             className="cropandSavePicWindowBtn saveCropBtn"
-            onClick={changeProfilePic}
+            onClick={saveProfilePic}
           >
             Save
           </div>

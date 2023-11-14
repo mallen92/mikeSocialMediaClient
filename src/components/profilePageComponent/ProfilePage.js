@@ -16,7 +16,7 @@ import "./ProfilePage.css";
 export const ProfilePage = () => {
   const user = useSelector((state) => state.userSlice.user);
   const [requestedUser, setRequestedUser] = useState({});
-  const [error, setError] = useState(null);
+  const [image, setImage] = useState(null);
   const location = useLocation();
 
   const userToken = user.user_token;
@@ -27,7 +27,6 @@ export const ProfilePage = () => {
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-
     const visitedProfilesCache = window.localStorage.getItem("visited_profiles");
 
     if (visitedProfilesCache) {
@@ -77,38 +76,34 @@ export const ProfilePage = () => {
   /*------------------------- 2. PROFILE PIC OPTIONS MENU ------------------------*/
 
   const [showProfilePicOptions, setShowProfilePicOptions] = useState(false);
+  const newRef = useRef(null);
 
   const toggleProfilePicOptions = () => {
-    if(requestedUserId === user.user_id) {
+    if (requestedUserId === user.user_id) {
       if (showProfilePicOptions) setShowProfilePicOptions(false);
       else setShowProfilePicOptions(true);
     }
   };
 
-  const newRef = useRef(null);
+  useEffect(() => {
+    document.addEventListener("click", handleOutsideClick);
+  });
+
   const handleOutsideClick = (e) => {
     if (newRef.current && !newRef.current.contains(e.target)) {
       setShowProfilePicOptions(false);
     }
   };
 
-  useEffect(() => {
-    document.addEventListener("mousedown", handleOutsideClick);
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  });
-
   /*------------------------- 2. END PROFILE PIC OPTIONS MENU ------------------------*/
 
   /*------------------------- 3. POP UP WINDOWs ------------------------*/
-
-  const [image, setImage] = useState(null);
 
   const [showUploadImageWindow, setShowUploadImageWindow] = useState(false);
   const [showCropAndSavePicWindow, setShowCropAndSavePicWindow] = useState(false);
   const [showDeleteConfWindow, setShowDeleteConfWindow] = useState(false);
   const [showLoadingWindow, setShowLoadingWindow] = useState(false);
+  const [error, setError] = useState("");
 
   /*------------------------- 3. END POP UP WINDOWs ------------------------*/
 
@@ -127,7 +122,7 @@ export const ProfilePage = () => {
         ) : (
           <div className="profilePage_UserInfo">
             <div className="profilePage_ProfilePicAndPicOptions" ref={newRef}>
-              <img src={requestedUser.user_profile_pic} className="profilePage_UserProfilePic" alt="profile_picture" onClick={toggleProfilePicOptions} />
+              <img src={requestedUser.user_profile_pic} className="profilePage_UserProfilePic" alt="User" onClick={toggleProfilePicOptions} />
 
               {showProfilePicOptions ? (
                 <ProfilePicOptions
@@ -147,52 +142,41 @@ export const ProfilePage = () => {
         {showUploadImageWindow ? (
           <UploadImageWindow
             setImage={setImage}
-            closeWindow={setShowUploadImageWindow}
+            showThisWindow={setShowUploadImageWindow}
             openNextWindow={setShowCropAndSavePicWindow}
           />
         ) : (
-        <></>
+          <></>
         )}
 
         {showCropAndSavePicWindow ? (
           <CropAndSavePicWindow 
             image={image}
             token={userToken}
+            updateViewedUser={setRequestedUser}
             showThisWindow={setShowCropAndSavePicWindow}
             showLoadingWindow={setShowLoadingWindow}
             showErrorWindow={setError}
-            updateViewedUser={setRequestedUser}
           />
-        ) : (
-        <></>
-        )}
-
-        {showDeleteConfWindow ? (
-          <DeleteProfilePicWindow
-            closeWindow={setShowDeleteConfWindow}
-            showLoadingWindow={setShowLoadingWindow}
-            showErrorWindow={setError}
-            updateViewedUser={setRequestedUser}
-          />
-        ) : (
-        <></>
-        )}
-
-        {showLoadingWindow ? (
-          <div className="loadingWindow">
-            <div className="loadingGifContainer">
-              <LoadingWindow />
-            </div>
-          </div>
         ) : (
           <></>
         )}
 
-        {error ? (
-          <ErrorWindow
-            error={error}
-            closeWindow={setError}
+        {showLoadingWindow ? <LoadingWindow /> : <></>}
+
+        {showDeleteConfWindow ? (
+          <DeleteProfilePicWindow
+            updateViewedUser={setRequestedUser}
+            closeWindow={setShowDeleteConfWindow}
+            showLoadingWindow={setShowLoadingWindow}
+            showErrorWindow={setError}
           />
+        ) : (
+        <></>
+        )}
+
+        {error ? (
+          <ErrorWindow error={error} />
         ) : (
         <></>
         )}

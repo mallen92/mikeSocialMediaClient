@@ -4,10 +4,10 @@ import axios from "axios";
 import { URL } from "../util/url";
 
 export const DeleteProfilePicWindow = ({
+  updateViewedUser,
   closeWindow,
   showLoadingWindow,
   showErrorWindow,
-  updateViewedUser,
 }) => {
   const user = useSelector((state) => state.userSlice.user);
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ export const DeleteProfilePicWindow = ({
         },
       });
 
-      saveNewProfilePic(response.data);
+      revertProfilePic(response.data);
       showLoadingWindow(false);
     } catch (error) {
       showErrorWindow(error.response.data.message);
@@ -31,11 +31,11 @@ export const DeleteProfilePicWindow = ({
     }
   };
 
-  const saveNewProfilePic = (newPic) => {
-    dispatch(updateProfilePic(newPic));
+  const revertProfilePic = (defaultPic) => {
+    dispatch(updateProfilePic(defaultPic));
 
     let authUser = JSON.parse(window.localStorage.getItem("user"));
-    authUser.user_profile_pic = newPic;
+    authUser.user_profile_pic = defaultPic;
     window.localStorage.setItem("user", JSON.stringify(authUser));
 
     let visitedProfilesCache = JSON.parse(
@@ -44,12 +44,10 @@ export const DeleteProfilePicWindow = ({
     let userFound = false;
 
     for (let i = 0; i < visitedProfilesCache.length; i++) {
-      const visitedProfile = visitedProfilesCache[i];
-
-      if (visitedProfile.user_id === user.user_id) {
+      if (visitedProfilesCache[i].user_id === user.user_id) {
         userFound = true;
-        visitedProfile.user_profile_pic = newPic;
-        updateViewedUser(visitedProfile);
+        visitedProfilesCache[i].user_profile_pic = defaultPic;
+        updateViewedUser(visitedProfilesCache[i]);
       }
       if (userFound) break;
     }
