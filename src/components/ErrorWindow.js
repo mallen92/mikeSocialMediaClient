@@ -2,7 +2,7 @@ import { unsetUser } from "../state/userSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-export const ErrorWindow = ({ error, showThisWindow }) => {
+export const ErrorWindow = ({ error }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
