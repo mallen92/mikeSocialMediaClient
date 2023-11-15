@@ -127,29 +127,46 @@ export const ProfilePage = () => {
     if (user.user_token) {
       const userFriends = user.user_friends;
       const requestsSent = user.friend_requests_out;
-      let idFoundInRequests = false;
-      let idFoundInFriends = false;
+      const requestsReceived = user.friend_requests_in;
+      let requestSentToUser = false;
+      let requestReceivedFromUser = false;
+      let friendsWithUser = false;
 
-      if (requestsSent.length === 0 && userFriends.length === 0)
+      if (
+        requestsSent.length === 0 &&
+        requestsReceived === 0 &&
+        userFriends.length === 0
+      )
         setFriendStatus("not friend");
       else {
         for (let i = 0; i < requestsSent.length; i++) {
           if (requestsSent[i] === requestedUserId) {
-            idFoundInRequests = true;
-            setFriendStatus("pending");
+            requestSentToUser = true;
+            setFriendStatus("pending_req_user_decision");
           }
 
-          if (idFoundInRequests) break;
+          if (requestSentToUser) break;
         }
 
-        if (!idFoundInRequests) {
+        if (!requestSentToUser) {
+          for (let i = 0; i < requestsReceived.length; i++) {
+            if (requestsReceived[i] === requestedUserId) {
+              requestReceivedFromUser = true;
+              setFriendStatus("pending_this_user_decision");
+            }
+
+            if (requestReceivedFromUser) break;
+          }
+        }
+
+        if (!requestReceivedFromUser) {
           for (let i = 0; i < userFriends.length; i++) {
             if (userFriends[i] === requestedUserId) {
-              idFoundInFriends = true;
+              friendsWithUser = true;
               setFriendStatus("friend");
             }
 
-            if (idFoundInFriends) break;
+            if (friendsWithUser) break;
             else setFriendStatus("not friend");
           }
         }
@@ -159,6 +176,7 @@ export const ProfilePage = () => {
     user.user_token,
     user.user_friends,
     user.friend_requests_out,
+    user.friend_requests_in,
     requestedUserId,
   ]);
 

@@ -9,10 +9,16 @@ export const ConnectComponent = ({ friendStatus }) => {
             return (
               <div className="connectComponentBtn addFriendBtn">Add Friend</div>
             );
-          case "pending":
+          case "pending_req_user_decision":
             return (
               <div className="connectComponentBtn requestSentBtn">
                 Request Sent
+              </div>
+            );
+          case "pending_this_user_decision":
+            return (
+              <div className="connectComponentBtn requestReceivedBtn">
+                Respond to Request
               </div>
             );
           case "friend":
