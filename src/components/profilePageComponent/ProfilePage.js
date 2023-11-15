@@ -10,6 +10,7 @@ import { CropAndSavePicWindow } from "../CropAndSavePicWindow";
 import { DeleteProfilePicWindow } from "../DeleteProfilePicWindow";
 import { LoadingWindow } from "../loadingComponent/LoadingWindow";
 import { ErrorWindow } from "../ErrorWindow";
+import { ConnectComponent } from "../ConnectComponent";
 import placeholder from "./Placeholder.png";
 import "./ProfilePage.css";
 
@@ -17,17 +18,19 @@ export const ProfilePage = () => {
   const user = useSelector((state) => state.userSlice.user);
   const [requestedUser, setRequestedUser] = useState({});
   const [image, setImage] = useState(null);
+  const [friendStatus, setFriendStatus] = useState("");
   const location = useLocation();
 
   const userToken = user.user_token;
   const requestedUserId = location.pathname.split("/")[1];
 
-/*------------------------- 1. LOADING PROFILE ------------------------*/
+  /*------------------------- 1. LOADING PROFILE ------------------------*/
 
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    const visitedProfilesCache = window.localStorage.getItem("visited_profiles");
+    const visitedProfilesCache =
+      window.localStorage.getItem("visited_profiles");
 
     if (visitedProfilesCache) {
       const visitedProfilesArray = JSON.parse(visitedProfilesCache);
@@ -46,33 +49,43 @@ export const ProfilePage = () => {
       }
 
       if (!userFound) {
-        axios.get(`${URL}/users?id=${requestedUserId}`)
-        .then ((response) => {
-          setRequestedUser(response.data);
-          setLoading(false);
-  
-          visitedProfilesArray.push(response.data);
-          window.localStorage.setItem("visited_profiles", JSON.stringify(visitedProfilesArray));
-        }).catch ((error) => {
-          setError(error.response.data.message);
-        })
+        axios
+          .get(`${URL}/users?id=${requestedUserId}`)
+          .then((response) => {
+            setRequestedUser(response.data);
+            setLoading(false);
+
+            visitedProfilesArray.push(response.data);
+            window.localStorage.setItem(
+              "visited_profiles",
+              JSON.stringify(visitedProfilesArray)
+            );
+          })
+          .catch((error) => {
+            setError(error.response.data.message);
+          });
       }
     } else {
-      axios.get(`${URL}/users?id=${requestedUserId}`)
-      .then((response) => {
-        setRequestedUser(response.data);
-        setLoading(false);
+      axios
+        .get(`${URL}/users?id=${requestedUserId}`)
+        .then((response) => {
+          setRequestedUser(response.data);
+          setLoading(false);
 
-        const visitedUsers = [response.data];
-        window.localStorage.setItem("visited_profiles", JSON.stringify(visitedUsers));
-      }).catch ((error) => {
-        setError(error.response.data.message);
-      })
+          const visitedUsers = [response.data];
+          window.localStorage.setItem(
+            "visited_profiles",
+            JSON.stringify(visitedUsers)
+          );
+        })
+        .catch((error) => {
+          setError(error.response.data.message);
+        });
     }
   }, [requestedUserId]);
 
   /*------------------------- 1. END LOADING PROFILE ------------------------*/
-  
+
   /*------------------------- 2. PROFILE PIC OPTIONS MENU ------------------------*/
 
   const [showProfilePicOptions, setShowProfilePicOptions] = useState(false);
@@ -97,36 +110,91 @@ export const ProfilePage = () => {
 
   /*------------------------- 2. END PROFILE PIC OPTIONS MENU ------------------------*/
 
-  /*------------------------- 3. POP UP WINDOWs ------------------------*/
+  /*------------------------- 3. PROFILE PIC DIALOGUE WINDOWS ------------------------*/
 
   const [showUploadImageWindow, setShowUploadImageWindow] = useState(false);
-  const [showCropAndSavePicWindow, setShowCropAndSavePicWindow] = useState(false);
+  const [showCropAndSavePicWindow, setShowCropAndSavePicWindow] =
+    useState(false);
   const [showDeleteConfWindow, setShowDeleteConfWindow] = useState(false);
   const [showLoadingWindow, setShowLoadingWindow] = useState(false);
   const [error, setError] = useState("");
 
-  /*------------------------- 3. END POP UP WINDOWs ------------------------*/
+  /*------------------------- 3. END PROFILE PIC DIALOGUE WINDOWS ------------------------*/
+
+  /*------------------------- 4. FRIEND STATUS ------------------------*/
+
+  useEffect(() => {
+    if (user.user_token) {
+      const userFriends = user.user_friends;
+      const requestsSent = user.friend_requests_out;
+      let idFoundInRequests = false;
+      let idFoundInFriends = false;
+
+      if (requestsSent.length === 0 && userFriends.length === 0)
+        setFriendStatus("not friend");
+      else {
+        for (let i = 0; i < requestsSent.length; i++) {
+          if (requestsSent[i] === requestedUserId) {
+            idFoundInRequests = true;
+            setFriendStatus("pending");
+          }
+
+          if (idFoundInRequests) break;
+        }
+
+        if (!idFoundInRequests) {
+          for (let i = 0; i < userFriends.length; i++) {
+            if (userFriends[i] === requestedUserId) {
+              idFoundInFriends = true;
+              setFriendStatus("friend");
+            }
+
+            if (idFoundInFriends) break;
+            else setFriendStatus("not friend");
+          }
+        }
+      }
+    }
+  }, [
+    user.user_token,
+    user.user_friends,
+    user.friend_requests_out,
+    requestedUserId,
+  ]);
+
+  /*------------------------- 4. END FRIEND STATUS ------------------------*/
 
   return (
-    <div className="profilePageBody">
+    <div className="profilePage">
       <div className="navContainer">
         <NavContainer />
       </div>
 
-      <div className="profilePage_Content">
-        {isLoading ? (
-          <div className="profilePage_UserInfo">
-            <img src={placeholder} className="profilePage_UserProfilePic" alt="loading" />
+      {isLoading ? (
+        <div className="profileContent">
+          <div className="profileUserInfo">
+            <img
+              src={placeholder}
+              className="profileUserProfilePic"
+              alt="loading"
+            />
             <img src={placeholder} className="loadingName" alt="loading" />
           </div>
-        ) : (
-          <div className="profilePage_UserInfo">
-            <div className="profilePage_ProfilePicAndPicOptions" ref={newRef}>
-              <img src={requestedUser.user_profile_pic} className="profilePage_UserProfilePic" alt="User" onClick={toggleProfilePicOptions} />
+        </div>
+      ) : (
+        <div className="profileContent">
+          <div className="profileUserInfo">
+            <div className="profilePicAndOptionsMenu" ref={newRef}>
+              <img
+                src={requestedUser.user_profile_pic}
+                className="profileUserProfilePic"
+                alt="User"
+                onClick={toggleProfilePicOptions}
+              />
 
               {showProfilePicOptions ? (
                 <ProfilePicOptions
-                  closeMenu={setShowProfilePicOptions} 
+                  closeMenu={setShowProfilePicOptions}
                   uploadImage={setShowUploadImageWindow}
                   openDeleteConfWindow={setShowDeleteConfWindow}
                 />
@@ -135,53 +203,58 @@ export const ProfilePage = () => {
               )}
             </div>
 
-            <div className="profilePage_UserName">{`${requestedUser.user_first_name} ${requestedUser.user_last_name}`}</div>
+            <div className="profileUserName">{`${requestedUser.user_first_name} ${requestedUser.user_last_name}`}</div>
           </div>
-        )}
 
-        {showUploadImageWindow ? (
-          <UploadImageWindow
-            setImage={setImage}
-            showThisWindow={setShowUploadImageWindow}
-            openNextWindow={setShowCropAndSavePicWindow}
-          />
-        ) : (
-          <></>
-        )}
+          {/*-------------------- DIALOGUE WINDOWS FOR PROFILE PIC CONFIG --------------------*/}
 
-        {showCropAndSavePicWindow ? (
-          <CropAndSavePicWindow 
-            image={image}
-            token={userToken}
-            updateViewedUser={setRequestedUser}
-            showThisWindow={setShowCropAndSavePicWindow}
-            showLoadingWindow={setShowLoadingWindow}
-            showErrorWindow={setError}
-          />
-        ) : (
-          <></>
-        )}
+          {showUploadImageWindow ? (
+            <UploadImageWindow
+              setImage={setImage}
+              showThisWindow={setShowUploadImageWindow}
+              openNextWindow={setShowCropAndSavePicWindow}
+            />
+          ) : (
+            <></>
+          )}
 
-        {showLoadingWindow ? <LoadingWindow /> : <></>}
+          {showCropAndSavePicWindow ? (
+            <CropAndSavePicWindow
+              image={image}
+              token={userToken}
+              updateViewedUser={setRequestedUser}
+              showThisWindow={setShowCropAndSavePicWindow}
+              showLoadingWindow={setShowLoadingWindow}
+              showErrorWindow={setError}
+            />
+          ) : (
+            <></>
+          )}
 
-        {showDeleteConfWindow ? (
-          <DeleteProfilePicWindow
-            updateViewedUser={setRequestedUser}
-            closeWindow={setShowDeleteConfWindow}
-            showLoadingWindow={setShowLoadingWindow}
-            showErrorWindow={setError}
-          />
-        ) : (
-        <></>
-        )}
+          {showLoadingWindow ? <LoadingWindow /> : <></>}
 
-        {error ? (
-          <ErrorWindow error={error} />
-        ) : (
-        <></>
-        )}
+          {showDeleteConfWindow ? (
+            <DeleteProfilePicWindow
+              updateViewedUser={setRequestedUser}
+              closeWindow={setShowDeleteConfWindow}
+              showLoadingWindow={setShowLoadingWindow}
+              showErrorWindow={setError}
+            />
+          ) : (
+            <></>
+          )}
 
-      </div>
+          {error ? <ErrorWindow error={error} /> : <></>}
+
+          {/*-------------------- END DIALOGUE WINDOWS FOR PROFILE PIC CONFIG --------------------*/}
+
+          {user.user_token && requestedUser.user_id !== user.user_id ? (
+            <ConnectComponent friendStatus={friendStatus} />
+          ) : (
+            <></>
+          )}
+        </div>
+      )}
     </div>
-  )
-}
+  );
+};
