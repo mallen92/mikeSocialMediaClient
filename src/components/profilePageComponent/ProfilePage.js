@@ -9,7 +9,7 @@ import { UploadImageWindow } from "../UploadImageWindow";
 import { CropAndSavePicWindow } from "../CropAndSavePicWindow";
 import { DeleteProfilePicWindow } from "../DeleteProfilePicWindow";
 import { LoadingWindow } from "../loadingComponent/LoadingWindow";
-import { ErrorWindow } from "../ErrorWindow";
+import { ErrorBanner } from "../ErrorBanner";
 import { ConnectComponent } from "../ConnectComponent";
 import placeholder from "./Placeholder.png";
 import "./ProfilePage.css";
@@ -134,7 +134,7 @@ export const ProfilePage = () => {
 
       if (
         requestsSent.length === 0 &&
-        requestsReceived === 0 &&
+        requestsReceived.length === 0 &&
         userFriends.length === 0
       )
         setFriendStatus("not friend");
@@ -243,7 +243,7 @@ export const ProfilePage = () => {
               updateViewedUser={setRequestedUser}
               showThisWindow={setShowCropAndSavePicWindow}
               showLoadingWindow={setShowLoadingWindow}
-              showErrorWindow={setError}
+              showErrorBanner={setError}
             />
           ) : (
             <></>
@@ -256,18 +256,22 @@ export const ProfilePage = () => {
               updateViewedUser={setRequestedUser}
               closeWindow={setShowDeleteConfWindow}
               showLoadingWindow={setShowLoadingWindow}
-              showErrorWindow={setError}
+              showErrorBanner={setError}
             />
           ) : (
             <></>
           )}
 
-          {error ? <ErrorWindow error={error} /> : <></>}
+          {error ? <ErrorBanner error={error} closeBanner={setError} /> : <></>}
 
           {/*-------------------- END DIALOGUE WINDOWS FOR PROFILE PIC CONFIG --------------------*/}
 
           {user.user_token && requestedUser.user_id !== user.user_id ? (
-            <ConnectComponent friendStatus={friendStatus} />
+            <ConnectComponent
+              friendStatus={friendStatus}
+              requestedUser={requestedUserId}
+              userToken={userToken}
+            />
           ) : (
             <></>
           )}

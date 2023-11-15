@@ -14,12 +14,16 @@ export const userSlice = createSlice({
     updateProfilePic: (state, action) => {
       state.user.user_profile_pic = action.payload;
     },
+    updateFriendRequestsOut: (state, action) => {
+      state.user.friend_requests_out.push(action.payload);
+    },
     unsetUser: (state) => {
       state.user = {};
     },
   },
 });
 
-export const { setUser, updateProfilePic, unsetUser } = userSlice.actions;
+export const { setUser, updateProfilePic, updateFriendRequestsOut, unsetUser } =
+  userSlice.actions;
 
 export default userSlice.reducer;

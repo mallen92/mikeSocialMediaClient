@@ -2,7 +2,7 @@ import { unsetUser } from "../state/userSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-export const ErrorWindow = ({ error }) => {
+export const ErrorBanner = ({ error, closeBanner }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -13,13 +13,16 @@ export const ErrorWindow = ({ error }) => {
   };
 
   return (
-    <div className="errorWindow">
-      <div className="errorWindowTitle">ERROR</div>
-      <div className="errorWindowMsg">{error}</div>
-
-      <div className="errorWindowCloseBtn" onClick={logOutUser}>
-        OK
-      </div>
+    <div className="errorBanner">
+      {error.includes("Server error") ? (
+        <div className="errorBannerMsg" onClick={() => closeBanner("")}>
+          {error}
+        </div>
+      ) : (
+        <div className="errorBannerMsg" onClick={logOutUser}>
+          {error}
+        </div>
+      )}
     </div>
   );
 };

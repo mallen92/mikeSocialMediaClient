@@ -98,44 +98,21 @@
 
   /*--------------- 2. ERROR WINDOW ---------------*/
 
-  .errorWindow {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 10px;
+  .errorBanner {
+    padding: 8px;
     position: absolute;
-    top: 250px;
-    width: 75%;
-
-    background-color: var(--socialGold);
-    border: 2px solid var(--socialBlue);
-    border-radius: 20px;
-    font-weight: bold;
-  }
-
-  .errorWindowTitle {
-    background-color: var(--dangerRed);
-    color: black;
-    font-size: 30px;
-    text-align: center;
+    left: 0;
+    top: 0;
     width: 100%;
+
+    background-color: rgba(231, 54, 54, 0.822);
+    font-weight: bold;
+    text-align: center;
   }
 
-  .errorWindowMsg {
+  .errorBannerMsg {
     color: var(--socialBlue);
     font-size: 20px;
-    text-align: center;
-  }
-
-  .errorWindowCloseBtn {
-    padding: 5px;
-    width: 75px;
-
-    background-color: var(--socialBlue);
-    color: var(--white);
-    font-size: 20px;
-    font-weight: bold;
     text-align: center;
   }
 
@@ -334,6 +311,21 @@
     background-color: var(--dangerRed);
   }
 
+  .connectBanner {
+    padding: 8px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .requestSuccessMsg {
+    background-color: rgba(85, 185, 85, 0.788);
+  }
+
   /*--------------- 6. END CONNECT COMPONENT ---------------*/
 }
 
@@ -379,15 +371,22 @@
     margin-left: 10px;
   }
 
-  .errorWindow {
-    left: 80px;
+  .errorBanner {
+    padding: 15px;
+  }
+
+  .connectBanner {
+    padding: 15px;
+  }
+
+  .requestSuccessMsg {
+    font-size: 20px;
   }
 
   /* "width: 70vw" for popup windows */
   .uploadImageWindow,
   .cropperContainer,
-  .deleteConfWindow,
-  .errorWindow {
+  .deleteConfWindow {
     width: 70vw;
   }
 
@@ -395,7 +394,8 @@
   .picOption:hover,
   .errorWindowCloseBtn:hover,
   .cancelUploadBtn:hover,
-  .cropandSavePicWindowBtn:hover {
+  .cropandSavePicWindowBtn:hover,
+  .connectComponentBtn:hover {
     background-color: var(--white);
     cursor: pointer;
   }
@@ -405,16 +405,11 @@
 @media (min-width: 1024px) {
   .uploadImageWindow,
   .cropperContainer,
-  .deleteConfWindow,
-  .errorWindow {
+  .deleteConfWindow {
     width: 75vw;
   }
 }
 
 /* Extra large screens */
 @media (min-width: 1440px) {
-  .errorWindow {
-    left: 250px;
-    width: 50%;
-  }
 }
