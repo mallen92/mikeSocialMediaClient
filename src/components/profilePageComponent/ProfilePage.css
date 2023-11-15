@@ -9,13 +9,13 @@
 
 /* Smartphones */
 @media (min-width: 320px) {
-  .profilePageBody {
+  .profilePage {
     display: flex;
     flex-direction: column;
     height: 100vh;
   }
 
-  .profilePage_Content {
+  .profileContent {
     display: flex;
     align-items: center;
     flex: 1;
@@ -30,7 +30,7 @@
 
   /*--------------- 1. USER INFO ---------------*/
 
-  .profilePage_UserInfo {
+  .profileUserInfo {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -41,11 +41,11 @@
 
   /*--------------- 1A. PROFILE PIC AND OPTIONS ---------------*/
 
-  .profilePage_ProfilePicAndPicOptions {
+  .profilePicAndOptionsMenu {
     border-radius: 50%;
   }
 
-  .profilePage_UserProfilePic {
+  .profileUserProfilePic {
     width: 125px;
     border: 4px solid #888888;
     border-radius: 50%;
@@ -87,7 +87,7 @@
     width: 300px;
   }
 
-  .profilePage_UserName {
+  .profileUserName {
     font-size: 25px;
     font-weight: bold;
     text-align: center;
@@ -294,6 +294,43 @@
   }
 
   /*--------------- 5. END DELETE CONFIRMATION WINDOW ---------------*/
+
+  /*--------------- 6. CONNECT COMPONENT ---------------*/
+
+  .connectComponent {
+    display: flex;
+    column-gap: 15px;
+  }
+
+  .connectComponentBtn {
+    padding: 10px;
+
+    border: 2px solid rgb(71, 71, 71);
+    border-radius: 10px;
+    box-shadow: 3px 3px 6px rgb(165, 165, 165);
+    font-family: "Lato Black";
+  }
+
+  .sendMessageBtn {
+    background-color: var(--socialGold);
+  }
+
+  .addFriendBtn {
+    background-color: var(--confirmGreen);
+  }
+
+  .requestSentBtn {
+    background-color: grey;
+    color: rgb(199, 199, 199);
+    border: 2px solid grey;
+    box-shadow: none;
+  }
+
+  .removeFriendBtn {
+    background-color: var(--dangerRed);
+  }
+
+  /*--------------- 6. END CONNECT COMPONENT ---------------*/
 }
 
 /* Tablets */
@@ -305,22 +342,22 @@
 
 /* Large tablets */
 @media (min-width: 768px) {
-  .profilePageBody {
+  .profilePage {
     flex-direction: row;
   }
 
-  .profilePage_Content {
+  .profileContent {
     align-items: unset;
     gap: 30px;
     padding: 3%;
   }
 
-  .profilePage_UserInfo {
+  .profileUserInfo {
     flex-direction: unset;
     align-items: center;
   }
 
-  .profilePage_UserProfilePic {
+  .profileUserProfilePic {
     width: 200px;
   }
 
@@ -332,7 +369,7 @@
     width: 50%;
   }
 
-  .profilePage_UserName {
+  .profileUserName {
     font-family: "Lato Black";
     font-size: 45px;
     margin-left: 10px;
