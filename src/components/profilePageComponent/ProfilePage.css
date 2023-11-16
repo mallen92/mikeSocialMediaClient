@@ -299,7 +299,6 @@
   .requestSentBtn {
     background-color: grey;
     color: rgb(199, 199, 199);
-    border: 2px solid grey;
     box-shadow: none;
   }
 

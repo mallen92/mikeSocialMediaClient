@@ -2,7 +2,10 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { URL } from "../util/url";
-import { updateFriendRequestsOut } from "../state/userSlice";
+import {
+  addFriendRequestOut,
+  deleteFriendRequestOut,
+} from "../state/userSlice";
 import { ErrorBanner } from "./ErrorBanner";
 
 export const ConnectComponent = ({
@@ -26,7 +29,7 @@ export const ConnectComponent = ({
         }
       );
 
-      dispatch(updateFriendRequestsOut(requestedUser));
+      dispatch(addFriendRequestOut(requestedUser));
 
       let authUser = JSON.parse(window.localStorage.getItem("user"));
       authUser.friend_requests_out.push(requestedUser);
@@ -37,7 +40,27 @@ export const ConnectComponent = ({
     }
   };
 
-  const cancelRequest = () => {};
+  const cancelRequest = async () => {
+    try {
+      const response = await axios.delete(
+        `${URL}/users/request?id=${requestedUser}`,
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        }
+      );
+
+      dispatch(deleteFriendRequestOut(response.data.index));
+
+      let authUser = JSON.parse(window.localStorage.getItem("user"));
+      authUser.friend_requests_out.splice(response.data.index, 1);
+      window.localStorage.setItem("user", JSON.stringify(authUser));
+      setRequestSuccessMsg(response.data.message);
+    } catch (error) {
+      setRequestErrorMsg(error.response.data.message);
+    }
+  };
 
   return (
     <div className="connectComponent">
@@ -58,7 +81,7 @@ export const ConnectComponent = ({
                 className="connectComponentBtn requestSentBtn"
                 onClick={cancelRequest}
               >
-                Request Sent
+                Cancel Request
               </div>
             );
           case "pending_this_user_decision":

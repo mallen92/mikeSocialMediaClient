@@ -14,8 +14,11 @@ export const userSlice = createSlice({
     updateProfilePic: (state, action) => {
       state.user.user_profile_pic = action.payload;
     },
-    updateFriendRequestsOut: (state, action) => {
+    addFriendRequestOut: (state, action) => {
       state.user.friend_requests_out.push(action.payload);
+    },
+    deleteFriendRequestOut: (state, action) => {
+      state.user.friend_requests_out.splice(action.payload, 1);
     },
     unsetUser: (state) => {
       state.user = {};
@@ -23,7 +26,12 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setUser, updateProfilePic, updateFriendRequestsOut, unsetUser } =
-  userSlice.actions;
+export const {
+  setUser,
+  updateProfilePic,
+  addFriendRequestOut,
+  deleteFriendRequestOut,
+  unsetUser,
+} = userSlice.actions;
 
 export default userSlice.reducer;
