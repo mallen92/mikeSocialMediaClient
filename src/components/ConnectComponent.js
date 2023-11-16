@@ -5,6 +5,7 @@ import { URL } from "../util/url";
 import {
   addFriendRequestOut,
   deleteFriendRequestOut,
+  deleteFriendRequestIn,
 } from "../state/userSlice";
 import { ErrorBanner } from "./ErrorBanner";
 
@@ -43,7 +44,7 @@ export const ConnectComponent = ({
   const cancelRequest = async () => {
     try {
       const response = await axios.delete(
-        `${URL}/users/request?id=${requestedUser}`,
+        `${URL}/users/request/revoke?id=${requestedUser}`,
         {
           headers: {
             Authorization: `Bearer ${userToken}`,
@@ -55,6 +56,28 @@ export const ConnectComponent = ({
 
       let authUser = JSON.parse(window.localStorage.getItem("user"));
       authUser.friend_requests_out.splice(response.data.index, 1);
+      window.localStorage.setItem("user", JSON.stringify(authUser));
+      setRequestSuccessMsg(response.data.message);
+    } catch (error) {
+      setRequestErrorMsg(error.response.data.message);
+    }
+  };
+
+  const rejectRequest = async () => {
+    try {
+      const response = await axios.delete(
+        `${URL}/users/request/reject?id=${requestedUser}`,
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        }
+      );
+
+      dispatch(deleteFriendRequestIn(response.data.index));
+
+      let authUser = JSON.parse(window.localStorage.getItem("user"));
+      authUser.friend_requests_in.splice(response.data.index, 1);
       window.localStorage.setItem("user", JSON.stringify(authUser));
       setRequestSuccessMsg(response.data.message);
     } catch (error) {
