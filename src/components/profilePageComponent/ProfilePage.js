@@ -203,12 +203,21 @@ export const ProfilePage = () => {
         <div className="profileContent">
           <div className="profileUserInfo">
             <div className="profilePicAndOptionsMenu" ref={newRef}>
-              <img
-                src={requestedUser.profile_pic_url}
-                className="profileUserProfilePic"
-                alt="User"
-                onClick={toggleProfilePicOptions}
-              />
+              {user.user_token && requestedUser.user_id === user.user_id ? (
+                <img
+                  src={requestedUser.profile_pic_url}
+                  className="profileAuthUserProfilePic"
+                  alt="User"
+                  onClick={toggleProfilePicOptions}
+                />
+              ) : (
+                <img
+                  src={requestedUser.profile_pic_url}
+                  className="profileUserProfilePic"
+                  alt="User"
+                  onClick={toggleProfilePicOptions}
+                />
+              )}
 
               {showProfilePicOptions ? (
                 <ProfilePicOptions
