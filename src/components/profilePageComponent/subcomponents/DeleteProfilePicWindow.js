@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-import { updateProfilePic } from "../state/userSlice";
+import { updateProfilePic } from "../../../state/userSlice";
 import axios from "axios";
-import { URL } from "../util/url";
+import { URL } from "../../../util/url";
 
 export const DeleteProfilePicWindow = ({
   updateViewedUser,
@@ -23,7 +23,7 @@ export const DeleteProfilePicWindow = ({
         },
       });
 
-      revertProfilePic(response.data);
+      revertProfilePic(response.data.picUrl, response.data.picFilename);
       showLoadingWindow(false);
     } catch (error) {
       showErrorWindow(error.response.data.message);
@@ -31,25 +31,24 @@ export const DeleteProfilePicWindow = ({
     }
   };
 
-  const revertProfilePic = (defaultPic) => {
-    dispatch(updateProfilePic(defaultPic));
+  const revertProfilePic = (newPic, newPicFilename) => {
+    dispatch(updateProfilePic({ newPic, newPicFilename }));
 
     let authUser = JSON.parse(window.localStorage.getItem("user"));
-    authUser.user_profile_pic = defaultPic;
+    authUser.profile_pic_url = newPic;
+    authUser.user_profile_pic = newPicFilename;
     window.localStorage.setItem("user", JSON.stringify(authUser));
 
     let visitedProfilesCache = JSON.parse(
       window.localStorage.getItem("visited_profiles")
     );
-    let userFound = false;
 
     for (let i = 0; i < visitedProfilesCache.length; i++) {
       if (visitedProfilesCache[i].user_id === user.user_id) {
-        userFound = true;
-        visitedProfilesCache[i].user_profile_pic = defaultPic;
+        visitedProfilesCache[i].profile_pic_url = newPic;
         updateViewedUser(visitedProfilesCache[i]);
+        break;
       }
-      if (userFound) break;
     }
 
     window.localStorage.setItem(

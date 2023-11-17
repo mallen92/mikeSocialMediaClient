@@ -96,29 +96,7 @@
   /*--------------- 1B. END PROFILE USERNAME ---------------*/
   /*--------------- 1. END USER INFO ---------------*/
 
-  /*--------------- 2. ERROR WINDOW ---------------*/
-
-  .errorBanner {
-    padding: 8px;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-
-    background-color: rgba(231, 54, 54, 0.822);
-    font-weight: bold;
-    text-align: center;
-  }
-
-  .errorBannerMsg {
-    color: var(--socialBlue);
-    font-size: 20px;
-    text-align: center;
-  }
-
-  /*--------------- 2. END ERROR WINDOW ---------------*/
-
-  /*--------------- 3. IMAGE UPLOAD WINDOW ---------------*/
+  /*--------------- IMAGE UPLOAD WINDOW ---------------*/
 
   .uploadImageWindow {
     align-items: center;
@@ -164,9 +142,9 @@
     text-align: center;
   }
 
-  /*--------------- 3. END IMAGE UPLOAD WINDOW ---------------*/
+  /*--------------- END IMAGE UPLOAD WINDOW ---------------*/
 
-  /*--------------- 4. CROP AND SAVE PIC WINDOW ---------------*/
+  /*--------------- CROP AND SAVE PIC WINDOW ---------------*/
 
   .cropAndSavePicWindow {
     position: absolute;
@@ -227,9 +205,9 @@
     border-radius: 20px;
   }
 
-  /*--------------- 4. END CROP AND SAVE PIC WINDOW ---------------*/
+  /*--------------- END CROP AND SAVE PIC WINDOW ---------------*/
 
-  /*--------------- 5. DELETE CONFIRMATION WINDOW ---------------*/
+  /*--------------- DELETE CONFIRMATION WINDOW ---------------*/
 
   .deleteConfWindow {
     align-items: center;
@@ -270,62 +248,7 @@
     width: 100%;
   }
 
-  /*--------------- 5. END DELETE CONFIRMATION WINDOW ---------------*/
-
-  /*--------------- 6. CONNECT COMPONENT ---------------*/
-
-  .connectComponent {
-    display: flex;
-    column-gap: 15px;
-  }
-
-  .connectComponentBtn {
-    padding: 10px;
-
-    border: 2px solid rgb(71, 71, 71);
-    border-radius: 10px;
-    box-shadow: 3px 3px 6px rgb(165, 165, 165);
-    font-family: "Lato Black";
-  }
-
-  .sendMessageBtn {
-    background-color: var(--socialGold);
-  }
-
-  .addFriendBtn {
-    background-color: var(--confirmGreen);
-  }
-
-  .requestSentBtn {
-    background-color: grey;
-    color: rgb(199, 199, 199);
-    box-shadow: none;
-  }
-
-  .requestReceivedBtn {
-    background-color: rgb(228, 228, 0);
-  }
-
-  .removeFriendBtn {
-    background-color: var(--dangerRed);
-  }
-
-  .connectBanner {
-    padding: 8px;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-
-    font-weight: bold;
-    text-align: center;
-  }
-
-  .requestSuccessMsg {
-    background-color: rgba(85, 185, 85, 0.788);
-  }
-
-  /*--------------- 6. END CONNECT COMPONENT ---------------*/
+  /*--------------- END DELETE CONFIRMATION WINDOW ---------------*/
 }
 
 /* Tablets */
@@ -370,18 +293,6 @@
     margin-left: 10px;
   }
 
-  .errorBanner {
-    padding: 15px;
-  }
-
-  .connectBanner {
-    padding: 15px;
-  }
-
-  .requestSuccessMsg {
-    font-size: 20px;
-  }
-
   /* "width: 70vw" for popup windows */
   .uploadImageWindow,
   .cropperContainer,
@@ -391,10 +302,8 @@
 
   /* button transformations on hover */
   .picOption:hover,
-  .errorWindowCloseBtn:hover,
   .cancelUploadBtn:hover,
-  .cropandSavePicWindowBtn:hover,
-  .connectComponentBtn:hover {
+  .cropandSavePicWindowBtn:hover {
     background-color: var(--white);
     cursor: pointer;
   }

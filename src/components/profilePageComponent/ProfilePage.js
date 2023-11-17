@@ -4,15 +4,16 @@ import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { URL } from "../../util/url";
 import { NavContainer } from "../navContainerComponent/NavContainer";
-import { ProfilePicOptions } from "../ProfilePicOptions";
-import { UploadImageWindow } from "../UploadImageWindow";
-import { CropAndSavePicWindow } from "../CropAndSavePicWindow";
-import { DeleteProfilePicWindow } from "../DeleteProfilePicWindow";
+import { ProfilePicOptions } from "./subcomponents/ProfilePicOptions";
+import { UploadImageWindow } from "./subcomponents/UploadImageWindow";
+import { CropAndSavePicWindow } from "./subcomponents/CropAndSavePicWindow";
+import { DeleteProfilePicWindow } from "./subcomponents/DeleteProfilePicWindow";
 import { LoadingWindow } from "../loadingComponent/LoadingWindow";
-import { ErrorBanner } from "../ErrorBanner";
-import { ConnectComponent } from "../ConnectComponent";
-import placeholder from "./Placeholder.png";
-import "./ProfilePage.css";
+import { ErrorBanner } from "../authErrorBannerComponent/ErrorBanner";
+import { ConnectComponent } from "./subcomponents/ConnectComponent";
+import placeholder from "./images/Placeholder.png";
+import "./styles/ProfilePage.css";
+import "./styles/ConnectComponent.css";
 
 export const ProfilePage = () => {
   const user = useSelector((state) => state.userSlice.user);
@@ -43,9 +44,8 @@ export const ProfilePage = () => {
           setRequestedUser(visitedProfile);
           setLoading(false);
           userFound = true;
+          break;
         }
-
-        if (userFound) break;
       }
 
       if (!userFound) {
@@ -204,7 +204,7 @@ export const ProfilePage = () => {
           <div className="profileUserInfo">
             <div className="profilePicAndOptionsMenu" ref={newRef}>
               <img
-                src={requestedUser.user_profile_pic}
+                src={requestedUser.profile_pic_url}
                 className="profileUserProfilePic"
                 alt="User"
                 onClick={toggleProfilePicOptions}

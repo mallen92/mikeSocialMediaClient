@@ -21,7 +21,7 @@ export const MobileMenu = () => {
 
       <div className="userInfoMobile">
         <img
-          src={user.user_profile_pic}
+          src={user.profile_pic_url}
           className="mobileProfilePic"
           alt="profile_picture"
         />

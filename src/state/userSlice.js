@@ -11,8 +11,12 @@ export const userSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload;
     },
+    unsetUser: (state) => {
+      state.user = {};
+    },
     updateProfilePic: (state, action) => {
-      state.user.user_profile_pic = action.payload;
+      state.user.profile_pic_url = action.payload.newPic;
+      state.user.user_profile_pic = action.payload.newPicFilename;
     },
     addFriendRequestOut: (state, action) => {
       state.user.friend_requests_out.push(action.payload);
@@ -23,19 +27,25 @@ export const userSlice = createSlice({
     deleteFriendRequestIn: (state, action) => {
       state.user.friend_requests_in.splice(action.payload, 1);
     },
-    unsetUser: (state) => {
-      state.user = {};
+    addFriend: (state, action) => {
+      const id = state.user.friend_requests_in.splice(action.payload, 1);
+      state.user.user_friends.push(id[0]);
+    },
+    removeFriend: (state, action) => {
+      state.user.user_friends.splice(action.payload, 1);
     },
   },
 });
 
 export const {
   setUser,
+  unsetUser,
   updateProfilePic,
   addFriendRequestOut,
   deleteFriendRequestOut,
   deleteFriendRequestIn,
-  unsetUser,
+  addFriend,
+  removeFriend,
 } = userSlice.actions;
 
 export default userSlice.reducer;

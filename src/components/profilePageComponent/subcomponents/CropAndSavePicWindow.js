@@ -3,9 +3,9 @@ import { useState } from "react";
 import Cropper from "react-easy-crop";
 import imageCompression from "browser-image-compression";
 import axios from "axios";
-import { URL } from "../util/url";
-import getCroppedImg from "../util/getCroppedImage";
-import { updateProfilePic } from "../state/userSlice";
+import { URL } from "../../../util/url";
+import getCroppedImg from "../../../util/getCroppedImage";
+import { updateProfilePic } from "../../../state/userSlice";
 
 export const CropAndSavePicWindow = ({
   image,
@@ -50,7 +50,7 @@ export const CropAndSavePicWindow = ({
         },
       });
 
-      changeProfilePic(response.data);
+      changeProfilePic(response.data.picUrl, response.data.picFilename);
       showLoadingWindow(false);
     } catch (error) {
       showErrorWindow(error.response.data.message);
@@ -58,13 +58,14 @@ export const CropAndSavePicWindow = ({
     }
   };
 
-  const changeProfilePic = (newPic) => {
+  const changeProfilePic = (newPic, newPicFilename) => {
     /* Update the current state we're using */
-    dispatch(updateProfilePic(newPic));
+    dispatch(updateProfilePic({ newPic, newPicFilename }));
 
     /* Update the state stored in our current session  */
     let authUser = JSON.parse(window.localStorage.getItem("user"));
-    authUser.user_profile_pic = newPic;
+    authUser.profile_pic_url = newPic;
+    authUser.user_profile_pic = newPicFilename;
     window.localStorage.setItem("user", JSON.stringify(authUser));
 
     /* If we have viewed our own profile, we need to update our information
@@ -72,15 +73,13 @@ export const CropAndSavePicWindow = ({
     let visitedProfilesCache = JSON.parse(
       window.localStorage.getItem("visited_profiles")
     );
-    let userFound = false;
 
     for (let i = 0; i < visitedProfilesCache.length; i++) {
       if (visitedProfilesCache[i].user_id === user.user_id) {
-        userFound = true;
-        visitedProfilesCache[i].user_profile_pic = newPic;
+        visitedProfilesCache[i].profile_pic_url = newPic;
         updateViewedUser(visitedProfilesCache[i]);
+        break;
       }
-      if (userFound) break;
     }
 
     window.localStorage.setItem(
