@@ -62,6 +62,7 @@ export const ProfilePage = () => {
             );
           })
           .catch((error) => {
+            console.log(error);
             setError(error.response.data.message);
           });
       }
@@ -167,9 +168,11 @@ export const ProfilePage = () => {
             }
 
             if (friendsWithUser) break;
-            else setFriendStatus("not friend");
           }
         }
+
+        if (!requestSentToUser && !requestReceivedFromUser && !friendsWithUser)
+          setFriendStatus("not friend");
       }
     }
   }, [
