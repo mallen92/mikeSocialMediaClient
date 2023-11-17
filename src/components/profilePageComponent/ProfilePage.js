@@ -4,15 +4,16 @@ import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { URL } from "../../util/url";
 import { NavContainer } from "../navContainerComponent/NavContainer";
-import { ProfilePicOptions } from "../ProfilePicOptions";
-import { UploadImageWindow } from "../UploadImageWindow";
-import { CropAndSavePicWindow } from "../CropAndSavePicWindow";
-import { DeleteProfilePicWindow } from "../DeleteProfilePicWindow";
+import { ProfilePicOptions } from "./subcomponents/ProfilePicOptions";
+import { UploadImageWindow } from "./subcomponents/UploadImageWindow";
+import { CropAndSavePicWindow } from "./subcomponents/CropAndSavePicWindow";
+import { DeleteProfilePicWindow } from "./subcomponents/DeleteProfilePicWindow";
 import { LoadingWindow } from "../loadingComponent/LoadingWindow";
-import { ErrorWindow } from "../ErrorWindow";
-import { ConnectComponent } from "../ConnectComponent";
-import placeholder from "./Placeholder.png";
-import "./ProfilePage.css";
+import { ErrorBanner } from "../authErrorBannerComponent/ErrorBanner";
+import { ConnectComponent } from "./subcomponents/ConnectComponent";
+import placeholder from "./images/Placeholder.png";
+import "./styles/ProfilePage.css";
+import "./styles/ConnectComponent.css";
 
 export const ProfilePage = () => {
   const user = useSelector((state) => state.userSlice.user);
@@ -43,9 +44,8 @@ export const ProfilePage = () => {
           setRequestedUser(visitedProfile);
           setLoading(false);
           userFound = true;
+          break;
         }
-
-        if (userFound) break;
       }
 
       if (!userFound) {
@@ -62,6 +62,7 @@ export const ProfilePage = () => {
             );
           })
           .catch((error) => {
+            console.log(error);
             setError(error.response.data.message);
           });
       }
@@ -127,38 +128,58 @@ export const ProfilePage = () => {
     if (user.user_token) {
       const userFriends = user.user_friends;
       const requestsSent = user.friend_requests_out;
-      let idFoundInRequests = false;
-      let idFoundInFriends = false;
+      const requestsReceived = user.friend_requests_in;
+      let requestSentToUser = false;
+      let requestReceivedFromUser = false;
+      let friendsWithUser = false;
 
-      if (requestsSent.length === 0 && userFriends.length === 0)
+      if (
+        requestsSent.length === 0 &&
+        requestsReceived.length === 0 &&
+        userFriends.length === 0
+      )
         setFriendStatus("not friend");
       else {
         for (let i = 0; i < requestsSent.length; i++) {
           if (requestsSent[i] === requestedUserId) {
-            idFoundInRequests = true;
-            setFriendStatus("pending");
+            requestSentToUser = true;
+            setFriendStatus("pending_req_user_decision");
           }
 
-          if (idFoundInRequests) break;
+          if (requestSentToUser) break;
         }
 
-        if (!idFoundInRequests) {
+        if (!requestSentToUser) {
+          for (let i = 0; i < requestsReceived.length; i++) {
+            if (requestsReceived[i] === requestedUserId) {
+              requestReceivedFromUser = true;
+              setFriendStatus("pending_this_user_decision");
+            }
+
+            if (requestReceivedFromUser) break;
+          }
+        }
+
+        if (!requestReceivedFromUser) {
           for (let i = 0; i < userFriends.length; i++) {
             if (userFriends[i] === requestedUserId) {
-              idFoundInFriends = true;
+              friendsWithUser = true;
               setFriendStatus("friend");
             }
 
-            if (idFoundInFriends) break;
-            else setFriendStatus("not friend");
+            if (friendsWithUser) break;
           }
         }
+
+        if (!requestSentToUser && !requestReceivedFromUser && !friendsWithUser)
+          setFriendStatus("not friend");
       }
     }
   }, [
     user.user_token,
     user.user_friends,
     user.friend_requests_out,
+    user.friend_requests_in,
     requestedUserId,
   ]);
 
@@ -185,12 +206,21 @@ export const ProfilePage = () => {
         <div className="profileContent">
           <div className="profileUserInfo">
             <div className="profilePicAndOptionsMenu" ref={newRef}>
-              <img
-                src={requestedUser.user_profile_pic}
-                className="profileUserProfilePic"
-                alt="User"
-                onClick={toggleProfilePicOptions}
-              />
+              {user.user_token && requestedUser.user_id === user.user_id ? (
+                <img
+                  src={requestedUser.profile_pic_url}
+                  className="profileAuthUserProfilePic"
+                  alt="User"
+                  onClick={toggleProfilePicOptions}
+                />
+              ) : (
+                <img
+                  src={requestedUser.profile_pic_url}
+                  className="profileUserProfilePic"
+                  alt="User"
+                  onClick={toggleProfilePicOptions}
+                />
+              )}
 
               {showProfilePicOptions ? (
                 <ProfilePicOptions
@@ -225,7 +255,7 @@ export const ProfilePage = () => {
               updateViewedUser={setRequestedUser}
               showThisWindow={setShowCropAndSavePicWindow}
               showLoadingWindow={setShowLoadingWindow}
-              showErrorWindow={setError}
+              showErrorBanner={setError}
             />
           ) : (
             <></>
@@ -238,18 +268,22 @@ export const ProfilePage = () => {
               updateViewedUser={setRequestedUser}
               closeWindow={setShowDeleteConfWindow}
               showLoadingWindow={setShowLoadingWindow}
-              showErrorWindow={setError}
+              showErrorBanner={setError}
             />
           ) : (
             <></>
           )}
 
-          {error ? <ErrorWindow error={error} /> : <></>}
+          {error ? <ErrorBanner error={error} closeBanner={setError} /> : <></>}
 
           {/*-------------------- END DIALOGUE WINDOWS FOR PROFILE PIC CONFIG --------------------*/}
 
           {user.user_token && requestedUser.user_id !== user.user_id ? (
-            <ConnectComponent friendStatus={friendStatus} />
+            <ConnectComponent
+              friendStatus={friendStatus}
+              requestedUser={requestedUserId}
+              userToken={userToken}
+            />
           ) : (
             <></>
           )}

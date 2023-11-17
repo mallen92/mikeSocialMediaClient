@@ -25,7 +25,7 @@ export const LargeNavContainerMenu = () => {
     <>
       <div className="navContainerUserInfo">
         <img
-          src={user.user_profile_pic}
+          src={user.profile_pic_url}
           className="homeProfilePic"
           alt="profile_picture"
           onClick={() => navigate(`/${user.user_id}`)}

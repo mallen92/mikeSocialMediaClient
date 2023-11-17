@@ -22,7 +22,7 @@ export const UploadImageWindow = ({
       <label className="imageUploadPrompt">
         <input
           type="file"
-          accept="image/png, image/jpeg, image/jpg"
+          accept="image/png, image/jpeg, image/jpg, image/webp"
           onChange={handleImageUpload}
         />
 
