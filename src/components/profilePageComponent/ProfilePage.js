@@ -32,9 +32,9 @@ export const ProfilePage = () => {
   useEffect(() => {
     const visitedProfilesCache =
       window.localStorage.getItem("visited_profiles");
+    let visitedProfilesArray = JSON.parse(visitedProfilesCache);
 
     if (visitedProfilesCache) {
-      const visitedProfilesArray = JSON.parse(visitedProfilesCache);
       let userFound = false;
 
       for (let i = 0; i < visitedProfilesArray.length; i++) {
@@ -49,6 +49,14 @@ export const ProfilePage = () => {
       }
 
       if (!userFound) {
+        /* Check to see how many items are already in the visited profiles cache.
+        If there are already three, reset the cache to an empty array. */
+        if (visitedProfilesArray.length === 3) visitedProfilesArray = [];
+        window.localStorage.setItem(
+          "visited_profiles",
+          JSON.stringify(visitedProfilesArray)
+        );
+
         axios
           .get(`${URL}/users?id=${requestedUserId}`)
           .then((response) => {
@@ -62,7 +70,6 @@ export const ProfilePage = () => {
             );
           })
           .catch((error) => {
-            console.log(error);
             setError(error.response.data.message);
           });
       }
