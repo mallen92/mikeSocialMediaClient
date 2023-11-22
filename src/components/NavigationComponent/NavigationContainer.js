@@ -1,21 +1,20 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { LargeNavContainerMenu } from "../navMenuComponent/LargeNavContainerMenu";
-import { MobileNavContainerMenu } from "../navMenuComponent/MobileNavContainerMenu";
-import "./NavContainer.css";
+import { LargeNavMenu } from "./subcomponents/LargeNavMenu";
+import "./styles/NavigationContainer.css";
 
-export const NavContainer = () => {
+export const NavigationContainer = () => {
   const user = useSelector((state) => state.userSlice.user);
   const navigate = useNavigate();
 
   return (
-    <div className="navPanelContents">
-      <div className="navBranding">TheSocial</div>
+    <div className="navigationContainerBody">
+      <div className="branding">TheSocial</div>
 
-      {!user.user_token ? (
-        <div className="unauthCallToAction">
+      {!user.token ? (
+        <>
           <div className="callToActionMsg">
-            Log in or sign up to connect with family and friends TheSocial way!
+            Connect with family and friends TheSocial way!
           </div>
 
           <div className="callToActionBtns">
@@ -29,16 +28,16 @@ export const NavContainer = () => {
               Sign Up
             </div>
           </div>
-        </div>
+        </>
       ) : (
         <>
-          <div className="hideOnMobile">
-            <LargeNavContainerMenu />
+          <div className="largeNavMenuContainer hideOnMobile">
+            <LargeNavMenu />
           </div>
 
-          <div className="hideOnLarge">
+          {/* <div className="hideOnLarge">
             <MobileNavContainerMenu />
-          </div>
+          </div> */}
         </>
       )}
     </div>

@@ -1,12 +1,11 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "./state/userSlice";
-import { LoginPage } from "./components/unauthUserComponent/LoginPage";
-import { SignupPage } from "./components/unauthUserComponent/SignupPage";
-import { HomePage } from "./components/authUserComponent/HomePage";
-import { NewsFeed } from "./components/newsFeedComponent/NewsFeed";
-import { MobileMenu } from "./components/mobileMenuComponent/MobileMenu";
-import { ProfilePage } from "./components/profilePageComponent/ProfilePage";
+import { LoginPage } from "./components/UnauthUserComponent/LoginPage";
+import { SignupPage } from "./components/UnauthUserComponent/SignupPage";
+import { AuthUserPage } from "./components/AuthUserPage";
+import { HomeView } from "./components/HomeViewComponent/HomeView";
+import { ProfilePage } from "./components/ProfilePage";
 import "./App.css";
 import "./util/breakpoints.css";
 
@@ -16,13 +15,13 @@ function App() {
   const user = useSelector((state) => state.userSlice.user);
 
   if (Object.keys(user).length !== 0) {
-    isLoggedIn = user.user_token;
+    isLoggedIn = user.token;
   } else {
     const user = window.localStorage.getItem("user");
     if (user) {
       const userObj = JSON.parse(user);
       dispatch(setUser(userObj));
-      isLoggedIn = userObj.user_token;
+      isLoggedIn = userObj.token;
     }
   }
 
@@ -32,10 +31,10 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={isLoggedIn ? <HomePage /> : <Navigate to="login" />}
+            element={isLoggedIn ? <AuthUserPage /> : <Navigate to="login" />}
           >
-            <Route path="/" element={<NewsFeed />} />
-            <Route path="menu" element={<MobileMenu />} />
+            <Route path="/" element={<HomeView />} />
+            {/* <Route path="menu" element={<MobileMenu />} /> */}
           </Route>
 
           <Route
@@ -48,7 +47,7 @@ function App() {
             element={isLoggedIn ? <Navigate to="/" /> : <SignupPage />}
           />
 
-          <Route path=":userid" element={<ProfilePage />} />
+          <Route path=":id" element={<ProfilePage />} />
         </Routes>
       </BrowserRouter>
     </div>

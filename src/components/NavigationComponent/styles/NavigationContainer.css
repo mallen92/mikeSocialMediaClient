@@ -1,0 +1,90 @@
+/* Smartphones */
+@media (min-width: 320px) {
+  .hideOnMobile {
+    display: none;
+  }
+
+  .navigationContainerBody {
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px;
+
+    border-bottom: 1px solid rgb(216, 216, 216);
+  }
+
+  .callToActionMsg,
+  .callToActionBtn {
+    font-size: 20px;
+  }
+
+  .callToActionMsg {
+    margin: 5px 0;
+    text-align: center;
+  }
+
+  .callToActionBtns {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    padding: 5px 0;
+
+    text-align: center;
+  }
+
+  .callToActionBtn {
+    padding: 10px;
+    width: 150px;
+
+    background-color: var(--button);
+    border-radius: 40px;
+    font-weight: bold;
+  }
+}
+
+/* Tablets */
+@media (min-width: 425px) {
+}
+
+/* Large tablets */
+@media (min-width: 768px) {
+  .hideOnMobile {
+    display: unset;
+  }
+
+  .largeNavMenuContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .navigationContainerBody {
+    align-items: center;
+    gap: 20px;
+    width: 30%;
+
+    border-bottom: unset;
+    border-right: 1px solid rgb(216, 216, 216);
+  }
+
+  .callToActionBtns {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .callToActionBtn {
+    width: 75%;
+  }
+}
+
+/* Large screens*/
+@media (min-width: 1024px) {
+}
+
+/* Extra large screens */
+@media (min-width: 1440px) {
+  .navigationContainerBody {
+    width: 20%;
+  }
+}
