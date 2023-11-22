@@ -7,7 +7,6 @@
   .navigationContainerBody {
     display: flex;
     flex-direction: column;
-    padding: 0 10px;
 
     border-bottom: 1px solid rgb(216, 216, 216);
   }
@@ -47,6 +46,10 @@
 
 /* Large tablets */
 @media (min-width: 768px) {
+  .hideOnLarge {
+    display: none;
+  }
+
   .hideOnMobile {
     display: unset;
   }

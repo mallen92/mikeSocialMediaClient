@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { LargeNavMenu } from "./subcomponents/LargeNavMenu";
+import { MobileNavMenu } from "./subcomponents/MobileNavMenu";
 import "./styles/NavigationContainer.css";
 
 export const NavigationContainer = () => {
@@ -35,9 +36,9 @@ export const NavigationContainer = () => {
             <LargeNavMenu />
           </div>
 
-          {/* <div className="hideOnLarge">
-            <MobileNavContainerMenu />
-          </div> */}
+          <div className="hideOnLarge">
+            <MobileNavMenu />
+          </div>
         </>
       )}
     </div>

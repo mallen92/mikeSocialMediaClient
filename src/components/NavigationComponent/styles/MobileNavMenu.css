@@ -1,0 +1,22 @@
+/* Smartphones */
+@media (min-width: 320px) {
+  .mobileNavMenuBody {
+    display: flex;
+    margin-top: 10px;
+  }
+
+  .mobileNavLink,
+  .lastMobileNavLink {
+    padding: 5px;
+    width: 20%;
+    text-align: center;
+  }
+
+  .mobileNavLink {
+    border-right: 1px solid rgb(216, 216, 216);
+  }
+
+  .currentView {
+    background-color: var(--hover);
+  }
+}

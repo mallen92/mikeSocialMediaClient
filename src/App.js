@@ -6,6 +6,7 @@ import { SignupPage } from "./components/UnauthUserComponent/SignupPage";
 import { AuthUserPage } from "./components/AuthUserPage";
 import { HomeView } from "./components/HomeViewComponent/HomeView";
 import { ProfilePage } from "./components/ProfilePage";
+import { MobileMenuView } from "./components/MobileMenuViewComponent/MobileMenuView";
 import "./App.css";
 import "./util/breakpoints.css";
 
@@ -34,7 +35,7 @@ function App() {
             element={isLoggedIn ? <AuthUserPage /> : <Navigate to="login" />}
           >
             <Route path="/" element={<HomeView />} />
-            {/* <Route path="menu" element={<MobileMenu />} /> */}
+            <Route path="menu" element={<MobileMenuView />} />
           </Route>
 
           <Route

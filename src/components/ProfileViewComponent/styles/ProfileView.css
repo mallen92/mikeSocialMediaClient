@@ -1,0 +1,41 @@
+/* Smartphones */
+@media (min-width: 320px) {
+  .profileViewBody {
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  .requestedUserIntro {
+    align-items: center;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+  }
+
+  .requestedUserName {
+    font-size: 20px;
+    font-weight: bold;
+  }
+}
+
+/* Tablets */
+@media (min-width: 425px) {
+}
+
+/* Large tablets */
+@media (min-width: 768px) {
+  .profileViewBody {
+    width: 70%;
+  }
+}
+
+/* Large screens*/
+@media (min-width: 1024px) {
+}
+
+/* Extra large screens */
+@media (min-width: 1440px) {
+  .profileViewBody {
+    width: 80%;
+  }
+}
