@@ -16,9 +16,13 @@
 @media (min-width: 768px) {
   .authUserPic,
   .requestedUserPic {
-    width: 150px;
+    width: 125px;
     border: 4px solid #888888;
     border-radius: 50%;
+  }
+
+  .authUserPic:hover {
+    cursor: pointer;
   }
 }
 

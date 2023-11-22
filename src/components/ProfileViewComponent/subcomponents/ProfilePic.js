@@ -1,8 +1,14 @@
 import { useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
+import { ProfilePicOptionsMenu } from "./ProfilePicOptionsMenu";
 import "../styles/ProfilePic.css";
 
-export const ProfilePic = ({ requestedUser, requestedUserId }) => {
+export const ProfilePic = ({
+  requestedUser,
+  requestedUserId,
+  uploadImage,
+  confirmDelete,
+}) => {
   const user = useSelector((state) => state.userSlice.user);
   const userToken = user.token;
   const [showProfilePicOptions, setShowProfilePicOptions] = useState(false);
@@ -43,15 +49,15 @@ export const ProfilePic = ({ requestedUser, requestedUserId }) => {
         />
       )}
 
-      {/* {showProfilePicOptions ? (
-          <ProfilePicOptions
-            closeMenu={setShowProfilePicOptions}
-            uploadImage={setShowUploadImageWindow}
-            openDeleteConfWindow={setShowDeleteConfWindow}
-          />
-        ) : (
-          <></>
-        )} */}
+      {showProfilePicOptions ? (
+        <ProfilePicOptionsMenu
+          showMenu={setShowProfilePicOptions}
+          uploadImage={uploadImage}
+          confirmDelete={confirmDelete}
+        />
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

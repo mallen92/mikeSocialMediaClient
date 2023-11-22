@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { URL } from "../../util/url";
 import { ProfilePic } from "./subcomponents/ProfilePic";
+import { UploadImageWindow } from "./subcomponents/UploadImageWindow";
 import "./styles/ProfileView.css";
 
 export const ProfileView = () => {
@@ -102,9 +103,21 @@ export const ProfileView = () => {
         <ProfilePic
           requestedUser={requestedUser}
           requestedUserId={requestedUserId}
+          uploadImage={setShowUploadImageWindow}
+          confirmDelete={setShowDeleteConfWindow}
         />
         <div className="requestedUserName">{requestedUser.full_name}</div>
       </div>
+
+      {showUploadImageWindow ? (
+        <UploadImageWindow
+        setImage={setImage}
+        showThisWindow={setShowUploadImageWindow}
+        openNextWindow={setShowCropAndSavePicWindow}
+        />
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

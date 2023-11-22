@@ -27,6 +27,10 @@
   .profileViewBody {
     width: 70%;
   }
+
+  .requestedUserName {
+    font-size: 30px;
+  }
 }
 
 /* Large screens*/
