@@ -1,4 +1,6 @@
-import CloseIcon from "@mui/icons-material/Close";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { unsetUser } from "../../state/userSlice";
 import "./MessageBanner.css";
 
 export const MessageBanner = ({
@@ -9,6 +11,15 @@ export const MessageBanner = ({
   error,
   showError,
 }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const logOutUser = () => {
+    dispatch(unsetUser());
+    window.localStorage.clear();
+    navigate("/login");
+  };
+
   return (
     <div className="messageBanner">
       {success ? (
@@ -35,11 +46,24 @@ export const MessageBanner = ({
       )}
       {error ? (
         <div className="bannerMessage errorMessage">
-          {error}
+          {error.includes("Access denied") ||
+          error.includes("session has expired") ? (
+            <>
+              {error}
 
-          <div className="closeBanner" onClick={() => showError("")}>
-            &#10006;
-          </div>
+              <div className="closeBanner" onClick={logOutUser}>
+                &#10006;
+              </div>
+            </>
+          ) : (
+            <>
+              {error}
+
+              <div className="closeBanner" onClick={() => showError("")}>
+                &#10006;
+              </div>
+            </>
+          )}
         </div>
       ) : (
         <></>

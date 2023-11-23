@@ -65,8 +65,8 @@ export const SavePicWindow = ({
 
     /* Update the state stored in our current session  */
     let authUser = JSON.parse(window.localStorage.getItem("user"));
-    authUser.profile_pic_url = newPic;
-    authUser.profile_pic = newPicFilename;
+    authUser.pic_url = newPic;
+    authUser.pic_filename = newPicFilename;
     window.localStorage.setItem("user", JSON.stringify(authUser));
 
     /* If we have viewed our own profile, we need to update our information
@@ -76,8 +76,9 @@ export const SavePicWindow = ({
     );
 
     for (let i = 0; i < visitedProfilesCache.length; i++) {
-      if (visitedProfilesCache[i].user_id === user.user_id) {
-        visitedProfilesCache[i].profile_pic_url = newPic;
+      if (visitedProfilesCache[i].id === user.id) {
+        visitedProfilesCache[i].pic_filename = newPicFilename;
+        visitedProfilesCache[i].pic_url = newPic;
         updateViewedUser(visitedProfilesCache[i]);
         break;
       }

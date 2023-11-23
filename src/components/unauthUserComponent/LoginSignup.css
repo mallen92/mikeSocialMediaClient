@@ -184,6 +184,18 @@
   .formContainer {
     width: 50%;
   }
+
+  .loginFormLogInButton:hover,
+  .signupFormSignUpButton:hover {
+    cursor: pointer;
+    background-color: var(--buttonHover);
+  }
+
+  .loginFormSignUpButton:hover,
+  .signupFormLogInButton:hover {
+    cursor: pointer;
+    background-color: #afafafe8;
+  }
 }
 
 /* Extra large screens */

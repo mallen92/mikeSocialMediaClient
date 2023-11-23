@@ -6,7 +6,9 @@ import { URL } from "../../util/url";
 import { ProfilePic } from "./subcomponents/ProfilePic";
 import { UploadImageWindow } from "./subcomponents/UploadImageWindow";
 import { SavePicWindow } from "./subcomponents/SavePicWindow";
+import { DeletePicWindow } from "./subcomponents/DeletePicWindow";
 import { MessageBanner } from "../MessageBannerComponent/MessageBanner";
+import { LoadingWindow } from "../LoadingWindowComponent/LoadingWindow";
 import placeholder from "./images/Placeholder.png";
 import "./styles/ProfileView.css";
 
@@ -96,7 +98,7 @@ export const ProfileView = () => {
 
   const [showUploadImageWindow, setShowUploadImageWindow] = useState(false);
   const [showSavePicWindow, setShowSavePicWindow] = useState(false);
-  const [showDeleteConfWindow, setShowDeleteConfWindow] = useState(false);
+  const [showDeletePicWindow, setShowDeletePicWindow] = useState(false);
   const [showLoadingWindow, setShowLoadingWindow] = useState(false);
 
   /*------------------------- END PROFILE PIC DIALOGUE WINDOWS ------------------------*/
@@ -117,7 +119,7 @@ export const ProfileView = () => {
               requestedUser={requestedUser}
               requestedUserId={requestedUserId}
               uploadImage={setShowUploadImageWindow}
-              confirmDelete={setShowDeleteConfWindow}
+              confirmDelete={setShowDeletePicWindow}
             />
             <div className="requestedUserName">{requestedUser.full_name}</div>
           </div>
@@ -127,6 +129,18 @@ export const ProfileView = () => {
               setImage={setImage}
               showThisWindow={setShowUploadImageWindow}
               openNextWindow={setShowSavePicWindow}
+            />
+          ) : (
+            <></>
+          )}
+
+          {showDeletePicWindow ? (
+            <DeletePicWindow
+              token={userToken}
+              updateViewedUser={setRequestedUser}
+              showThisWindow={setShowDeletePicWindow}
+              showLoadingWindow={setShowLoadingWindow}
+              showError={setErrorMessage}
             />
           ) : (
             <></>
@@ -144,6 +158,8 @@ export const ProfileView = () => {
           ) : (
             <></>
           )}
+
+          {showLoadingWindow ? <LoadingWindow /> : <></>}
 
           {successMessage || warningMessage || errorMessage ? (
             <MessageBanner
