@@ -6,6 +6,7 @@ import { URL } from "../../util/url";
 import { ProfilePic } from "./subcomponents/ProfilePic";
 import { UploadImageWindow } from "./subcomponents/UploadImageWindow";
 import { SavePicWindow } from "./subcomponents/SavePicWindow";
+import { MessageBanner } from "../MessageBannerComponent/MessageBanner";
 import placeholder from "./images/Placeholder.png";
 import "./styles/ProfileView.css";
 
@@ -14,6 +15,9 @@ export const ProfileView = () => {
   const [requestedUser, setRequestedUser] = useState({});
   const [image, setImage] = useState(null);
   const [friendStatus, setFriendStatus] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [warningMessage, setWarningMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const location = useLocation();
 
   const userToken = user.token;
@@ -64,7 +68,7 @@ export const ProfileView = () => {
             );
           })
           .catch((error) => {
-            setError(error.response.data.message);
+            setErrorMessage(error.response.data.message);
           });
       }
     } else {
@@ -81,22 +85,21 @@ export const ProfileView = () => {
           );
         })
         .catch((error) => {
-          setError(error.response.data.message);
+          setErrorMessage(error.response.data.message);
         });
     }
   }, [requestedUserId]);
 
-  /*------------------------- 1. END LOADING PROFILE ------------------------*/
+  /*------------------------- END LOADING PROFILE ------------------------*/
 
-  /*------------------------- 3. PROFILE PIC DIALOGUE WINDOWS ------------------------*/
+  /*------------------------- PROFILE PIC DIALOGUE WINDOWS ------------------------*/
 
   const [showUploadImageWindow, setShowUploadImageWindow] = useState(false);
   const [showSavePicWindow, setShowSavePicWindow] = useState(false);
   const [showDeleteConfWindow, setShowDeleteConfWindow] = useState(false);
   const [showLoadingWindow, setShowLoadingWindow] = useState(false);
-  const [error, setError] = useState("");
 
-  /*------------------------- 3. END PROFILE PIC DIALOGUE WINDOWS ------------------------*/
+  /*------------------------- END PROFILE PIC DIALOGUE WINDOWS ------------------------*/
 
   return (
     <div className="profileViewBody">
@@ -136,7 +139,20 @@ export const ProfileView = () => {
               updateViewedUser={setRequestedUser}
               showThisWindow={setShowSavePicWindow}
               showLoadingWindow={setShowLoadingWindow}
-              showErrorBanner={setError}
+              showError={setErrorMessage}
+            />
+          ) : (
+            <></>
+          )}
+
+          {successMessage || warningMessage || errorMessage ? (
+            <MessageBanner
+              success={successMessage}
+              showSuccess={setSuccessMessage}
+              warning={warningMessage}
+              showWarning={setWarningMessage}
+              error={errorMessage}
+              showError={setErrorMessage}
             />
           ) : (
             <></>

@@ -1,7 +1,6 @@
 /* Smartphones */
 @media (min-width: 320px) {
   .profileViewBody {
-    margin-top: 20px;
     position: relative;
     width: 100%;
   }
@@ -11,6 +10,7 @@
     display: flex;
     gap: 20px;
     justify-content: center;
+    margin-top: 20px;
   }
 
   .loadingUserPic {
@@ -42,12 +42,19 @@
   }
 
   .loadingUserPic {
-    width: 125px;
+    width: 150px;
   }
 
   .loadingName {
     height: 50px;
     width: 300px;
+  }
+
+  .requestedUserIntro {
+    gap: 20px;
+    justify-content: unset;
+    margin-top: 90px;
+    padding-left: 20px;
   }
 
   .requestedUserName {
@@ -57,6 +64,14 @@
 
 /* Large screens*/
 @media (min-width: 1024px) {
+  .requestedUserIntro {
+    gap: 30px;
+    padding-left: 50px;
+  }
+
+  .requestedUserName {
+    font-size: 40px;
+  }
 }
 
 /* Extra large screens */

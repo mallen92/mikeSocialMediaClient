@@ -26,6 +26,10 @@
 
 /* Large screens*/
 @media (min-width: 1024px) {
+  .authUserPic,
+  .requestedUserPic {
+    width: 150px;
+  }
 }
 
 /* Extra large screens */

@@ -14,7 +14,7 @@ export const SavePicWindow = ({
   updateViewedUser,
   showThisWindow,
   showLoadingWindow,
-  showErrorWindow,
+  showError,
 }) => {
   const user = useSelector((state) => state.userSlice.user);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -54,7 +54,7 @@ export const SavePicWindow = ({
       changeProfilePic(response.data.picUrl, response.data.picFilename);
       showLoadingWindow(false);
     } catch (error) {
-      showErrorWindow(error.response.data.message);
+      showError(error.response.data.message);
       showLoadingWindow(false);
     }
   };
