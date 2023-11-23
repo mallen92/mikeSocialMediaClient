@@ -1,9 +1,5 @@
 /* Smartphones */
 @media (min-width: 320px) {
-  .profileViewBody {
-    position: relative;
-  }
-
   .uploadImageWindow {
     align-items: center;
     display: flex;
@@ -55,6 +51,16 @@
   .uploadImageWindow {
     width: 50%;
     left: 25%;
+  }
+
+  .imageUploadPrompt:hover {
+    cursor: pointer;
+    background-color: rgb(116, 116, 116);
+  }
+
+  .cancelUploadBtn:hover {
+    cursor: pointer;
+    background-color: var(--redButtonHover);
   }
 }
 

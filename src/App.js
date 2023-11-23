@@ -8,7 +8,7 @@ import { HomeView } from "./components/HomeViewComponent/HomeView";
 import { ProfilePage } from "./components/ProfilePage";
 import { MobileMenuView } from "./components/MobileMenuViewComponent/MobileMenuView";
 import "./App.css";
-import "./util/breakpoints.css";
+// import "./util/breakpoints.css";
 
 function App() {
   const dispatch = useDispatch();

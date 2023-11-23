@@ -17,8 +17,6 @@
   .authUserPic,
   .requestedUserPic {
     width: 125px;
-    border: 4px solid #888888;
-    border-radius: 50%;
   }
 
   .authUserPic:hover {

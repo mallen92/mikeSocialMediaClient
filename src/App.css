@@ -10,6 +10,8 @@
 
 :root {
   --button: rgb(133, 125, 18);
+  --buttonHover: rgb(95, 89, 18);
+  --redButtonHover: rgb(189, 29, 29);
   --default: #283044;
   --hover: #3b4764;
   --dangerRed: rgb(224, 74, 74);

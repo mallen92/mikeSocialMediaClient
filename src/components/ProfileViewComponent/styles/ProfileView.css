@@ -2,6 +2,7 @@
 @media (min-width: 320px) {
   .profileViewBody {
     margin-top: 20px;
+    position: relative;
     width: 100%;
   }
 
@@ -10,6 +11,18 @@
     display: flex;
     gap: 20px;
     justify-content: center;
+  }
+
+  .loadingUserPic {
+    width: 100px;
+    border: 4px solid #888888;
+    border-radius: 50%;
+  }
+
+  .loadingName {
+    height: 30px;
+    width: 225px;
+    border-radius: 40px;
   }
 
   .requestedUserName {
@@ -26,6 +39,15 @@
 @media (min-width: 768px) {
   .profileViewBody {
     width: 70%;
+  }
+
+  .loadingUserPic {
+    width: 125px;
+  }
+
+  .loadingName {
+    height: 50px;
+    width: 300px;
   }
 
   .requestedUserName {

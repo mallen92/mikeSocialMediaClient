@@ -79,6 +79,11 @@
   .callToActionBtn {
     width: 75%;
   }
+
+  .callToActionBtn:hover {
+    cursor: pointer;
+    background-color: var(--buttonHover);
+  }
 }
 
 /* Large screens*/

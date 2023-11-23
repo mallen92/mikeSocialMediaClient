@@ -1,10 +1,12 @@
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { URL } from "../../util/url";
 import { ProfilePic } from "./subcomponents/ProfilePic";
 import { UploadImageWindow } from "./subcomponents/UploadImageWindow";
+import { SavePicWindow } from "./subcomponents/SavePicWindow";
+import placeholder from "./images/Placeholder.png";
 import "./styles/ProfileView.css";
 
 export const ProfileView = () => {
@@ -89,8 +91,7 @@ export const ProfileView = () => {
   /*------------------------- 3. PROFILE PIC DIALOGUE WINDOWS ------------------------*/
 
   const [showUploadImageWindow, setShowUploadImageWindow] = useState(false);
-  const [showCropAndSavePicWindow, setShowCropAndSavePicWindow] =
-    useState(false);
+  const [showSavePicWindow, setShowSavePicWindow] = useState(false);
   const [showDeleteConfWindow, setShowDeleteConfWindow] = useState(false);
   const [showLoadingWindow, setShowLoadingWindow] = useState(false);
   const [error, setError] = useState("");
@@ -99,24 +100,48 @@ export const ProfileView = () => {
 
   return (
     <div className="profileViewBody">
-      <div className="requestedUserIntro">
-        <ProfilePic
-          requestedUser={requestedUser}
-          requestedUserId={requestedUserId}
-          uploadImage={setShowUploadImageWindow}
-          confirmDelete={setShowDeleteConfWindow}
-        />
-        <div className="requestedUserName">{requestedUser.full_name}</div>
-      </div>
-
-      {showUploadImageWindow ? (
-        <UploadImageWindow
-        setImage={setImage}
-        showThisWindow={setShowUploadImageWindow}
-        openNextWindow={setShowCropAndSavePicWindow}
-        />
+      {isLoading ? (
+        <>
+          <div className="requestedUserIntro">
+            <img src={placeholder} className="loadingUserPic" alt="loading" />
+            <img src={placeholder} className="loadingName" alt="loading" />
+          </div>
+        </>
       ) : (
-        <></>
+        <>
+          <div className="requestedUserIntro">
+            <ProfilePic
+              requestedUser={requestedUser}
+              requestedUserId={requestedUserId}
+              uploadImage={setShowUploadImageWindow}
+              confirmDelete={setShowDeleteConfWindow}
+            />
+            <div className="requestedUserName">{requestedUser.full_name}</div>
+          </div>
+
+          {showUploadImageWindow ? (
+            <UploadImageWindow
+              setImage={setImage}
+              showThisWindow={setShowUploadImageWindow}
+              openNextWindow={setShowSavePicWindow}
+            />
+          ) : (
+            <></>
+          )}
+
+          {showSavePicWindow ? (
+            <SavePicWindow
+              image={image}
+              token={userToken}
+              updateViewedUser={setRequestedUser}
+              showThisWindow={setShowSavePicWindow}
+              showLoadingWindow={setShowLoadingWindow}
+              showErrorBanner={setError}
+            />
+          ) : (
+            <></>
+          )}
+        </>
       )}
     </div>
   );

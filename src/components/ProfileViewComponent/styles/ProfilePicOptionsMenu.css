@@ -6,7 +6,7 @@
     gap: 8px;
     margin-left: 20px;
     margin-top: 5px;
-    padding: 10px;
+    padding: 5px;
     position: absolute;
 
     background-color: #283044;
@@ -19,8 +19,10 @@
     display: flex;
     column-gap: 12px;
 
+    border-radius: 10px;
     font-size: 17px;
     font-weight: bold;
+    padding: 5px;
   }
 }
 
@@ -30,7 +32,7 @@
 
 /* Large tablets */
 @media (min-width: 768px) {
-  .profilePicOptions:hover {
+  .picOption:hover {
     cursor: pointer;
     background-color: var(--hover);
   }

@@ -1,0 +1,85 @@
+/* Smartphones */
+@media (min-width: 320px) {
+  .savePicWindowBody {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    position: absolute;
+    width: 100%;
+
+    background-color: var(--hover);
+    border: 1px solid rgb(216, 216, 216);
+    border-radius: 20px;
+  }
+
+  .cropperContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    height: 30vh;
+  }
+
+  .cropper {
+    height: 90%;
+    position: relative;
+  }
+
+  .savePicWindowBtns {
+    column-gap: 30px;
+    display: flex;
+    justify-content: center;
+
+    text-align: center;
+  }
+
+  .savePicWindowBtn {
+    padding: 5px;
+    width: 100px;
+
+    border-radius: 40px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .saveCropBtn,
+  .confirmDeleteBtn {
+    background-color: var(--confirmGreen);
+  }
+
+  .cancelCropBtn,
+  .cancelDeleteBtn {
+    background-color: var(--dangerRed);
+  }
+}
+
+/* Tablets */
+@media (min-width: 425px) {
+  .cropperContainer {
+    height: 40vh;
+  }
+
+  .savePicWindowBtn {
+    padding: 10px;
+    width: 150px;
+  }
+}
+
+/* Large tablets */
+@media (min-width: 768px) {
+}
+
+/* Large screens*/
+@media (min-width: 1024px) {
+  .savePicWindowBody {
+    width: 75%;
+    left: 15%;
+  }
+}
+
+/* Extra large screens */
+@media (min-width: 1440px) {
+}
