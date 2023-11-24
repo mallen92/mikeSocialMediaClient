@@ -17,6 +17,7 @@
   --hover: #3b4764;
   --dangerRed: rgb(224, 74, 74);
   --confirmGreen: rgb(97, 175, 97);
+  --borderWhite: rgb(216, 216, 216);
 }
 
 body {

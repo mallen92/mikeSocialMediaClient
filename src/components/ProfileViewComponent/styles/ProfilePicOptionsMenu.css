@@ -10,7 +10,7 @@
     position: absolute;
 
     background-color: #283044;
-    border: 1px solid rgb(216, 216, 216);
+    border: 1px solid var(--borderWhite);
     border-radius: 10px;
     box-shadow: 5px 5px 5px #181b24;
   }
