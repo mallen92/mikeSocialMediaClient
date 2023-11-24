@@ -10,7 +10,7 @@
     width: 100%;
 
     background-color: var(--hover);
-    border: 1px solid rgb(216, 216, 216);
+    border: 1px solid var(--borderWhite);
     border-radius: 20px;
   }
 
