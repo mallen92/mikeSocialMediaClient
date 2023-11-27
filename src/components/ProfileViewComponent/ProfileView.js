@@ -6,16 +6,21 @@ import { URL } from "../../util/url";
 import { ProfilePic } from "./subcomponents/ProfilePic";
 import { UserConnect } from "./subcomponents/UserConnect";
 import { UploadImageWindow } from "./subcomponents/UploadImageWindow";
+import { LoadingWindow } from "./subcomponents/LoadingWindow";
 import { SavePicWindow } from "./subcomponents/SavePicWindow";
 import { DeletePicWindow } from "./subcomponents/DeletePicWindow";
 import { MessageBanner } from "../MessageBannerComponent/MessageBanner";
-import { LoadingWindow } from "../LoadingWindowComponent/LoadingWindow";
 import placeholder from "./images/Placeholder.png";
 import "./styles/ProfileView.css";
 
 export const ProfileView = () => {
   const user = useSelector((state) => state.userSlice.user);
+  const [isLoading, setLoading] = useState(true);
   const [requestedUser, setRequestedUser] = useState({});
+  const [showUploadImageWindow, setShowUploadImageWindow] = useState(false);
+  const [showSavePicWindow, setShowSavePicWindow] = useState(false);
+  const [showDeletePicWindow, setShowDeletePicWindow] = useState(false);
+  const [showLoadingWindow, setShowLoadingWindow] = useState(false);
   const [image, setImage] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
   const [warningMessage, setWarningMessage] = useState("");
@@ -25,9 +30,7 @@ export const ProfileView = () => {
   const userToken = user.token;
   const requestedUserId = location.pathname.split("/")[1];
 
-  /*------------------------- 1. LOADING PROFILE ------------------------*/
-
-  const [isLoading, setLoading] = useState(true);
+  /*------------------------- LOADING PROFILE ------------------------*/
 
   useEffect(() => {
     const visitedProfilesCache =
@@ -35,9 +38,7 @@ export const ProfileView = () => {
     let visitedProfilesArray = JSON.parse(visitedProfilesCache);
 
     let requestingUserId = null;
-    if (user.id && user.id !== requestedUserId) {
-      requestingUserId = user.id;
-    }
+    if (user.id && user.id !== requestedUserId) requestingUserId = user.id;
 
     if (visitedProfilesCache) {
       let userFound = false;
@@ -56,7 +57,7 @@ export const ProfileView = () => {
       if (!userFound) {
         /* Check to see how many items are already in the visited profiles cache.
         If there are already three, reset the cache to an empty array. */
-        if (visitedProfilesArray.length === 3) visitedProfilesArray = [];
+        if (visitedProfilesArray.length === 6) visitedProfilesArray = [];
 
         window.localStorage.setItem(
           "visited_profiles",
@@ -108,15 +109,6 @@ export const ProfileView = () => {
 
   /*------------------------- END LOADING PROFILE ------------------------*/
 
-  /*------------------------- PROFILE PIC DIALOGUE WINDOWS ------------------------*/
-
-  const [showUploadImageWindow, setShowUploadImageWindow] = useState(false);
-  const [showSavePicWindow, setShowSavePicWindow] = useState(false);
-  const [showDeletePicWindow, setShowDeletePicWindow] = useState(false);
-  const [showLoadingWindow, setShowLoadingWindow] = useState(false);
-
-  /*------------------------- END PROFILE PIC DIALOGUE WINDOWS ------------------------*/
-
   return (
     <div className="profileViewBody">
       {isLoading ? (
@@ -139,14 +131,12 @@ export const ProfileView = () => {
           </div>
 
           {userToken && user.id !== requestedUserId ? (
-            <div className="userConnect">
-              <UserConnect
-                reqUserId={requestedUserId}
-                showSuccess={setSuccessMessage}
-                showWarning={setWarningMessage}
-                showError={setErrorMessage}
-              />
-            </div>
+            <UserConnect
+              reqUserId={requestedUserId}
+              showSuccess={setSuccessMessage}
+              showWarning={setWarningMessage}
+              showError={setErrorMessage}
+            />
           ) : (
             <></>
           )}

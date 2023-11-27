@@ -3,6 +3,8 @@
   .userConnect {
     display: flex;
     column-gap: 15px;
+    justify-content: center;
+    margin-top: 10px;
   }
 
   .userConnectBtn {
@@ -90,6 +92,11 @@
 
 /* Large tablets */
 @media (min-width: 768px) {
+  .userConnect {
+    justify-content: unset;
+    margin-left: 10px;
+  }
+
   .userConnectBtn:hover {
     background-color: var(--hover);
     cursor: pointer;
@@ -104,6 +111,11 @@
     font-family: "Lato Black";
     font-size: 20px;
     text-align: center;
+  }
+
+  .userConnect {
+    justify-content: unset;
+    margin-left: 30px;
   }
 }
 

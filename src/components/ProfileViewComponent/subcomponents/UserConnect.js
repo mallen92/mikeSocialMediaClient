@@ -58,12 +58,12 @@ export const UserConnect = ({
             return (
               <div className="userConnectBtn addFriendBtn">Send Request</div>
             );
-          // case "pending_req_user_decision":
-          //   return (
-          //     <div className="userConnectBtn requestSentBtn">
-          //       Cancel Request
-          //     </div>
-          //   );
+          case "sent request to":
+            return (
+              <div className="userConnectBtn requestSentBtn">
+                Cancel Request
+              </div>
+            );
           // case "pending_this_user_decision":
           //   return (
           //     <div className="requestResponse" ref={newRef}>
