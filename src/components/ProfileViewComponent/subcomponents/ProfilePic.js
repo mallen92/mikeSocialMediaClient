@@ -3,19 +3,14 @@ import { useEffect, useRef, useState } from "react";
 import { ProfilePicOptionsMenu } from "./ProfilePicOptionsMenu";
 import "../styles/ProfilePic.css";
 
-export const ProfilePic = ({
-  requestedUser,
-  requestedUserId,
-  uploadImage,
-  confirmDelete,
-}) => {
+export const ProfilePic = ({ requestedUser, uploadImage, confirmDelete }) => {
   const user = useSelector((state) => state.userSlice.user);
   const userToken = user.token;
   const [showProfilePicOptions, setShowProfilePicOptions] = useState(false);
   const newRef = useRef(null);
 
   const toggleProfilePicOptions = () => {
-    if (requestedUserId === user.id) {
+    if (requestedUser.id === user.id) {
       if (showProfilePicOptions) setShowProfilePicOptions(false);
       else setShowProfilePicOptions(true);
     }
@@ -45,7 +40,6 @@ export const ProfilePic = ({
           src={requestedUser.pic_url}
           className="requestedUserPic"
           alt="User"
-          onClick={toggleProfilePicOptions}
         />
       )}
 

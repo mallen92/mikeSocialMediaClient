@@ -17,14 +17,14 @@ export const ProfilePicOptionsMenu = ({
         <>
           <div className="picOption" onClick={() => uploadImage(true)}>
             <UploadIcon />
-            <div>Upload Profile Picture</div>
+            <div>Upload Picture</div>
           </div>
         </>
       ) : (
         <>
           <div className="picOption" onClick={() => uploadImage(true)}>
             <SyncIcon />
-            <div>Change Profile Picture</div>
+            <div>Change Picture</div>
           </div>
 
           <div
@@ -32,7 +32,7 @@ export const ProfilePicOptionsMenu = ({
             onClick={() => confirmDelete(true)}
           >
             <DeleteIcon />
-            <div>Delete Profile Picture</div>
+            <div>Delete Picture</div>
           </div>
         </>
       )}
