@@ -10,7 +10,6 @@ import "../styles/SavePicWindow.css";
 
 export const SavePicWindow = ({
   image,
-  token,
   updateViewedUser,
   showThisWindow,
   showLoadingWindow,
@@ -19,10 +18,11 @@ export const SavePicWindow = ({
   const user = useSelector((state) => state.userSlice.user);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+  const dispatch = useDispatch();
+
   const onCropComplete = (croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
   };
-  const dispatch = useDispatch();
 
   const saveProfilePic = async () => {
     try {
@@ -47,7 +47,7 @@ export const SavePicWindow = ({
       const response = await axios.post(`${URL}/images`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${user.token}`,
         },
       });
 

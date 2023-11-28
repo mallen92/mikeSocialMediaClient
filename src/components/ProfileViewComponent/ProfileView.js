@@ -55,8 +55,6 @@ export const ProfileView = () => {
       }
 
       if (!userFound) {
-        /* Check to see how many items are already in the visited profiles cache.
-        If there are already three, reset the cache to an empty array. */
         if (visitedProfilesArray.length === 6) visitedProfilesArray = [];
 
         window.localStorage.setItem(
@@ -123,7 +121,6 @@ export const ProfileView = () => {
           <div className="requestedUserIntro">
             <ProfilePic
               requestedUser={requestedUser}
-              requestedUserId={requestedUserId}
               uploadImage={setShowUploadImageWindow}
               confirmDelete={setShowDeletePicWindow}
             />
@@ -166,7 +163,6 @@ export const ProfileView = () => {
           {showSavePicWindow ? (
             <SavePicWindow
               image={image}
-              token={userToken}
               updateViewedUser={setRequestedUser}
               showThisWindow={setShowSavePicWindow}
               showLoadingWindow={setShowLoadingWindow}
