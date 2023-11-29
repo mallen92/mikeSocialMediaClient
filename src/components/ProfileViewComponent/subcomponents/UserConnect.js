@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+import axios from "axios";
+import { URL } from "../../../util/url";
 import "../styles/UserConnect.css";
 
 export const UserConnect = ({
   reqUserId,
+  token,
   showSuccess,
   showWarning,
   showError,
@@ -27,6 +30,52 @@ export const UserConnect = ({
   }, [reqUserId]);
 
   /*------------------------- END SET FRIEND STATUS ------------------------*/
+
+  /*------------------------- SEND FRIEND REQUEST ------------------------*/
+
+  const sendRequest = () => {
+    axios
+      .put(`${URL}/users/request?id=${reqUserId}`, null, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setFriendStatus(response.data);
+        const friendName = updateFriendStatus(response.data);
+        showSuccess(`Friend request sent to ${friendName}!`);
+      });
+  };
+
+  /*------------------------- END SEND FRIEND REQUEST ------------------------*/
+
+  /*------------------------- CACHE FRIEND STATUS UPDATE ------------------------*/
+
+  const updateFriendStatus = (status) => {
+    const visitedProfilesCache =
+      window.localStorage.getItem("visited_profiles");
+    let visitedProfilesArray = JSON.parse(visitedProfilesCache);
+    let userName = "";
+
+    for (let i = 0; i < visitedProfilesArray.length; i++) {
+      const visitedProfile = visitedProfilesArray[i];
+
+      if (visitedProfile.id === reqUserId) {
+        visitedProfile.friend_status = status;
+        userName = visitedProfile.full_name;
+        break;
+      }
+    }
+
+    window.localStorage.setItem(
+      "visited_profiles",
+      JSON.stringify(visitedProfilesArray)
+    );
+
+    return userName;
+  };
+
+  /*------------------------- END CACHE FRIEND STATUS UPDATE ------------------------*/
 
   /*------------------------- REQUEST REPONSE OPTIONS MENU ------------------------*/
 
@@ -56,7 +105,12 @@ export const UserConnect = ({
         switch (friendStatus) {
           case "not a friend":
             return (
-              <div className="userConnectBtn addFriendBtn">Send Request</div>
+              <div
+                className="userConnectBtn addFriendBtn"
+                onClick={sendRequest}
+              >
+                Send Request
+              </div>
             );
           case "sent request to":
             return (
@@ -95,7 +149,11 @@ export const UserConnect = ({
         }
       })()}
 
-      <div className="userConnectBtn sendMessageBtn">Message</div>
+      {friendStatus === "friend" ? (
+        <div className="userConnectBtn sendMessageBtn">Message</div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
