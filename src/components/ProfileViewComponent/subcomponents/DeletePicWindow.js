@@ -5,7 +5,6 @@ import { updateUserPic } from "../../../state/userSlice";
 import "../styles/DeletePicWindow.css";
 
 export const DeletePicWindow = ({
-  token,
   updateViewedUser,
   showThisWindow,
   showLoadingWindow,
@@ -21,7 +20,7 @@ export const DeletePicWindow = ({
 
       const response = await axios.delete(`${URL}/images`, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${user.token}`,
         },
       });
 

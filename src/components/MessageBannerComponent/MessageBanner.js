@@ -46,8 +46,7 @@ export const MessageBanner = ({
       )}
       {error ? (
         <div className="bannerMessage errorMessage">
-          {error.includes("Access denied") ||
-          error.includes("session has expired") ? (
+          {error.includes("Access denied") || error.includes("session") ? (
             <>
               {error}
 

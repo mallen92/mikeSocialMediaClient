@@ -94,7 +94,7 @@
 @media (min-width: 768px) {
   .userConnect {
     justify-content: unset;
-    margin-left: 10px;
+    margin-left: 20px;
   }
 
   .userConnectBtn:hover {
@@ -105,17 +105,18 @@
 
 /* Large screens*/
 @media (min-width: 1024px) {
+  .userConnect {
+    justify-content: unset;
+    margin-top: 20px;
+    margin-left: 50px;
+  }
+
   .userConnectBtn {
     padding: 10px 20px;
 
     font-family: "Lato Black";
     font-size: 20px;
     text-align: center;
-  }
-
-  .userConnect {
-    justify-content: unset;
-    margin-left: 30px;
   }
 }
 
