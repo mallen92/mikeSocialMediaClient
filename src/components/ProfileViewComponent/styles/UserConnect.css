@@ -10,79 +10,43 @@
   .userConnectBtn {
     padding: 10px;
 
+    border: 2px solid rgb(199, 199, 199);
     border-radius: 10px;
     font-family: "Lato Black";
     text-align: center;
-  }
-
-  .sendMessageBtn {
-    background-color: var(--socialGold);
-    border: 2px solid var(--borderWhite);
-  }
-
-  .addFriendBtn {
-    border: 2px solid var(--borderWhite);
-  }
-
-  .removeFriendBtn {
-    background-color: var(--dangerRed);
-    border: 2px solid rgb(231, 54, 54);
-  }
-
-  .requestSentBtn,
-  .requestReceivedBtn {
-    background-color: grey;
-    border: 2px solid rgb(199, 199, 199);
   }
 
   .requestResponse {
     position: relative;
   }
 
-  .dialogueBanner {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-    padding: 5px 10px;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-
-    color: rgb(49, 49, 49);
-    font-weight: bold;
-  }
-
-  .successBanner {
-    background-color: rgba(85, 185, 85, 0.788);
-  }
-
-  .neutralBanner {
-    background-color: grey;
-  }
-
-  .responseOptionsMenu {
+  .connectOptionsMenu {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
     padding: 10px;
     position: absolute;
-    top: 60px;
-    left: 20px;
+    top: 55px;
+    left: 35px;
 
-    background-color: grey;
-    border: 2px solid rgb(199, 199, 199);
+    background-color: #283044;
+    border: 1px solid var(--borderWhite);
     border-radius: 10px;
-    box-shadow: 3px 3px 6px grey;
+    box-shadow: 5px 5px 5px #181b24;
   }
 
   .optionBtn {
-    padding: 5px 20px;
+    width: 175px;
 
-    background-color: var(--socialGold);
-    border-radius: 10px;
-    font-size: 18px;
+    background-color: var(--hover);
+    font-size: 17px;
     font-weight: bold;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .removeFriendBtn {
+    background-color: var(--dangerRed);
   }
 }
 
@@ -97,9 +61,23 @@
     margin-left: 20px;
   }
 
-  .userConnectBtn:hover {
+  .userConnectBtn:hover,
+  .optionBtn:hover {
     background-color: var(--hover);
     cursor: pointer;
+  }
+
+  .responseOptionsMenu {
+    gap: 5px;
+  }
+
+  .optionBtn {
+    background-color: unset;
+    border-radius: 10px;
+  }
+
+  .removeFriendBtn:hover {
+    background-color: var(--dangerRed);
   }
 }
 
@@ -117,6 +95,14 @@
     font-family: "Lato Black";
     font-size: 20px;
     text-align: center;
+  }
+
+  .responseOptionsMenu {
+    left: 130px;
+  }
+
+  .connectOptionsMenu {
+    margin-top: 10px;
   }
 }
 
