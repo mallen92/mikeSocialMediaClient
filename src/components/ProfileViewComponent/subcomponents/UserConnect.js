@@ -13,6 +13,10 @@ export const UserConnect = ({
   /*------------------------- SET FRIEND STATUS ------------------------*/
 
   const [friendStatus, setFriendStatus] = useState("");
+  const [showResponseOptions, setShowResponseOptions] = useState(false);
+  const [showFriendsOptions, setShowFriendsOptions] = useState(false);
+  const responseRef = useRef(null);
+  const friendsRef = useRef(null);
 
   useEffect(() => {
     const visitedProfilesCache =
@@ -31,7 +35,7 @@ export const UserConnect = ({
 
   /*------------------------- END SET FRIEND STATUS ------------------------*/
 
-  /*------------------------- SEND FRIEND REQUEST ------------------------*/
+  /*------------------------- HANDLE FRIEND CONNECT ------------------------*/
 
   const sendRequest = () => {
     axios
@@ -44,10 +48,81 @@ export const UserConnect = ({
         setFriendStatus(response.data);
         const friendName = updateFriendStatus(response.data);
         showSuccess(`Friend request sent to ${friendName}!`);
+      })
+      .catch((error) => {
+        showError(error.response.data.message);
       });
   };
 
-  /*------------------------- END SEND FRIEND REQUEST ------------------------*/
+  const cancelRequest = () => {
+    axios
+      .delete(`${URL}/users/request/cancel?id=${reqUserId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setFriendStatus(response.data);
+        const friendName = updateFriendStatus(response.data);
+        showWarning(`Friend request to ${friendName} cancelled.`);
+      })
+      .catch((error) => {
+        showError(error.response.data.message);
+      });
+  };
+
+  const rejectRequest = () => {
+    axios
+      .delete(`${URL}/users/request/reject?id=${reqUserId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setFriendStatus(response.data);
+        const friendName = updateFriendStatus(response.data);
+        showWarning(`Friend request from ${friendName} rejected.`);
+      })
+      .catch((error) => {
+        showError(error.response.data.message);
+      });
+  };
+
+  const acceptRequest = () => {
+    axios
+      .put(`${URL}/users/friend?id=${reqUserId}`, null, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setFriendStatus(response.data);
+        const friendName = updateFriendStatus(response.data);
+        showSuccess(`You are now friends with ${friendName}!`);
+      })
+      .catch((error) => {
+        showError(error.response.data.message);
+      });
+  };
+
+  const removeFriend = () => {
+    axios
+      .delete(`${URL}/users/friend?id=${reqUserId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setFriendStatus(response.data);
+        const friendName = updateFriendStatus(response.data);
+        showWarning(`You are no longer friends with ${friendName}.`);
+      })
+      .catch((error) => {
+        showError(error.response.data.message);
+      });
+  };
+
+  /*------------------------- END HANDLE FRIEND CONNECT ------------------------*/
 
   /*------------------------- CACHE FRIEND STATUS UPDATE ------------------------*/
 
@@ -77,14 +152,16 @@ export const UserConnect = ({
 
   /*------------------------- END CACHE FRIEND STATUS UPDATE ------------------------*/
 
-  /*------------------------- REQUEST REPONSE OPTIONS MENU ------------------------*/
-
-  const [showResponseOptions, setShowResponseOptions] = useState(false);
-  const newRef = useRef(null);
+  /*------------------------- CONNECT OPTIONS MENUS ------------------------*/
 
   const toggleShowResponseOptions = () => {
     if (showResponseOptions) setShowResponseOptions(false);
     else setShowResponseOptions(true);
+  };
+
+  const toggleShowFriendsOptions = () => {
+    if (showFriendsOptions) setShowFriendsOptions(false);
+    else setShowFriendsOptions(true);
   };
 
   useEffect(() => {
@@ -92,12 +169,15 @@ export const UserConnect = ({
   });
 
   const handleOutsideClick = (e) => {
-    if (newRef.current && !newRef.current.contains(e.target)) {
+    if (responseRef.current && !responseRef.current.contains(e.target)) {
       setShowResponseOptions(false);
+    }
+    if (friendsRef.current && !friendsRef.current.contains(e.target)) {
+      setShowFriendsOptions(false);
     }
   };
 
-  /*------------------------- END REQUEST REPONSE OPTIONS MENU ------------------------*/
+  /*------------------------- END CONNECT OPTIONS MENUS ------------------------*/
 
   return (
     <div className="userConnect">
@@ -105,52 +185,71 @@ export const UserConnect = ({
         switch (friendStatus) {
           case "not a friend":
             return (
-              <div
-                className="userConnectBtn addFriendBtn"
-                onClick={sendRequest}
-              >
+              <div className="userConnectBtn" onClick={sendRequest}>
                 Send Request
               </div>
             );
           case "sent request to":
             return (
-              <div className="userConnectBtn requestSentBtn">
+              <div className="userConnectBtn" onClick={cancelRequest}>
                 Cancel Request
               </div>
             );
-          // case "pending_this_user_decision":
-          //   return (
-          //     <div className="requestResponse" ref={newRef}>
-          //       <div
-          //         className="userConnectBtn requestReceivedBtn"
-          //         onClick={toggleShowResponseOptions}
-          //       >
-          //         Respond to Request
-          //       </div>
+          case "received request from":
+            return (
+              <div className="requestResponse" ref={responseRef}>
+                <div
+                  className="userConnectBtn"
+                  onClick={toggleShowResponseOptions}
+                >
+                  Respond to Request
+                </div>
 
-          //       {showResponseOptions ? (
-          //         <div className="responseOptionsMenu">
-          //           <div className="optionBtn">Accept</div>
-          //           <div className="optionBtn">Reject</div>
-          //         </div>
-          //       ) : (
-          //         <></>
-          //       )}
-          //     </div>
-          //   );
-          // case "friend":
-          //   return (
-          //     <div className="userConnectBtn removeFriendBtn">
-          //       Unfriend
-          //     </div>
-          //   );
+                {showResponseOptions ? (
+                  <div className="connectOptionsMenu">
+                    <div className="optionBtn" onClick={acceptRequest}>
+                      Accept
+                    </div>
+                    <div className="optionBtn" onClick={rejectRequest}>
+                      Reject
+                    </div>
+                  </div>
+                ) : (
+                  <></>
+                )}
+              </div>
+            );
+          case "friend":
+            return (
+              <div className="requestResponse" ref={friendsRef}>
+                <div
+                  className="userConnectBtn"
+                  onClick={toggleShowFriendsOptions}
+                >
+                  Friends
+                </div>
+
+                {showFriendsOptions ? (
+                  <div className="connectOptionsMenu">
+                    <div
+                      className="optionBtn removeFriendBtn"
+                      onClick={removeFriend}
+                    >
+                      Unfriend This User
+                    </div>
+                  </div>
+                ) : (
+                  <></>
+                )}
+              </div>
+            );
           default:
             return null;
         }
       })()}
 
       {friendStatus === "friend" ? (
-        <div className="userConnectBtn sendMessageBtn">Message</div>
+        <div className="userConnectBtn">Message</div>
       ) : (
         <></>
       )}
