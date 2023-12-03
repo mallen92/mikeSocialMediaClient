@@ -36,8 +36,6 @@
   }
 
   .optionBtn {
-    width: 175px;
-
     background-color: var(--hover);
     font-size: 17px;
     font-weight: bold;
@@ -46,6 +44,8 @@
   }
 
   .removeFriendBtn {
+    width: 175px;
+
     background-color: var(--dangerRed);
   }
 }

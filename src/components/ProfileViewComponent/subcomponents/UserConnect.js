@@ -10,13 +10,13 @@ export const UserConnect = ({
   showWarning,
   showError,
 }) => {
-  /*------------------------- SET FRIEND STATUS ------------------------*/
-
   const [friendStatus, setFriendStatus] = useState("");
   const [showResponseOptions, setShowResponseOptions] = useState(false);
   const [showFriendsOptions, setShowFriendsOptions] = useState(false);
   const responseRef = useRef(null);
   const friendsRef = useRef(null);
+
+  /*------------------------- SET FRIEND STATUS ------------------------*/
 
   useEffect(() => {
     const visitedProfilesCache =
@@ -34,6 +34,33 @@ export const UserConnect = ({
   }, [reqUserId]);
 
   /*------------------------- END SET FRIEND STATUS ------------------------*/
+
+  /*------------------------- CONNECT OPTIONS MENUS ------------------------*/
+
+  const toggleShowResponseOptions = () => {
+    if (showResponseOptions) setShowResponseOptions(false);
+    else setShowResponseOptions(true);
+  };
+
+  const toggleShowFriendsOptions = () => {
+    if (showFriendsOptions) setShowFriendsOptions(false);
+    else setShowFriendsOptions(true);
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", handleOutsideClick);
+  });
+
+  const handleOutsideClick = (e) => {
+    if (responseRef.current && !responseRef.current.contains(e.target)) {
+      setShowResponseOptions(false);
+    }
+    if (friendsRef.current && !friendsRef.current.contains(e.target)) {
+      setShowFriendsOptions(false);
+    }
+  };
+
+  /*------------------------- END CONNECT OPTIONS MENUS ------------------------*/
 
   /*------------------------- HANDLE FRIEND CONNECT ------------------------*/
 
@@ -151,33 +178,6 @@ export const UserConnect = ({
   };
 
   /*------------------------- END CACHE FRIEND STATUS UPDATE ------------------------*/
-
-  /*------------------------- CONNECT OPTIONS MENUS ------------------------*/
-
-  const toggleShowResponseOptions = () => {
-    if (showResponseOptions) setShowResponseOptions(false);
-    else setShowResponseOptions(true);
-  };
-
-  const toggleShowFriendsOptions = () => {
-    if (showFriendsOptions) setShowFriendsOptions(false);
-    else setShowFriendsOptions(true);
-  };
-
-  useEffect(() => {
-    document.addEventListener("click", handleOutsideClick);
-  });
-
-  const handleOutsideClick = (e) => {
-    if (responseRef.current && !responseRef.current.contains(e.target)) {
-      setShowResponseOptions(false);
-    }
-    if (friendsRef.current && !friendsRef.current.contains(e.target)) {
-      setShowFriendsOptions(false);
-    }
-  };
-
-  /*------------------------- END CONNECT OPTIONS MENUS ------------------------*/
 
   return (
     <div className="userConnect">

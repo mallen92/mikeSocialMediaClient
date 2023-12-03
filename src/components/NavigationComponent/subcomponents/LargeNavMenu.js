@@ -53,15 +53,18 @@ export const LargeNavMenu = () => {
           </div>
         )}
 
-        {location.pathname === "/friends" ? (
-          <div className="navLink currentView">
+        {location.pathname === `/${user.id}/friends` ? (
+          <div
+            className="navLink currentView"
+            onClick={() => navigate(`/${user.id}/friends`)}
+          >
             <GroupIcon fontSize="large" />
             <div>Friends</div>
           </div>
         ) : (
           <div
             className="navLink"
-            onClick={() => navigate(`/friends/${user.id}`)}
+            onClick={() => navigate(`/${user.id}/friends`)}
           >
             <GroupIcon fontSize="large" />
             <div>Friends</div>

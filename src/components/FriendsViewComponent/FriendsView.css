@@ -1,0 +1,81 @@
+/* Smartphones */
+@media (min-width: 320px) {
+  .friendsView {
+    align-items: center;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 10px;
+    overflow: auto;
+    padding: 2%;
+    position: relative;
+  }
+
+  .friendPic {
+    width: 50px;
+    border: 2px solid #747474b2;
+    border-radius: 50%;
+  }
+
+  .listedFriend {
+    align-items: center;
+    display: flex;
+    gap: 15px;
+    padding: 10px;
+    position: relative;
+    margin: 0 10px;
+    width: 90%;
+
+    background-color: var(--hover);
+    border: 2px solid var(--borderWhite);
+    border-radius: 10px;
+  }
+
+  .pageTurners {
+    display: flex;
+    gap: 50px;
+    margin-top: 25px;
+    width: fit-content;
+  }
+
+  .previous,
+  .next {
+    width: 80px;
+    border: 4px outset rgb(233, 233, 233);
+    border-radius: 50%;
+    background-color: rgb(204, 202, 216);
+    color: black;
+    font-size: 50px;
+    text-align: center;
+  }
+
+  .disabled {
+    background-color: rgba(128, 128, 128, 0.5);
+    border: 4px solid var(--default);
+    color: rgb(128, 128, 128, 0.5);
+  }
+}
+
+/* Tablets */
+@media (min-width: 425px) {
+}
+
+/* Large tablets */
+@media (min-width: 768px) {
+  .loadingMsg {
+    font-size: 30px;
+  }
+
+  .enabled:hover {
+    cursor: pointer;
+    background-color: rgb(132, 131, 139);
+  }
+}
+
+/* Large screens*/
+@media (min-width: 1024px) {
+}
+
+/* Extra large screens */
+@media (min-width: 1440px) {
+}

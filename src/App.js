@@ -4,8 +4,10 @@ import { setUser } from "./state/userSlice";
 import { LoginPage } from "./components/UnauthUserComponent/LoginPage";
 import { SignupPage } from "./components/UnauthUserComponent/SignupPage";
 import { AuthUserPage } from "./components/AuthUserPage";
+import { UserPage } from "./components/UserPage";
 import { HomeView } from "./components/HomeViewComponent/HomeView";
-import { ProfilePage } from "./components/ProfilePage";
+import { ProfileView } from "./components/ProfileViewComponent/ProfileView";
+import { FriendsView } from "./components/FriendsViewComponent/FriendsView";
 import { MobileMenuView } from "./components/MobileMenuViewComponent/MobileMenuView";
 import "./App.css";
 // import "./util/breakpoints.css";
@@ -48,7 +50,10 @@ function App() {
             element={isLoggedIn ? <Navigate to="/" /> : <SignupPage />}
           />
 
-          <Route path=":id" element={<ProfilePage />} />
+          <Route path="/:id" element={<UserPage />}>
+            <Route path="/:id" element={<ProfileView />} />
+            <Route path="friends" element={<FriendsView />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </div>
