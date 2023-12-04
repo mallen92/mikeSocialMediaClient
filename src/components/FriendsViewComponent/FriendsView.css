@@ -11,10 +11,44 @@
     position: relative;
   }
 
-  .friendPic {
-    width: 50px;
-    border: 2px solid #747474b2;
-    border-radius: 50%;
+  .searchForm {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    padding: 10px 0;
+    position: relative;
+    width: 90%;
+  }
+
+  .searchForm input:focus {
+    outline: 3px solid #8e97aa;
+  }
+
+  .friendSearch {
+    padding: 12px;
+    width: 80%;
+
+    border-radius: 10px;
+    font-size: 20px;
+  }
+
+  .submit {
+    width: 100px;
+
+    border-radius: 10px;
+  }
+
+  .loadingMsg,
+  .noFriendsMsg {
+    font-size: 20px;
+  }
+
+  .friendList {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 90%;
   }
 
   .listedFriend {
@@ -24,40 +58,34 @@
     padding: 10px;
     position: relative;
     margin: 0 10px;
-    width: 90%;
+    width: 100%;
 
     background-color: var(--hover);
     border: 2px solid var(--borderWhite);
     border-radius: 10px;
   }
 
-  .pageTurners {
-    display: flex;
-    gap: 50px;
-    margin-top: 25px;
-    width: fit-content;
-  }
-
-  .previous,
-  .next {
-    width: 80px;
-    border: 4px outset rgb(233, 233, 233);
+  .friendPic {
+    width: 70px;
+    border: 2px solid #747474b2;
     border-radius: 50%;
-    background-color: rgb(204, 202, 216);
-    color: black;
-    font-size: 50px;
-    text-align: center;
   }
 
-  .disabled {
-    background-color: rgba(128, 128, 128, 0.5);
-    border: 4px solid var(--default);
-    color: rgb(128, 128, 128, 0.5);
+  .friendName {
+    font-family: "Lato Black";
+    font-size: 20px;
   }
 }
 
 /* Tablets */
 @media (min-width: 425px) {
+  .friendsView {
+    margin-top: 15px;
+  }
+
+  .searchForm {
+    margin-bottom: 15px;
+  }
 }
 
 /* Large tablets */
@@ -67,16 +95,48 @@
     font-size: 30px;
   }
 
-  .enabled:hover {
+  .submit:hover {
     cursor: pointer;
-    background-color: rgb(132, 131, 139);
+    background-color: rgb(177, 177, 177);
+  }
+
+  .submit:active {
+    background-color: var(--hover);
+  }
+
+  .listedFriend:hover {
+    cursor: pointer;
+    background-color: var(--default);
   }
 }
 
 /* Large screens*/
 @media (min-width: 1024px) {
+  .friendList {
+    justify-content: center;
+    flex-direction: row;
+    gap: 30px;
+    column-gap: 30px;
+    columns: 2;
+    flex-wrap: wrap;
+  }
+
+  .listedFriend {
+    width: 43%;
+  }
+
+  .friendPic {
+    width: 100px;
+  }
+
+  .friendName {
+    font-size: 18px;
+  }
 }
 
 /* Extra large screens */
 @media (min-width: 1440px) {
+  .friendSearch {
+    width: 400px;
+  }
 }
