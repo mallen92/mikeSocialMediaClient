@@ -62,7 +62,8 @@
 
 /* Large tablets */
 @media (min-width: 768px) {
-  .loadingMsg {
+  .loadingMsg,
+  .noFriendsMsg {
     font-size: 30px;
   }
 

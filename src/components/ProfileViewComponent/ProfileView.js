@@ -130,7 +130,6 @@ export const ProfileView = () => {
           {userToken && user.id !== requestedUserId ? (
             <UserConnect
               reqUserId={requestedUserId}
-              token={userToken}
               showSuccess={setSuccessMessage}
               showWarning={setWarningMessage}
               showError={setErrorMessage}
