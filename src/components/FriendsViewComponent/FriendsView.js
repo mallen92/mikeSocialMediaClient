@@ -57,48 +57,53 @@ export const FriendsView = () => {
         <></>
       )}
 
-      <div className="friendsViewHeader">
-        <div className="friendsViewTitle">Friends</div>
-        <form className="searchForm" onSubmit={engageSearchMode}>
-          <input
-            name="keyword"
-            className="friendSearch"
-            placeholder="Search..."
-          />
-          <button type="submit" className="submit">
-            <SearchIcon style={{ fontSize: "40px" }} />
-          </button>
-        </form>
-      </div>
-
-      {isLoading ? (
-        <div className="loadingMsg">Retrieving friends...</div>
-      ) : (
-        <div className="friendList">
-          {friendsList.length !== 0 ? (
-            <>
-              {friendsList.map((friend) => (
-                <div
-                  key={friend.resultId}
-                  className="listedFriend"
-                  onClick={() => navigate(`/${friend.id}`)}
-                >
-                  <div className="friendProfPic">
-                    <img
-                      className="friendPic"
-                      src={friend.pic_url}
-                      alt="friend"
-                    />
-                  </div>
-                  <div className="friendName">{friend.full_name}</div>
-                </div>
-              ))}
-            </>
-          ) : (
-            <div className="noFriendsMsg">No friends found.</div>
-          )}
+      <div className="friendsViewContent">
+        <div className="friendsViewHeader">
+          <div className="friendsViewTitle">Friends</div>
+          <div className="backBtn" onClick={() => navigate(`/${reqUserId}`)}>
+            Back to Profile
+          </div>
+          <form className="searchForm" onSubmit={engageSearchMode}>
+            <input
+              name="keyword"
+              className="friendSearch"
+              placeholder="Search..."
+            />
+            <button type="submit" className="submit">
+              <SearchIcon style={{ fontSize: "40px" }} />
+            </button>
+          </form>
         </div>
-      )}
+
+        {isLoading ? (
+          <div className="loadingMsg">Retrieving friends...</div>
+        ) : (
+          <div className="friendList">
+            {friendsList.length !== 0 ? (
+              <>
+                {friendsList.map((friend) => (
+                  <div
+                    key={friend.resultId}
+                    className="listedFriend"
+                    onClick={() => navigate(`/${friend.id}`)}
+                  >
+                    <div className="friendProfPic">
+                      <img
+                        className="friendPic"
+                        src={friend.pic_url}
+                        alt="friend"
+                      />
+                    </div>
+                    <div className="friendName">{friend.full_name}</div>
+                  </div>
+                ))}
+              </>
+            ) : (
+              <div className="noFriendsMsg">No friends found.</div>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

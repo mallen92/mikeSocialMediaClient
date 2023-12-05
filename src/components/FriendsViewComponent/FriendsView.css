@@ -1,29 +1,59 @@
 /* Smartphones */
 @media (min-width: 320px) {
   .friendsView {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+    padding: 0 20px;
+  }
+
+  .friendsViewContent {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    background-color: rgba(0, 0, 0, 0.25);
+    border: 2px solid var(--hover);
+    border-radius: 20px;
+  }
+
+  .friendsViewHeader {
     align-items: center;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin: 0 auto;
-    padding: 0 2%;
-    padding-bottom: 10px;
-    position: relative;
+    padding: 10px 0;
     width: 100%;
 
-    background-color: rgba(0, 0, 0, 0.25);
+    background-color: rgba(0, 0, 0, 0.5);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    text-align: center;
   }
 
-  .friendsViewHeader {
+  .friendsViewTitle {
+    font-size: 25px;
+    font-weight: bold;
+  }
+
+  .backBtn {
+    padding: 8px;
     text-align: center;
+
+    background-color: var(--hover);
+    border: 2px solid rgb(199, 199, 199);
+    border-radius: 10px;
+    font-size: 15px;
   }
 
   .searchForm {
     display: flex;
     gap: 10px;
     justify-content: center;
-    margin-top: 10px;
-    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 90%;
   }
 
   .searchForm input:focus {
@@ -39,14 +69,8 @@
   }
 
   .submit {
-    width: 100px;
-
+    width: 85px;
     border-radius: 10px;
-  }
-
-  .friendsViewTitle {
-    font-size: 30px;
-    font-weight: bold;
   }
 
   .loadingMsg,
@@ -55,47 +79,33 @@
   }
 
   .friendList {
-    align-items: center;
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
+    flex-wrap: wrap;
+    margin: 10px 0;
+    row-gap: 20px;
   }
 
   .listedFriend {
-    align-items: center;
     display: flex;
-    gap: 15px;
-    padding: 5px 10px;
-    position: relative;
-    margin: 0 10px;
-    width: 100%;
-
-    background-color: var(--hover);
-    border: 2px solid var(--borderWhite);
-    border-radius: 10px;
+    flex-direction: column;
+    align-items: center;
   }
 
   .friendPic {
-    width: 60px;
-    border: 2px solid #747474b2;
-    border-radius: 50%;
+    width: 70px;
   }
 
   .friendName {
-    font-size: 20px;
+    text-align: center;
+    width: 100px;
   }
 }
 
 /* Tablets */
 @media (min-width: 425px) {
-  .friendsView {
-    margin-top: 15px;
-  }
-
   .searchForm {
     margin-bottom: 10px;
-    width: 300px;
+    width: 80%;
   }
 }
 
@@ -103,6 +113,10 @@
 @media (min-width: 768px) {
   .loadingMsg,
   .noFriendsMsg {
+    font-size: 30px;
+  }
+
+  .friendsViewTitle {
     font-size: 30px;
   }
 
@@ -115,29 +129,47 @@
     background-color: var(--hover);
   }
 
+  .friendList {
+    padding: 0 20px;
+  }
+
   .listedFriend:hover {
+    cursor: pointer;
+    background-color: var(--hover);
+  }
+
+  .backBtn:hover {
     cursor: pointer;
     background-color: var(--default);
   }
 
   .searchForm {
-    width: 500px;
+    width: 300px;
   }
 }
 
 /* Large screens*/
 @media (min-width: 1024px) {
+  .friendsViewHeader {
+    flex-direction: row;
+    padding: 15px 20px;
+    justify-content: space-between;
+  }
+
+  .friendsViewHeader :nth-child(2) {
+    order: 1;
+  }
+
+  .searchForm {
+    width: 400px;
+  }
+
   .friendList {
     column-gap: 30px;
     columns: 2;
     flex-direction: row;
     flex-wrap: wrap;
     gap: 30px;
-    justify-content: space-evenly;
-  }
-
-  .listedFriend {
-    width: 300px;
   }
 
   .friendPic {
