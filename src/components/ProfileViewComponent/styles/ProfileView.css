@@ -29,6 +29,14 @@
     font-size: 20px;
     font-weight: bold;
   }
+
+  .infoPanel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+    padding: 0 20px;
+  }
 }
 
 /* Tablets */
@@ -56,7 +64,7 @@
   .requestedUserIntro {
     gap: 20px;
     justify-content: unset;
-    margin-top: 70px;
+    margin-top: 50px;
     padding-left: 20px;
   }
 
@@ -69,12 +77,17 @@
 @media (min-width: 1024px) {
   .requestedUserIntro {
     gap: 30px;
-    margin-top: 90px;
     padding-left: 50px;
   }
 
   .requestedUserName {
     font-size: 50px;
+  }
+
+  .infoPanel {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
   }
 }
 

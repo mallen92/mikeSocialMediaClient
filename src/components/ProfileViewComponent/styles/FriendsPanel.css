@@ -1,0 +1,96 @@
+/* Smartphones */
+@media (min-width: 320px) {
+  .friendsPanel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.25);
+    border: 2px solid var(--hover);
+  }
+
+  .panelHeader {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 0;
+
+    background-color: rgba(0, 0, 0, 0.5);
+    text-align: center;
+  }
+
+  .panelTitle {
+    font-size: 25px;
+    font-weight: bold;
+  }
+
+  .viewMoreBtn {
+    padding: 8px;
+    text-align: center;
+    width: fit-content;
+
+    background-color: var(--hover);
+    border: 2px solid rgb(199, 199, 199);
+    border-radius: 10px;
+    font-size: 15px;
+  }
+
+  .panelFriendList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin: 10px 0;
+    row-gap: 20px;
+  }
+
+  .panelFriend {
+    text-align: center;
+  }
+
+  .panelPic {
+    width: 80px;
+  }
+
+  .panelName {
+    text-align: center;
+    width: 100px;
+  }
+}
+
+/* Tablets */
+@media (min-width: 425px) {
+  .panelFriendList {
+    margin-left: 20px;
+    margin-right: 20px;
+    gap: 15px;
+  }
+
+  .panelPic {
+    width: 100px;
+  }
+}
+
+/* Large tablets */
+@media (min-width: 768px) {
+  .panelFriend:hover,
+  .viewMoreBtn:hover {
+    cursor: pointer;
+    background-color: var(--hover);
+  }
+}
+
+/* Large screens*/
+@media (min-width: 1024px) {
+  .friendsPanel {
+    height: fit-content;
+    width: 500px;
+  }
+
+  .panelName {
+    font-size: 18px;
+  }
+}
+
+/* Extra large screens */
+@media (min-width: 1440px) {
+}

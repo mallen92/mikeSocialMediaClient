@@ -10,6 +10,9 @@ import { LoadingWindow } from "./subcomponents/LoadingWindow";
 import { SavePicWindow } from "./subcomponents/SavePicWindow";
 import { DeletePicWindow } from "./subcomponents/DeletePicWindow";
 import { MessageBanner } from "../MessageBannerComponent/MessageBanner";
+import { FriendsPanel } from "./subcomponents/FriendsPanel";
+import { AboutPanel } from "./subcomponents/AboutPanel";
+import { PostsPanel } from "./subcomponents/PostsPanel";
 import placeholder from "./images/Placeholder.png";
 import "./styles/ProfileView.css";
 
@@ -25,6 +28,8 @@ export const ProfileView = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [warningMessage, setWarningMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [postsPanel] = useState(false);
+  const [infoPanel] = useState(true);
   const location = useLocation();
 
   const userToken = user.token;
@@ -176,16 +181,27 @@ export const ProfileView = () => {
           {successMessage || warningMessage || errorMessage ? (
             <MessageBanner
               success={successMessage}
-              showSuccess={setSuccessMessage}
+              closeSuccess={setSuccessMessage}
               warning={warningMessage}
-              showWarning={setWarningMessage}
+              closeWarning={setWarningMessage}
               error={errorMessage}
-              showError={setErrorMessage}
+              closeError={setErrorMessage}
             />
           ) : (
             <></>
           )}
         </>
+      )}
+
+      {postsPanel ? <PostsPanel /> : <></>}
+
+      {infoPanel ? (
+        <div className="infoPanel">
+          <FriendsPanel showError={setErrorMessage} />
+          <AboutPanel />
+        </div>
+      ) : (
+        <></>
       )}
     </div>
   );
