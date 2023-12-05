@@ -1,7 +1,6 @@
 /* Smartphones */
 @media (min-width: 320px) {
-  .profileViewBody {
-    position: relative;
+  .profilePageContent {
     width: 100%;
   }
 
@@ -33,12 +32,15 @@
 
 /* Tablets */
 @media (min-width: 425px) {
+  .requestedUserName {
+    font-size: 30px;
+  }
 }
 
 /* Large tablets */
 @media (min-width: 768px) {
-  .profileViewBody {
-    width: 70%;
+  .profilePageContent {
+    overflow: auto;
   }
 
   .loadingUserPic {
@@ -53,12 +55,12 @@
   .requestedUserIntro {
     gap: 20px;
     justify-content: unset;
-    margin-top: 90px;
+    margin-top: 50px;
     padding-left: 20px;
   }
 
   .requestedUserName {
-    font-size: 30px;
+    font-size: 40px;
   }
 }
 
@@ -68,15 +70,8 @@
     gap: 30px;
     padding-left: 50px;
   }
-
-  .requestedUserName {
-    font-size: 50px;
-  }
 }
 
 /* Extra large screens */
 @media (min-width: 1440px) {
-  .profileViewBody {
-    width: 80%;
-  }
 }

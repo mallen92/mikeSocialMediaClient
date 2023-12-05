@@ -10,13 +10,17 @@
 
 /* Tablets */
 @media (min-width: 425px) {
+  .authUserPic,
+  .requestedUserPic {
+    width: 125px;
+  }
 }
 
 /* Large tablets */
 @media (min-width: 768px) {
   .authUserPic,
   .requestedUserPic {
-    width: 125px;
+    width: 150px;
   }
 
   .authUserPic:hover {
@@ -26,10 +30,6 @@
 
 /* Large screens*/
 @media (min-width: 1024px) {
-  .authUserPic,
-  .requestedUserPic {
-    width: 175px;
-  }
 }
 
 /* Extra large screens */

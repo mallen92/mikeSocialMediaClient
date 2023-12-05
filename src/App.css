@@ -35,7 +35,7 @@ body {
   }
 
   .authUserPageBody,
-  .publicPageBody {
+  .profilePageBody {
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -52,7 +52,7 @@ body {
 /* Large tablets */
 @media (min-width: 768px) {
   .authUserPageBody,
-  .publicPageBody {
+  .profilePageBody {
     flex-direction: unset;
   }
 }

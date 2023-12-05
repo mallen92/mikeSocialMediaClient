@@ -1,20 +1,45 @@
 import { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import { URL } from "../../../util/url";
 import "../styles/UserConnect.css";
 
 export const UserConnect = ({
   reqUserId,
-  token,
   showSuccess,
   showWarning,
   showError,
 }) => {
+  const user = useSelector((state) => state.userSlice.user);
+  const [reqUserInfo, setReqUserInfo] = useState({});
   const [friendStatus, setFriendStatus] = useState("");
   const [showResponseOptions, setShowResponseOptions] = useState(false);
   const [showFriendsOptions, setShowFriendsOptions] = useState(false);
   const responseRef = useRef(null);
   const friendsRef = useRef(null);
+
+  const requestURL = `${URL}/users/request`;
+  const friendURL = `${URL}/users/friend`;
+
+  const sendReqInfo = {
+    senderName: user.full_name,
+    senderPicFile: user.pic_filename,
+    recipName: reqUserInfo.full_name,
+    recipPicFile: reqUserInfo.pic_filename,
+  };
+
+  const acceptReqInfo = {
+    senderName: reqUserInfo.full_name,
+    senderPicFile: reqUserInfo.pic_filename,
+    recipName: user.full_name,
+    recipPicFile: user.pic_filename,
+  };
+
+  const reqHeader = {
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+    },
+  };
 
   /*------------------------- SET FRIEND STATUS ------------------------*/
 
@@ -28,6 +53,10 @@ export const UserConnect = ({
 
       if (visitedProfile.id === reqUserId) {
         setFriendStatus(visitedProfile.friend_status);
+        setReqUserInfo({
+          full_name: visitedProfile.full_name,
+          pic_filename: visitedProfile.pic_filename,
+        });
         break;
       }
     }
@@ -66,13 +95,9 @@ export const UserConnect = ({
 
   const sendRequest = () => {
     axios
-      .put(`${URL}/users/request?id=${reqUserId}`, null, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .put(`${requestURL}?id=${reqUserId}`, sendReqInfo, reqHeader)
       .then((response) => {
-        setFriendStatus(response.data);
+        setFriendStatus(response.data.status);
         const friendName = updateFriendStatus(response.data);
         showSuccess(`Friend request sent to ${friendName}!`);
       })
@@ -83,13 +108,9 @@ export const UserConnect = ({
 
   const cancelRequest = () => {
     axios
-      .delete(`${URL}/users/request/cancel?id=${reqUserId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .delete(`${requestURL}/cancel?id=${reqUserId}`, reqHeader)
       .then((response) => {
-        setFriendStatus(response.data);
+        setFriendStatus(response.data.status);
         const friendName = updateFriendStatus(response.data);
         showWarning(`Friend request to ${friendName} cancelled.`);
       })
@@ -100,13 +121,9 @@ export const UserConnect = ({
 
   const rejectRequest = () => {
     axios
-      .delete(`${URL}/users/request/reject?id=${reqUserId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .delete(`${requestURL}/reject?id=${reqUserId}`, reqHeader)
       .then((response) => {
-        setFriendStatus(response.data);
+        setFriendStatus(response.data.status);
         const friendName = updateFriendStatus(response.data);
         showWarning(`Friend request from ${friendName} rejected.`);
       })
@@ -117,13 +134,9 @@ export const UserConnect = ({
 
   const acceptRequest = () => {
     axios
-      .put(`${URL}/users/friend?id=${reqUserId}`, null, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .put(`${friendURL}?id=${reqUserId}`, acceptReqInfo, reqHeader)
       .then((response) => {
-        setFriendStatus(response.data);
+        setFriendStatus(response.data.status);
         const friendName = updateFriendStatus(response.data);
         showSuccess(`You are now friends with ${friendName}!`);
       })
@@ -134,13 +147,9 @@ export const UserConnect = ({
 
   const removeFriend = () => {
     axios
-      .delete(`${URL}/users/friend?id=${reqUserId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .delete(`${friendURL}?id=${reqUserId}`, reqHeader)
       .then((response) => {
-        setFriendStatus(response.data);
+        setFriendStatus(response.data.status);
         const friendName = updateFriendStatus(response.data);
         showWarning(`You are no longer friends with ${friendName}.`);
       })

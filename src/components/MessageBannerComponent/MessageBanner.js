@@ -5,11 +5,11 @@ import "./MessageBanner.css";
 
 export const MessageBanner = ({
   success,
-  showSuccess,
+  closeSuccess,
   warning,
-  showWarning,
+  closeWarning,
   error,
-  showError,
+  closeError,
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ export const MessageBanner = ({
         <div className="bannerMessage successMessage">
           {success}
 
-          <div className="closeBanner" onClick={() => showSuccess("")}>
+          <div className="closeBanner" onClick={() => closeSuccess("")}>
             &#10006;
           </div>
         </div>
@@ -37,7 +37,7 @@ export const MessageBanner = ({
         <div className="bannerMessage warningMessage">
           {warning}
 
-          <div className="closeBanner" onClick={() => showWarning("")}>
+          <div className="closeBanner" onClick={() => closeWarning("")}>
             &#10006;
           </div>
         </div>
@@ -58,7 +58,7 @@ export const MessageBanner = ({
             <>
               {error}
 
-              <div className="closeBanner" onClick={() => showError("")}>
+              <div className="closeBanner" onClick={() => closeError("")}>
                 &#10006;
               </div>
             </>

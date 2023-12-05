@@ -1,3 +1,5 @@
+import { NavigationContainer } from "../NavigationComponent/NavigationContainer";
+import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -11,9 +13,9 @@ import { SavePicWindow } from "./subcomponents/SavePicWindow";
 import { DeletePicWindow } from "./subcomponents/DeletePicWindow";
 import { MessageBanner } from "../MessageBannerComponent/MessageBanner";
 import placeholder from "./images/Placeholder.png";
-import "./styles/ProfileView.css";
+import "./styles/ProfilePage.css";
 
-export const ProfileView = () => {
+export const ProfilePage = () => {
   const user = useSelector((state) => state.userSlice.user);
   const [isLoading, setLoading] = useState(true);
   const [requestedUser, setRequestedUser] = useState({});
@@ -108,86 +110,91 @@ export const ProfileView = () => {
   /*------------------------- END LOADING PROFILE ------------------------*/
 
   return (
-    <div className="profileViewBody">
-      {isLoading ? (
-        <>
-          <div className="requestedUserIntro">
-            <img src={placeholder} className="loadingUserPic" alt="loading" />
-            <img src={placeholder} className="loadingName" alt="loading" />
-          </div>
-        </>
-      ) : (
-        <>
-          <div className="requestedUserIntro">
-            <ProfilePic
-              requestedUser={requestedUser}
-              uploadImage={setShowUploadImageWindow}
-              confirmDelete={setShowDeletePicWindow}
-            />
-            <div className="requestedUserName">{requestedUser.full_name}</div>
-          </div>
+    <div className="profilePageBody">
+      <NavigationContainer />
 
-          {userToken && user.id !== requestedUserId ? (
-            <UserConnect
-              reqUserId={requestedUserId}
-              token={userToken}
-              showSuccess={setSuccessMessage}
-              showWarning={setWarningMessage}
-              showError={setErrorMessage}
-            />
-          ) : (
-            <></>
-          )}
+      <div className="profilePageContent">
+        {isLoading ? (
+          <>
+            <div className="requestedUserIntro">
+              <img src={placeholder} className="loadingUserPic" alt="loading" />
+              <img src={placeholder} className="loadingName" alt="loading" />
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="requestedUserIntro">
+              <ProfilePic
+                requestedUser={requestedUser}
+                uploadImage={setShowUploadImageWindow}
+                confirmDelete={setShowDeletePicWindow}
+              />
+              <div className="requestedUserName">{requestedUser.full_name}</div>
+            </div>
 
-          {showUploadImageWindow ? (
-            <UploadImageWindow
-              setImage={setImage}
-              showThisWindow={setShowUploadImageWindow}
-              openNextWindow={setShowSavePicWindow}
-            />
-          ) : (
-            <></>
-          )}
+            {userToken && user.id !== requestedUserId ? (
+              <UserConnect
+                reqUserId={requestedUserId}
+                showSuccess={setSuccessMessage}
+                showWarning={setWarningMessage}
+                showError={setErrorMessage}
+              />
+            ) : (
+              <></>
+            )}
 
-          {showDeletePicWindow ? (
-            <DeletePicWindow
-              updateViewedUser={setRequestedUser}
-              showThisWindow={setShowDeletePicWindow}
-              showLoadingWindow={setShowLoadingWindow}
-              showError={setErrorMessage}
-            />
-          ) : (
-            <></>
-          )}
+            {showUploadImageWindow ? (
+              <UploadImageWindow
+                setImage={setImage}
+                showThisWindow={setShowUploadImageWindow}
+                openNextWindow={setShowSavePicWindow}
+              />
+            ) : (
+              <></>
+            )}
 
-          {showSavePicWindow ? (
-            <SavePicWindow
-              image={image}
-              updateViewedUser={setRequestedUser}
-              showThisWindow={setShowSavePicWindow}
-              showLoadingWindow={setShowLoadingWindow}
-              showError={setErrorMessage}
-            />
-          ) : (
-            <></>
-          )}
+            {showDeletePicWindow ? (
+              <DeletePicWindow
+                updateViewedUser={setRequestedUser}
+                showThisWindow={setShowDeletePicWindow}
+                showLoadingWindow={setShowLoadingWindow}
+                showError={setErrorMessage}
+              />
+            ) : (
+              <></>
+            )}
 
-          {showLoadingWindow ? <LoadingWindow /> : <></>}
+            {showSavePicWindow ? (
+              <SavePicWindow
+                image={image}
+                updateViewedUser={setRequestedUser}
+                showThisWindow={setShowSavePicWindow}
+                showLoadingWindow={setShowLoadingWindow}
+                showError={setErrorMessage}
+              />
+            ) : (
+              <></>
+            )}
 
-          {successMessage || warningMessage || errorMessage ? (
-            <MessageBanner
-              success={successMessage}
-              showSuccess={setSuccessMessage}
-              warning={warningMessage}
-              showWarning={setWarningMessage}
-              error={errorMessage}
-              showError={setErrorMessage}
-            />
-          ) : (
-            <></>
-          )}
-        </>
-      )}
+            {showLoadingWindow ? <LoadingWindow /> : <></>}
+
+            {successMessage || warningMessage || errorMessage ? (
+              <MessageBanner
+                success={successMessage}
+                closeSuccess={setSuccessMessage}
+                warning={warningMessage}
+                closeWarning={setWarningMessage}
+                error={errorMessage}
+                closeError={setErrorMessage}
+              />
+            ) : (
+              <></>
+            )}
+          </>
+        )}
+
+        <Outlet />
+      </div>
     </div>
   );
 };

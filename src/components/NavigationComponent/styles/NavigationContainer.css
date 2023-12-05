@@ -5,13 +5,17 @@
   }
 
   .branding {
-    margin-top: 20px;
+    margin-top: 10px;
   }
 
   .navigationContainerBody {
     display: flex;
     flex-direction: column;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 
+    background-color: var(--default);
     border-bottom: 1px solid var(--borderWhite);
   }
 
@@ -67,7 +71,7 @@
   .navigationContainerBody {
     align-items: center;
     gap: 20px;
-    width: 30%;
+    width: 300px;
 
     border-bottom: unset;
     border-right: 1px solid var(--borderWhite);
@@ -96,7 +100,4 @@
 
 /* Extra large screens */
 @media (min-width: 1440px) {
-  .navigationContainerBody {
-    width: 20%;
-  }
 }

@@ -1,0 +1,25 @@
+/* Smartphones */
+@media (min-width: 320px) {
+  .aboutPanel {
+    background-color: rgba(212, 212, 212, 0.185);
+  }
+}
+
+/* Tablets */
+@media (min-width: 425px) {
+}
+
+/* Large tablets */
+@media (min-width: 768px) {
+  .aboutPanel {
+    width: 100%;
+  }
+}
+
+/* Large screens*/
+@media (min-width: 1024px) {
+}
+
+/* Extra large screens */
+@media (min-width: 1440px) {
+}
