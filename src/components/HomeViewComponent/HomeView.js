@@ -1,5 +1,5 @@
-import React from "react";
+import "./styles/HomeView.css";
 
 export const HomeView = () => {
-  return <div>HomeView</div>;
+  return <div className="homeView">HomeView</div>;
 };

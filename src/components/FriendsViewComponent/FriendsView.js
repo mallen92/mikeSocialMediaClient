@@ -57,16 +57,19 @@ export const FriendsView = () => {
         <></>
       )}
 
-      <form className="searchForm" onSubmit={engageSearchMode}>
-        <input
-          name="keyword"
-          className="friendSearch"
-          placeholder="Search..."
-        />
-        <button type="submit" className="submit">
-          <SearchIcon style={{ fontSize: "40px" }} />
-        </button>
-      </form>
+      <div className="friendsViewHeader">
+        <div className="friendsViewTitle">Friends</div>
+        <form className="searchForm" onSubmit={engageSearchMode}>
+          <input
+            name="keyword"
+            className="friendSearch"
+            placeholder="Search..."
+          />
+          <button type="submit" className="submit">
+            <SearchIcon style={{ fontSize: "40px" }} />
+          </button>
+        </form>
+      </div>
 
       {isLoading ? (
         <div className="loadingMsg">Retrieving friends...</div>

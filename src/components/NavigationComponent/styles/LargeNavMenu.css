@@ -1,7 +1,6 @@
 /* Large tablets */
 @media (min-width: 768px) {
   .largeNavMenuBody {
-    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -64,23 +63,8 @@
 
 /* Large screens*/
 @media (min-width: 1024px) {
-  .largeNavMenuBody {
-    width: unset;
-  }
-
-  .appUserInfo {
-    flex-direction: unset;
-    justify-content: center;
-  }
-
-  .appUserPic {
-    width: 125px !important;
-  }
 }
 
 /* Extra large screens */
 @media (min-width: 1440px) {
-  .appUserPic {
-    width: 120px !important;
-  }
 }

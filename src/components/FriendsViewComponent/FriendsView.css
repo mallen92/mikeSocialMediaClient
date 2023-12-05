@@ -3,21 +3,27 @@
   .friendsView {
     align-items: center;
     display: flex;
-    flex: 1;
     flex-direction: column;
     gap: 10px;
-    overflow: auto;
-    padding: 2%;
+    margin: 0 auto;
+    padding: 0 2%;
+    padding-bottom: 10px;
     position: relative;
+    width: 100%;
+
+    background-color: rgba(0, 0, 0, 0.25);
+  }
+
+  .friendsViewHeader {
+    text-align: center;
   }
 
   .searchForm {
     display: flex;
     gap: 10px;
     justify-content: center;
-    padding: 10px 0;
-    position: relative;
-    width: 90%;
+    margin-top: 10px;
+    width: 100%;
   }
 
   .searchForm input:focus {
@@ -25,7 +31,7 @@
   }
 
   .friendSearch {
-    padding: 12px;
+    padding: 5px 10px;
     width: 80%;
 
     border-radius: 10px;
@@ -38,6 +44,11 @@
     border-radius: 10px;
   }
 
+  .friendsViewTitle {
+    font-size: 30px;
+    font-weight: bold;
+  }
+
   .loadingMsg,
   .noFriendsMsg {
     font-size: 20px;
@@ -47,15 +58,15 @@
     align-items: center;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    width: 90%;
+    gap: 10px;
+    width: 100%;
   }
 
   .listedFriend {
     align-items: center;
     display: flex;
     gap: 15px;
-    padding: 10px;
+    padding: 5px 10px;
     position: relative;
     margin: 0 10px;
     width: 100%;
@@ -66,13 +77,12 @@
   }
 
   .friendPic {
-    width: 70px;
+    width: 60px;
     border: 2px solid #747474b2;
     border-radius: 50%;
   }
 
   .friendName {
-    font-family: "Lato Black";
     font-size: 20px;
   }
 }
@@ -84,7 +94,8 @@
   }
 
   .searchForm {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
+    width: 300px;
   }
 }
 
@@ -108,21 +119,25 @@
     cursor: pointer;
     background-color: var(--default);
   }
+
+  .searchForm {
+    width: 500px;
+  }
 }
 
 /* Large screens*/
 @media (min-width: 1024px) {
   .friendList {
-    justify-content: center;
-    flex-direction: row;
-    gap: 30px;
     column-gap: 30px;
     columns: 2;
+    flex-direction: row;
     flex-wrap: wrap;
+    gap: 30px;
+    justify-content: space-evenly;
   }
 
   .listedFriend {
-    width: 43%;
+    width: 300px;
   }
 
   .friendPic {

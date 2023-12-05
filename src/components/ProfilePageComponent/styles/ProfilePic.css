@@ -20,7 +20,7 @@
 @media (min-width: 768px) {
   .authUserPic,
   .requestedUserPic {
-    width: 175px;
+    width: 150px;
   }
 
   .authUserPic:hover {
