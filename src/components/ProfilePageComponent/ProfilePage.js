@@ -1,7 +1,6 @@
 import { NavigationContainer } from "../NavigationComponent/NavigationContainer";
-import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { URL } from "../../util/url";
@@ -19,6 +18,7 @@ export const ProfilePage = () => {
   const user = useSelector((state) => state.userSlice.user);
   const [isLoading, setLoading] = useState(true);
   const [requestedUser, setRequestedUser] = useState({});
+  const [friendStatus, setFriendStatus] = useState(null);
   const [showUploadImageWindow, setShowUploadImageWindow] = useState(false);
   const [showSavePicWindow, setShowSavePicWindow] = useState(false);
   const [showDeletePicWindow, setShowDeletePicWindow] = useState(false);
@@ -50,6 +50,7 @@ export const ProfilePage = () => {
 
         if (visitedProfile.id === requestedUserId) {
           setRequestedUser(visitedProfile);
+          setFriendStatus(visitedProfile.friend_status);
           setLoading(false);
           userFound = true;
           break;
@@ -72,6 +73,7 @@ export const ProfilePage = () => {
           })
           .then((response) => {
             setRequestedUser(response.data);
+            setFriendStatus(response.data.friend_status);
             setLoading(false);
 
             visitedProfilesArray.push(response.data);
@@ -93,6 +95,7 @@ export const ProfilePage = () => {
         })
         .then((response) => {
           setRequestedUser(response.data);
+          setFriendStatus(response.data.friend_status);
           setLoading(false);
 
           const visitedUsers = [response.data];
@@ -115,12 +118,18 @@ export const ProfilePage = () => {
 
       <div className="profilePageContent">
         {isLoading ? (
-          <>
+          <div className="loading">
             <div className="requestedUserIntro">
               <img src={placeholder} className="loadingUserPic" alt="loading" />
               <img src={placeholder} className="loadingName" alt="loading" />
             </div>
-          </>
+
+            <img
+              src={placeholder}
+              className="loadingUserConnect"
+              alt="loading"
+            />
+          </div>
         ) : (
           <>
             <div className="requestedUserIntro">
@@ -134,7 +143,9 @@ export const ProfilePage = () => {
 
             {userToken && user.id !== requestedUserId ? (
               <UserConnect
-                reqUserId={requestedUserId}
+                reqUser={requestedUser}
+                friendStatus={friendStatus}
+                updateFriendStatus={setFriendStatus}
                 showSuccess={setSuccessMessage}
                 showWarning={setWarningMessage}
                 showError={setErrorMessage}
@@ -142,56 +153,60 @@ export const ProfilePage = () => {
             ) : (
               <></>
             )}
-
-            {showUploadImageWindow ? (
-              <UploadImageWindow
-                setImage={setImage}
-                showThisWindow={setShowUploadImageWindow}
-                openNextWindow={setShowSavePicWindow}
-              />
-            ) : (
-              <></>
-            )}
-
-            {showDeletePicWindow ? (
-              <DeletePicWindow
-                updateViewedUser={setRequestedUser}
-                showThisWindow={setShowDeletePicWindow}
-                showLoadingWindow={setShowLoadingWindow}
-                showError={setErrorMessage}
-              />
-            ) : (
-              <></>
-            )}
-
-            {showSavePicWindow ? (
-              <SavePicWindow
-                image={image}
-                updateViewedUser={setRequestedUser}
-                showThisWindow={setShowSavePicWindow}
-                showLoadingWindow={setShowLoadingWindow}
-                showError={setErrorMessage}
-              />
-            ) : (
-              <></>
-            )}
-
-            {showLoadingWindow ? <LoadingWindow /> : <></>}
-
-            {successMessage || warningMessage || errorMessage ? (
-              <MessageBanner
-                success={successMessage}
-                closeSuccess={setSuccessMessage}
-                warning={warningMessage}
-                closeWarning={setWarningMessage}
-                error={errorMessage}
-                closeError={setErrorMessage}
-              />
-            ) : (
-              <></>
-            )}
           </>
         )}
+
+        {/*-------------------------- DIALOGUE WINDOWS ---------------------------------*/}
+
+        {showUploadImageWindow ? (
+          <UploadImageWindow
+            setImage={setImage}
+            showThisWindow={setShowUploadImageWindow}
+            openNextWindow={setShowSavePicWindow}
+          />
+        ) : (
+          <></>
+        )}
+
+        {showDeletePicWindow ? (
+          <DeletePicWindow
+            updateViewedUser={setRequestedUser}
+            showThisWindow={setShowDeletePicWindow}
+            showLoadingWindow={setShowLoadingWindow}
+            showError={setErrorMessage}
+          />
+        ) : (
+          <></>
+        )}
+
+        {showSavePicWindow ? (
+          <SavePicWindow
+            image={image}
+            updateViewedUser={setRequestedUser}
+            showThisWindow={setShowSavePicWindow}
+            showLoadingWindow={setShowLoadingWindow}
+            showError={setErrorMessage}
+          />
+        ) : (
+          <></>
+        )}
+
+        {showLoadingWindow ? <LoadingWindow /> : <></>}
+
+        {successMessage || warningMessage || errorMessage ? (
+          <MessageBanner
+            success={successMessage}
+            closeSuccess={setSuccessMessage}
+            warning={warningMessage}
+            closeWarning={setWarningMessage}
+            error={errorMessage}
+            closeError={setErrorMessage}
+          />
+        ) : (
+          <></>
+        )}
+
+        {/*-------------------------- END DIALOGUE WINDOWS ---------------------------------*/}
 
         <Outlet context={setErrorMessage} />
       </div>

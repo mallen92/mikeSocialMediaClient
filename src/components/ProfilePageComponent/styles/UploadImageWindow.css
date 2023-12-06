@@ -8,9 +8,10 @@
     padding: 10px;
     position: absolute;
     width: 100%;
+    z-index: 1000;
 
-    background-color: var(--hover);
-    border: 1px solid var(--borderWhite);
+    background-color: #3a3d42;
+    border: 3px solid rgb(231, 231, 231);
     border-radius: 20px;
   }
 

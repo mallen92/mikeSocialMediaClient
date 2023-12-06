@@ -73,9 +73,11 @@
     border-radius: 10px;
   }
 
-  .loadingMsg,
   .noFriendsMsg {
+    padding: 20px 0;
+
     font-size: 20px;
+    text-align: center;
   }
 
   .friendList {
@@ -175,11 +177,15 @@
   }
 
   .friendsViewTitle {
-    margin-left: 70px;
+    margin-left: 175px;
   }
 
   .searchForm {
-    width: 300px;
+    justify-content: end;
+  }
+
+  .friendSearch {
+    width: 150px;
   }
 
   .friendList {

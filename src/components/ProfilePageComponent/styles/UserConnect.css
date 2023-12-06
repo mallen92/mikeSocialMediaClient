@@ -17,6 +17,8 @@
   }
 
   .requestResponse {
+    display: flex;
+    gap: 20px;
     position: relative;
   }
 
@@ -28,6 +30,7 @@
     position: absolute;
     top: 55px;
     left: 35px;
+    z-index: 1000;
 
     background-color: #283044;
     border: 1px solid var(--borderWhite);

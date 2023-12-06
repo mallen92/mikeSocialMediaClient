@@ -87,9 +87,9 @@ export const FriendsView = () => {
         {isLoading ? (
           <img src={Loading} className="loadingGif" alt="loading" />
         ) : (
-          <div className="friendList">
+          <>
             {friendsList.length !== 0 ? (
-              <>
+              <div className="friendList">
                 {friendsList.map((friend) => (
                   <div
                     key={friend.resultId}
@@ -106,11 +106,11 @@ export const FriendsView = () => {
                     <div className="friendName">{friend.full_name}</div>
                   </div>
                 ))}
-              </>
+              </div>
             ) : (
               <div className="noFriendsMsg">No friends found.</div>
             )}
-          </div>
+          </>
         )}
       </div>
     </div>

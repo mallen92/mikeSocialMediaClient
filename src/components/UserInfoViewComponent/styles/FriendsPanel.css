@@ -96,7 +96,7 @@
 /* Large screens*/
 @media (min-width: 1024px) {
   .friendsPanel {
-    height: fit-content;
+    height: 500px;
     width: 600px;
   }
 
@@ -110,9 +110,21 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: 30px;
+    overflow: auto;
+  }
+
+  .panelPic {
+    width: 100px;
+  }
+
+  .panelName {
+    font-size: 15px;
   }
 }
 
 /* Extra large screens */
 @media (min-width: 1440px) {
+  .panelName {
+    font-size: 18px;
+  }
 }
