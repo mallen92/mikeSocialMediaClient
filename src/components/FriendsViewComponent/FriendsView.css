@@ -5,12 +5,12 @@
     flex-direction: column;
     gap: 20px;
     margin-top: 20px;
-    padding: 0 20px;
   }
 
   .friendsViewContent {
     display: flex;
     flex-direction: column;
+    margin: 0 20px;
     position: relative;
 
     background-color: rgba(0, 0, 0, 0.25);
@@ -156,12 +156,30 @@
     justify-content: space-between;
   }
 
+  .friendsViewHeader :nth-child(1) {
+    order: 2;
+  }
   .friendsViewHeader :nth-child(2) {
     order: 1;
   }
+  .friendsViewHeader :nth-child(3) {
+    order: 3;
+  }
+
+  .searchForm :nth-child(1) {
+    order: 2;
+  }
+
+  .searchForm :nth-child(1) {
+    order: 1;
+  }
+
+  .friendsViewTitle {
+    margin-left: 70px;
+  }
 
   .searchForm {
-    width: 400px;
+    width: 300px;
   }
 
   .friendList {

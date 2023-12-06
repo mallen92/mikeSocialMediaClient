@@ -193,7 +193,7 @@ export const ProfilePage = () => {
           </>
         )}
 
-        <Outlet context={[setErrorMessage]} />
+        <Outlet context={setErrorMessage} />
       </div>
     </div>
   );

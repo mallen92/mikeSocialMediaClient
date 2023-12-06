@@ -37,23 +37,31 @@ export const FriendsView = () => {
       });
   }, [searchMode, reqUserId, keyword]);
 
-  const engageSearchMode = (event) => {
+  const searchForFriends = (event) => {
     event.preventDefault();
 
     const formData = new FormData(event.target);
     const formEntries = Object.fromEntries(formData.entries());
     const { keyword } = formEntries;
 
-    if (keyword === "" || keyword.trim() === "") setSearchMode(false);
-    else setSearchMode(true);
-
-    setKeyword(keyword);
+    if (
+      (keyword.length > 0 && keyword.length < 3) ||
+      (keyword.trim().length > 0 && keyword.trim().length < 3)
+    )
+      setErrorMessage("Search keyword must contain at least 3 characters.");
+    else {
+      if (keyword === "" || keyword.trim() === "") setSearchMode(false);
+      else {
+        setSearchMode(true);
+        setKeyword(keyword);
+      }
+    }
   };
 
   return (
     <div className="friendsView">
       {errorMessage ? (
-        <MessageBanner error={errorMessage} showError={setErrorMessage} />
+        <MessageBanner error={errorMessage} closeError={setErrorMessage} />
       ) : (
         <></>
       )}
@@ -64,7 +72,7 @@ export const FriendsView = () => {
           <div className="backBtn" onClick={() => navigate(`/${reqUserId}`)}>
             Back to Profile
           </div>
-          <form className="searchForm" onSubmit={engageSearchMode}>
+          <form className="searchForm" onSubmit={searchForFriends}>
             <input
               name="keyword"
               className="friendSearch"
