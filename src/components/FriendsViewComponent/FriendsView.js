@@ -4,6 +4,7 @@ import axios from "axios";
 import { URL } from "../../util/url";
 import { MessageBanner } from "../MessageBannerComponent/MessageBanner";
 import SearchIcon from "@mui/icons-material/Search";
+import Loading from "../images/Loading.gif";
 import "./FriendsView.css";
 
 export const FriendsView = () => {
@@ -76,7 +77,7 @@ export const FriendsView = () => {
         </div>
 
         {isLoading ? (
-          <div className="loadingMsg">Retrieving friends...</div>
+          <img src={Loading} className="loadingGif" alt="loading" />
         ) : (
           <div className="friendList">
             {friendsList.length !== 0 ? (

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { URL } from "../../../util/url";
-import Loading from "../images/Loading.gif";
+import Loading from "../../images/Loading.gif";
 import "../styles/FriendsPanel.css";
 
 export const FriendsPanel = ({ showError }) => {

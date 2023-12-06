@@ -1,4 +1,4 @@
-import Loading from "../images/Loading.gif";
+import Loading from "../../images/Loading.gif";
 import "../styles/LoadingWindow.css";
 
 export const LoadingWindow = () => {

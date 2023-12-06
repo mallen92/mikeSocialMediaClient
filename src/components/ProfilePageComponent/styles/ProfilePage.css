@@ -1,6 +1,7 @@
 /* Smartphones */
 @media (min-width: 320px) {
   .profilePageContent {
+    position: relative;
     width: 100%;
   }
 
