@@ -5,32 +5,34 @@ import { URL } from "../../../util/url";
 import "../styles/UserConnect.css";
 
 export const UserConnect = ({
-  reqUserId,
+  reqUser,
+  friendStatus,
+  updateFriendStatus,
   showSuccess,
   showWarning,
   showError,
 }) => {
   const user = useSelector((state) => state.userSlice.user);
-  const [reqUserInfo, setReqUserInfo] = useState({});
-  const [friendStatus, setFriendStatus] = useState("");
   const [showResponseOptions, setShowResponseOptions] = useState(false);
   const [showFriendsOptions, setShowFriendsOptions] = useState(false);
   const responseRef = useRef(null);
   const friendsRef = useRef(null);
 
+  const reqUserName = reqUser.full_name;
+  const reqUserId = reqUser.id;
   const requestURL = `${URL}/users/request`;
   const friendURL = `${URL}/users/friend`;
 
   const sendReqInfo = {
     senderName: user.full_name,
     senderPicFile: user.pic_filename,
-    recipName: reqUserInfo.full_name,
-    recipPicFile: reqUserInfo.pic_filename,
+    recipName: reqUserName,
+    recipPicFile: reqUser.pic_filename,
   };
 
   const acceptReqInfo = {
-    senderName: reqUserInfo.full_name,
-    senderPicFile: reqUserInfo.pic_filename,
+    senderName: reqUserName,
+    senderPicFile: reqUser.pic_filename,
     recipName: user.full_name,
     recipPicFile: user.pic_filename,
   };
@@ -40,29 +42,6 @@ export const UserConnect = ({
       Authorization: `Bearer ${user.token}`,
     },
   };
-
-  /*------------------------- SET FRIEND STATUS ------------------------*/
-
-  useEffect(() => {
-    const visitedProfilesCache =
-      window.localStorage.getItem("visited_profiles");
-    let visitedProfilesArray = JSON.parse(visitedProfilesCache);
-
-    for (let i = 0; i < visitedProfilesArray.length; i++) {
-      const visitedProfile = visitedProfilesArray[i];
-
-      if (visitedProfile.id === reqUserId) {
-        setFriendStatus(visitedProfile.friend_status);
-        setReqUserInfo({
-          full_name: visitedProfile.full_name,
-          pic_filename: visitedProfile.pic_filename,
-        });
-        break;
-      }
-    }
-  }, [reqUserId]);
-
-  /*------------------------- END SET FRIEND STATUS ------------------------*/
 
   /*------------------------- CONNECT OPTIONS MENUS ------------------------*/
 
@@ -97,9 +76,9 @@ export const UserConnect = ({
     axios
       .put(`${requestURL}?id=${reqUserId}`, sendReqInfo, reqHeader)
       .then((response) => {
-        setFriendStatus(response.data.status);
-        const friendName = updateFriendStatus(response.data);
-        showSuccess(`Friend request sent to ${friendName}!`);
+        updateFriendStatus(response.data.status);
+        updateStatusInCache(response.data.status);
+        showSuccess(`Friend request sent to ${reqUserName}!`);
       })
       .catch((error) => {
         showError(error.response.data.message);
@@ -110,22 +89,9 @@ export const UserConnect = ({
     axios
       .delete(`${requestURL}/cancel?id=${reqUserId}`, reqHeader)
       .then((response) => {
-        setFriendStatus(response.data.status);
-        const friendName = updateFriendStatus(response.data);
-        showWarning(`Friend request to ${friendName} cancelled.`);
-      })
-      .catch((error) => {
-        showError(error.response.data.message);
-      });
-  };
-
-  const rejectRequest = () => {
-    axios
-      .delete(`${requestURL}/reject?id=${reqUserId}`, reqHeader)
-      .then((response) => {
-        setFriendStatus(response.data.status);
-        const friendName = updateFriendStatus(response.data);
-        showWarning(`Friend request from ${friendName} rejected.`);
+        updateFriendStatus(response.data.status);
+        updateStatusInCache(response.data.status);
+        showWarning(`Friend request to ${reqUserName} cancelled.`);
       })
       .catch((error) => {
         showError(error.response.data.message);
@@ -136,9 +102,22 @@ export const UserConnect = ({
     axios
       .put(`${friendURL}?id=${reqUserId}`, acceptReqInfo, reqHeader)
       .then((response) => {
-        setFriendStatus(response.data.status);
-        const friendName = updateFriendStatus(response.data);
-        showSuccess(`You are now friends with ${friendName}!`);
+        updateFriendStatus(response.data.status);
+        updateStatusInCache(response.data.status);
+        showSuccess(`You are now friends with ${reqUserName}!`);
+      })
+      .catch((error) => {
+        showError(error.response.data.message);
+      });
+  };
+
+  const rejectRequest = () => {
+    axios
+      .delete(`${requestURL}/reject?id=${reqUserId}`, reqHeader)
+      .then((response) => {
+        updateFriendStatus(response.data.status);
+        updateStatusInCache(response.data.status);
+        showWarning(`Friend request from ${reqUserName} rejected.`);
       })
       .catch((error) => {
         showError(error.response.data.message);
@@ -149,9 +128,9 @@ export const UserConnect = ({
     axios
       .delete(`${friendURL}?id=${reqUserId}`, reqHeader)
       .then((response) => {
-        setFriendStatus(response.data.status);
-        const friendName = updateFriendStatus(response.data);
-        showWarning(`You are no longer friends with ${friendName}.`);
+        updateFriendStatus(response.data.status);
+        updateStatusInCache(response.data.status);
+        showWarning(`You are no longer friends with ${reqUserName}.`);
       })
       .catch((error) => {
         showError(error.response.data.message);
@@ -162,18 +141,16 @@ export const UserConnect = ({
 
   /*------------------------- CACHE FRIEND STATUS UPDATE ------------------------*/
 
-  const updateFriendStatus = (status) => {
+  const updateStatusInCache = (status) => {
     const visitedProfilesCache =
       window.localStorage.getItem("visited_profiles");
     let visitedProfilesArray = JSON.parse(visitedProfilesCache);
-    let userName = "";
 
     for (let i = 0; i < visitedProfilesArray.length; i++) {
       const visitedProfile = visitedProfilesArray[i];
 
       if (visitedProfile.id === reqUserId) {
         visitedProfile.friend_status = status;
-        userName = visitedProfile.full_name;
         break;
       }
     }
@@ -182,8 +159,6 @@ export const UserConnect = ({
       "visited_profiles",
       JSON.stringify(visitedProfilesArray)
     );
-
-    return userName;
   };
 
   /*------------------------- END CACHE FRIEND STATUS UPDATE ------------------------*/
@@ -200,8 +175,10 @@ export const UserConnect = ({
             );
           case "sent request to":
             return (
-              <div className="userConnectBtn" onClick={cancelRequest}>
-                Cancel Request
+              <div>
+                <div className="userConnectBtn" onClick={cancelRequest}>
+                  Cancel Request
+                </div>
               </div>
             );
           case "received request from":
@@ -238,6 +215,8 @@ export const UserConnect = ({
                   Friends
                 </div>
 
+                <div className="userConnectBtn">Message</div>
+
                 {showFriendsOptions ? (
                   <div className="connectOptionsMenu">
                     <div
@@ -256,12 +235,6 @@ export const UserConnect = ({
             return null;
         }
       })()}
-
-      {friendStatus === "friend" ? (
-        <div className="userConnectBtn">Message</div>
-      ) : (
-        <></>
-      )}
     </div>
   );
 };

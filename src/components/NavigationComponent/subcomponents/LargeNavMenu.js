@@ -30,7 +30,7 @@ export const LargeNavMenu = () => {
 
       <div className="navLinks">
         {location.pathname === "/" ? (
-          <div className="navLink currentView" onClick={() => navigate("/")}>
+          <div className="navLink currentView" onClick={() => navigate(0)}>
             <HomeIcon fontSize="large" />
             <div>Home</div>
           </div>
@@ -54,10 +54,7 @@ export const LargeNavMenu = () => {
         )}
 
         {location.pathname === `/${user.id}/friends` ? (
-          <div
-            className="navLink currentView"
-            onClick={() => navigate(`/${user.id}/friends`)}
-          >
+          <div className="navLink currentView" onClick={() => navigate(0)}>
             <GroupIcon fontSize="large" />
             <div>Friends</div>
           </div>
