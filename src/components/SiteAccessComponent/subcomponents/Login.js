@@ -33,11 +33,6 @@ export const Login = () => {
       });
 
       dispatch(setUser(response.data));
-      window.localStorage.setItem(
-        "user",
-        JSON.stringify(response.data.cacheKey)
-      );
-
       navigate("/");
     } catch (error) {
       setError(error.response.data.message);

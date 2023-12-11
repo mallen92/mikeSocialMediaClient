@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { SiteAccess } from "./components/SiteAccessComponent/SiteAccess";
 import { Login } from "./components/SiteAccessComponent/subcomponents/Login";
@@ -6,7 +7,7 @@ import { NewsFeed } from "./components/NewsFeedComponent/NewsFeed";
 import "./App.css";
 
 function App() {
-  const isLoggedIn = false;
+  const isLoggedIn = useSelector((state) => state.userSlice.user.accessToken);
 
   return (
     <Routes>

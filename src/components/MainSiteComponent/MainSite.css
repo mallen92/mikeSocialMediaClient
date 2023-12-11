@@ -1,5 +1,12 @@
 /* Smartphones */
 @media (min-width: 320px) {
+  .mainSite {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+
+    background-color: var(--default);
+  }
 }
 
 /* Tablets */
@@ -8,6 +15,9 @@
 
 /* Large tablets */
 @media (min-width: 768px) {
+  .mainSite {
+    flex-direction: unset;
+  }
 }
 
 /* Large screens*/
