@@ -4,7 +4,7 @@ import { LargeNavMenu } from "./subcomponents/LargeNavMenu";
 import { MobileNavMenu } from "./subcomponents/MobileNavMenu";
 import "./styles/NavigationContainer.css";
 
-export const NavigationContainer = () => {
+export const NavigationContainer = ({ setError }) => {
   const user = useSelector((state) => state.userSlice.user);
   const navigate = useNavigate();
 
@@ -33,7 +33,7 @@ export const NavigationContainer = () => {
       ) : (
         <>
           <div className="largeNavMenuContainer hideOnMobile">
-            <LargeNavMenu />
+            <LargeNavMenu setError={setError} />
           </div>
 
           <div className="hideOnLarge">

@@ -1,26 +1,47 @@
+/*------------- 3RD PARTY IMPORTS -------------*/
+import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
+
+/*-------------- CONFIG IMPORTS --------------*/
 import { unsetUser } from "../../../app/userSlice";
+import { URL } from "../../../util/url";
+
+/*-------------- ICON IMPORTS --------------*/
 import HomeIcon from "@mui/icons-material/Home";
 import GroupIcon from "@mui/icons-material/Group";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import SearchIcon from "@mui/icons-material/Search";
 import LogoutIcon from "@mui/icons-material/Logout";
 import MailIcon from "@mui/icons-material/Mail";
+
+/*-------------- STYLE IMPORTS --------------*/
 import "../styles/LargeNavMenu.css";
 
-export const LargeNavMenu = () => {
-  const user = useSelector((state) => state.userSlice.user);
+export const LargeNavMenu = ({ setError }) => {
+  /*--------- CONFIGURATIONS ---------*/
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const logOutUser = () => {
-    dispatch(unsetUser());
-    window.localStorage.clear();
-    navigate("/login");
+  /*--------- STATE VARIABLES ---------*/
+  const user = useSelector((state) => state.userSlice.user);
+
+  /*--------- FUNCTIONS ---------*/
+  const logOutUser = async () => {
+    try {
+      await axios.post(`${URL}/auth/logout`, null, {
+        withCredentials: true,
+      });
+
+      dispatch(unsetUser());
+      navigate("/access");
+    } catch (error) {
+      setError(error);
+    }
   };
 
+  /*------------------ JSX ------------------*/
   return (
     <div className="largeNavMenuBody">
       <div className="appUserInfo" onClick={() => navigate(`/${user.id}`)}>

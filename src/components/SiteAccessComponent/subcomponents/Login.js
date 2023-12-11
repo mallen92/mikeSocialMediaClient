@@ -27,10 +27,16 @@ export const Login = () => {
     const { email, password } = formEntries;
 
     try {
-      const response = await axios.post(`${URL}/auth/login`, {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        `${URL}/auth/login`,
+        {
+          email,
+          password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
 
       dispatch(setUser(response.data));
       navigate("/");

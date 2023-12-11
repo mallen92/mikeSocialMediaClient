@@ -13,7 +13,7 @@
   }
 
   .mobileNavLink {
-    border-right: 1px solid var(--borderWhite);
+    border-right: 1px solid var(--white);
   }
 
   .currentView {

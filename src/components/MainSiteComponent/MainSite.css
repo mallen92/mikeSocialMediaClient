@@ -6,6 +6,11 @@
     height: 100vh;
 
     background-color: var(--default);
+    color: var(--white);
+  }
+
+  .contentSection {
+    position: relative;
   }
 }
 
@@ -17,6 +22,11 @@
 @media (min-width: 768px) {
   .mainSite {
     flex-direction: unset;
+  }
+
+  .contentSection {
+    position: relative;
+    width: 100vw;
   }
 }
 

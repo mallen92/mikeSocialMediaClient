@@ -1,0 +1,69 @@
+/* Smartphones */
+@media (min-width: 320px) {
+  .messageBanner {
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+
+  .bannerMessage {
+    align-items: center;
+    column-gap: 30px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .successMessage {
+    background-color: rgba(97, 175, 97, 0.925);
+  }
+  .warningMessage {
+    background-color: rgb(128, 128, 128, 0.925);
+  }
+  .errorMessage {
+    background-color: rgb(224, 74, 74, 0.925);
+  }
+
+  .closeBanner {
+    padding: 0px 8px;
+
+    background-color: var(--default);
+    border: 2px solid white;
+    border-radius: 10px;
+    color: white;
+    font-family: "Lato Black";
+    font-size: 20px;
+    font-weight: bolder;
+  }
+}
+
+/* Tablets */
+@media (min-width: 425px) {
+}
+
+/* Large tablets */
+@media (min-width: 768px) {
+  .bannerMessage {
+    font-size: 20px;
+    padding: 13px;
+  }
+
+  .closeBanner:hover {
+    cursor: pointer;
+    background-color: var(--hover);
+  }
+}
+
+/* Large screens*/
+@media (min-width: 1024px) {
+  .closeBanner {
+    font-size: 30px;
+  }
+}
+
+/* Extra large screens */
+@media (min-width: 1440px) {
+}
