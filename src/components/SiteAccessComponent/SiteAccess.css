@@ -1,0 +1,121 @@
+/* Smartphones */
+@media (min-width: 320px) {
+  .siteAccessBody {
+    display: flex;
+    height: 100vh;
+    background-color: var(--default);
+  }
+
+  .formContainer {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    padding: 20px;
+    row-gap: 20px;
+    width: 300px;
+  }
+
+  .branding {
+    color: var(--white);
+    font-size: 35px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .accessForm,
+  .accessFormInputs,
+  .accessFormButtons {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+  }
+
+  .accessFormButtons {
+    padding-bottom: 10px;
+  }
+
+  .accessFormInput {
+    padding: 10px;
+
+    border: none;
+    border-radius: 8px;
+    background-color: var(--white);
+  }
+
+  .accessFormButton {
+    height: 40px;
+
+    border: none;
+    border-radius: 8px;
+  }
+
+  .loginFormLogInButton,
+  .signupFormSignUpButton {
+    background-color: var(--button);
+    color: white;
+    font-weight: bold;
+  }
+
+  .loginFormSignUpButton,
+  .signupFormLogInButton {
+    background-color: var(--white);
+    font-weight: bold;
+  }
+
+  .errorContainer {
+    padding: 5px;
+    text-align: center;
+
+    border: 2px solid black;
+    background-color: var(--dangerRed);
+    border-radius: 10px;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    font-size: 13px;
+  }
+}
+
+/* Tablets */
+@media (min-width: 425px) {
+  .siteAccessBody {
+    background-color: var(--white);
+  }
+
+  .formContainer {
+    background-color: var(--default);
+    border-radius: 20px;
+  }
+}
+
+/* Large tablets */
+@media (min-width: 768px) {
+  .formContainer {
+    width: 400px;
+    align-items: center;
+  }
+
+  .accessForm {
+    width: 85%;
+  }
+
+  .loginFormLogInButton:hover,
+  .signupFormSignUpButton:hover {
+    background-color: var(--buttonHover);
+  }
+
+  .loginFormSignUpButton:hover,
+  .signupFormLogInButton:hover {
+    background-color: #afafafe8;
+  }
+}
+
+/* Large screens*/
+@media (min-width: 1024px) {
+  .formContainer {
+    width: 500px;
+  }
+}
+
+/* Extra large screens */
+@media (min-width: 1440px) {
+}

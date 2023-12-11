@@ -1,9 +1,5 @@
 /* Smartphones */
 @media (min-width: 320px) {
-  .aboutPanel {
-    background-color: rgba(212, 212, 212, 0.185);
-    height: fit-content;
-  }
 }
 
 /* Tablets */
@@ -12,9 +8,6 @@
 
 /* Large tablets */
 @media (min-width: 768px) {
-  .aboutPanel {
-    width: 100%;
-  }
 }
 
 /* Large screens*/

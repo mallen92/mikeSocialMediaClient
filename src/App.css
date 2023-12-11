@@ -17,44 +17,19 @@
   --hover: #3b4764;
   --dangerRed: rgb(224, 74, 74);
   --confirmGreen: rgb(97, 175, 97);
-  --borderWhite: rgb(216, 216, 216);
-}
-
-body {
-  background-color: var(--default);
-  color: white;
-  font-family: Lato;
+  --white: rgb(250, 250, 250);
 }
 
 /* Smartphones */
 @media (min-width: 320px) {
-  .branding {
-    font-size: 30px;
-    font-weight: bold;
-    text-align: center;
-  }
-
-  .authUserPageBody,
-  .profilePageBody {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-  }
 }
 
 /* Tablets */
 @media (min-width: 425px) {
-  .branding {
-    font-size: 40px;
-  }
 }
 
 /* Large tablets */
 @media (min-width: 768px) {
-  .authUserPageBody,
-  .profilePageBody {
-    flex-direction: unset;
-  }
 }
 
 /* Large screens*/

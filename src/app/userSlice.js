@@ -14,13 +14,15 @@ export const userSlice = createSlice({
     unsetUser: (state) => {
       state.user = {};
     },
-    updateUserPic: (state, action) => {
-      state.user.pic_url = action.payload.newPic;
-      state.user.pic_filename = action.payload.newPicFilename;
-    },
+    // updateUserPic: (state, action) => {
+    //   state.user.picUrl = action.payload.newPic;
+    //   state.user.picFilename = action.payload.newPicFilename;
+    // },
   },
 });
 
 export const { setUser, unsetUser, updateUserPic } = userSlice.actions;
 
 export default userSlice.reducer;
+
+export const selectCurrentToken = (state) => state.user.accessToken;
