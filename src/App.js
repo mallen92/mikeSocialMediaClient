@@ -1,14 +1,23 @@
+/*------------- 3RD PARTY IMPORTS -------------*/
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
+/*--------------- REACT IMPORTS ---------------*/
 import { useEffect, useState } from "react";
+
+/*-------------- CONFIG IMPORTS --------------*/
 import { setUser } from "./app/userSlice";
 import { URL } from "./util/url";
+
+/*-------------- COMPONENT IMPORTS --------------*/
 import { SessionLoading } from "./components/SessionLoadingComponent/SessionLoading";
 import { SiteAccess } from "./components/SiteAccessComponent/SiteAccess";
 import { Login } from "./components/SiteAccessComponent/subcomponents/Login";
 import { MainSite } from "./components/MainSiteComponent/MainSite";
 import { NewsFeed } from "./components/NewsFeedComponent/NewsFeed";
+
+/*-------------- STYLING IMPORTS --------------*/
 import "./App.css";
 
 function App() {
