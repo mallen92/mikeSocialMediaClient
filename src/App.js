@@ -16,7 +16,7 @@ import { SiteAccess } from "./components/SiteAccessComponent/SiteAccess";
 import { Login } from "./components/SiteAccessComponent/subcomponents/Login";
 import { MainSite } from "./components/MainSiteComponent/MainSite";
 import { NewsFeed } from "./components/NewsFeedComponent/NewsFeed";
-import { MobileMenu } from "./components/MobileMenuViewComponent/MobileMenu";
+import { MobileMenu } from "./components/MobileMenuComponent/MobileMenu";
 
 /*-------------- STYLING IMPORTS --------------*/
 import "./App.css";
