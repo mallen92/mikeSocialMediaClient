@@ -21,5 +21,3 @@ export const userSlice = createSlice({
 export const { setUser, updateUserPic } = userSlice.actions;
 
 export default userSlice.reducer;
-
-export const selectCurrentToken = (state) => state.user.accessToken;
