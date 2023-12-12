@@ -1,16 +1,12 @@
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { unsetUser } from "../../app/userSlice";
 import "./SessionLoading.css";
 
 export const SessionLoading = ({ error }) => {
   /*--------- CONFIGURATIONS ---------*/
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   /*--------- FUNCTIONS ---------*/
   const logOutUser = () => {
-    dispatch(unsetUser());
     localStorage.clear();
     navigate(0);
   };
