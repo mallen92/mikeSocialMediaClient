@@ -1,0 +1,76 @@
+/* Smartphones */
+@media (min-width: 320px) {
+  .sessionLoading {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+
+    background-color: var(--default);
+    color: var(--white);
+  }
+
+  .dialogWindow {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 300px;
+
+    border: 1px solid var(--white);
+  }
+
+  .windowHeader {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+
+    background-color: var(--hover);
+    border-bottom: 1px solid var(--white);
+  }
+
+  .closeBanner {
+    padding: 0px 8px;
+
+    background-color: var(--default);
+    border: 2px solid white;
+    border-radius: 10px;
+    color: white;
+    font-family: "Lato Black";
+    font-size: 20px;
+    font-weight: bolder;
+  }
+
+  .windowMsg {
+    padding: 20px;
+  }
+}
+
+/* Tablets */
+@media (min-width: 425px) {
+}
+
+/* Large tablets */
+@media (min-width: 768px) {
+  .dialogWindow {
+    font-size: 20px;
+  }
+}
+
+/* Large screens*/
+@media (min-width: 1024px) {
+  .dialogWindow {
+    width: 500px;
+  }
+
+  .windowHeader {
+    padding: 20px 20px;
+  }
+
+  .windowMsg {
+    padding: 30px;
+  }
+}
+
+/* Extra large screens */
+@media (min-width: 1440px) {
+}

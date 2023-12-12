@@ -35,7 +35,8 @@ export const LargeNavMenu = ({ setError }) => {
       });
 
       dispatch(unsetUser());
-      navigate("/access");
+      localStorage.clear();
+      navigate("/");
     } catch (error) {
       setError(error);
     }

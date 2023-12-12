@@ -24,7 +24,7 @@ export const NavigationContainer = ({ setError }) => {
             </div>
             <div
               className="callToActionBtn"
-              onClick={() => navigate("/signup")}
+              onClick={() => navigate("/access")}
             >
               Sign Up
             </div>

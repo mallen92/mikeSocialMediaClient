@@ -1,6 +1,3 @@
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { unsetUser } from "../../app/userSlice";
 import "./MessageBanner.css";
 
 export const MessageBanner = ({
@@ -11,17 +8,6 @@ export const MessageBanner = ({
   error,
   closeError,
 }) => {
-  /*--------- CONFIGURATIONS ---------*/
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  /*--------- FUNCTIONS ---------*/
-  const logOutUser = () => {
-    dispatch(unsetUser());
-    navigate("/access");
-  };
-
-  /*--------- JSX ---------*/
   return (
     <div className="messageBanner">
       {success ? (
@@ -48,23 +34,11 @@ export const MessageBanner = ({
       )}
       {error ? (
         <div className="bannerMessage errorMessage">
-          {error.includes("Access denied") || error.includes("session") ? (
-            <>
-              {error}
+          {error}
 
-              <div className="closeBanner" onClick={logOutUser}>
-                &#10006;
-              </div>
-            </>
-          ) : (
-            <>
-              {error}
-
-              <div className="closeBanner" onClick={() => closeError("")}>
-                &#10006;
-              </div>
-            </>
-          )}
+          <div className="closeBanner" onClick={() => closeError("")}>
+            &#10006;
+          </div>
         </div>
       ) : (
         <></>
