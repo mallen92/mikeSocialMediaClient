@@ -16,6 +16,7 @@ import { SiteAccess } from "./components/SiteAccessComponent/SiteAccess";
 import { Login } from "./components/SiteAccessComponent/subcomponents/Login";
 import { MainSite } from "./components/MainSiteComponent/MainSite";
 import { NewsFeed } from "./components/NewsFeedComponent/NewsFeed";
+import { MobileMenu } from "./components/MobileMenuViewComponent/MobileMenu";
 
 /*-------------- STYLING IMPORTS --------------*/
 import "./App.css";
@@ -60,25 +61,25 @@ function App() {
         {isLoading ? (
           <>
             <Route path="/" element={<SessionLoading error={error} />} />
-            <Route
-              path="/home"
-              element={<SessionLoading error={error} />}
-            ></Route>
+            <Route path="/ms" element={<SessionLoading error={error} />}>
+              <Route path="menu" element={<SessionLoading error={error} />} />
+            </Route>
           </>
         ) : (
           <>
             <Route
               path="/"
-              element={isLoggedIn ? <Navigate to="/home" /> : <SiteAccess />}
+              element={isLoggedIn ? <Navigate to="/ms" /> : <SiteAccess />}
             >
               <Route index element={<Login />} />
             </Route>
 
-            <Route path="/home" element={<MainSite />}>
+            <Route path="/ms" element={<MainSite />}>
               <Route
                 index
                 element={isLoggedIn ? <NewsFeed /> : <Navigate to="/" />}
               />
+              <Route path="menu" element={<MobileMenu />} />
             </Route>
           </>
         )}

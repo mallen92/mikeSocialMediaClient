@@ -1,28 +1,34 @@
+/*------------- 3RD PARTY IMPORTS -------------*/
 import { useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
+
+/*-------------- ICON IMPORTS --------------*/
 import HomeIcon from "@mui/icons-material/Home";
 import GroupIcon from "@mui/icons-material/Group";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MailIcon from "@mui/icons-material/Mail";
 import MenuIcon from "@mui/icons-material/Menu";
+
+/*-------------- STYLE IMPORTS --------------*/
 import "../styles/MobileNavMenu.css";
 
 export const MobileNavMenu = () => {
-  const user = useSelector((state) => state.userSlice.user);
+  /*--------- CONFIGURATIONS ---------*/
   const navigate = useNavigate();
   const location = useLocation();
 
+  /*--------- STATE VARIABLES ---------*/
+  const user = useSelector((state) => state.userSlice.user);
+
+  /*------------------ JSX ------------------*/
   return (
     <div className="mobileNavMenuBody">
-      {location.pathname === "/" ? (
-        <div
-          className="mobileNavLink currentView"
-          onClick={() => navigate("/")}
-        >
+      {location.pathname === "/ms" ? (
+        <div className="mobileNavLink currentView" onClick={() => navigate(0)}>
           <HomeIcon fontSize="large" />
         </div>
       ) : (
-        <div className="mobileNavLink" onClick={() => navigate("/")}>
+        <div className="mobileNavLink" onClick={() => navigate("/ms")}>
           <HomeIcon fontSize="large" />
         </div>
       )}
@@ -63,15 +69,15 @@ export const MobileNavMenu = () => {
         </div>
       )}
 
-      {location.pathname === "/menu" ? (
+      {location.pathname === "/ms/menu" ? (
         <div
           className="lastMobileNavLink currentView"
-          onClick={() => navigate("/menu")}
+          onClick={() => navigate("/ms/menu")}
         >
           <MenuIcon fontSize="large" />
         </div>
       ) : (
-        <div className="lastMobileNavLink" onClick={() => navigate("/menu")}>
+        <div className="lastMobileNavLink" onClick={() => navigate("/ms/menu")}>
           <MenuIcon fontSize="large" />
         </div>
       )}

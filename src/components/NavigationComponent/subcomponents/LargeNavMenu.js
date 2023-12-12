@@ -53,13 +53,13 @@ export const LargeNavMenu = ({ setError }) => {
       </div>
 
       <div className="navLinks">
-        {location.pathname === "/" ? (
+        {location.pathname === "/ms" ? (
           <div className="navLink currentView" onClick={() => navigate(0)}>
             <HomeIcon fontSize="large" />
             <div>Home</div>
           </div>
         ) : (
-          <div className="navLink" onClick={() => navigate("/")}>
+          <div className="navLink" onClick={() => navigate("/ms")}>
             <HomeIcon fontSize="large" />
             <div>Home</div>
           </div>
