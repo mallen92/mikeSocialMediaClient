@@ -31,7 +31,7 @@ export const MobileMenu = ({ setError }) => {
 
       dispatch(unsetUser());
       localStorage.clear();
-      navigate("/");
+      navigate("/access");
     } catch (error) {
       setError(error);
     }

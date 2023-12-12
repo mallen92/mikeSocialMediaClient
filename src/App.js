@@ -14,7 +14,7 @@ import { URL } from "./util/url";
 import { SessionLoading } from "./components/SessionLoadingComponent/SessionLoading";
 import { SiteAccess } from "./components/SiteAccessComponent/SiteAccess";
 import { Login } from "./components/SiteAccessComponent/subcomponents/Login";
-import { MainSite } from "./components/MainSiteComponent/MainSite";
+import { AuthSite } from "./components/AuthSiteComponent/AuthSite";
 import { NewsFeed } from "./components/NewsFeedComponent/NewsFeed";
 import { MobileMenu } from "./components/MobileMenuComponent/MobileMenu";
 
@@ -60,25 +60,25 @@ function App() {
       <Routes>
         {isLoading ? (
           <>
-            <Route path="/" element={<SessionLoading error={error} />} />
-            <Route path="/ms" element={<SessionLoading error={error} />}>
+            <Route path="/access" element={<SessionLoading error={error} />} />
+            <Route path="/" element={<SessionLoading error={error} />}>
               <Route path="menu" element={<SessionLoading error={error} />} />
             </Route>
           </>
         ) : (
           <>
             <Route
-              path="/"
-              element={isLoggedIn ? <Navigate to="/ms" /> : <SiteAccess />}
+              path="/access"
+              element={isLoggedIn ? <Navigate to="/" /> : <SiteAccess />}
             >
               <Route index element={<Login />} />
             </Route>
 
-            <Route path="/ms" element={<MainSite />}>
-              <Route
-                index
-                element={isLoggedIn ? <NewsFeed /> : <Navigate to="/" />}
-              />
+            <Route
+              path="/"
+              element={isLoggedIn ? <AuthSite /> : <Navigate to="/access" />}
+            >
+              <Route index element={<NewsFeed />} />
               <Route path="menu" element={<MobileMenu />} />
             </Route>
           </>

@@ -40,7 +40,7 @@ export const Login = () => {
 
       dispatch(setUser(response.data));
       localStorage.setItem("x", "y");
-      navigate("/ms");
+      navigate("/");
     } catch (error) {
       setError(error.response.data.message);
     }

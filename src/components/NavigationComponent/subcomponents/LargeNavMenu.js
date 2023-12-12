@@ -36,7 +36,7 @@ export const LargeNavMenu = ({ setError }) => {
 
       dispatch(unsetUser());
       localStorage.clear();
-      navigate("/");
+      navigate("/access");
     } catch (error) {
       setError(error);
     }
@@ -53,13 +53,13 @@ export const LargeNavMenu = ({ setError }) => {
       </div>
 
       <div className="navLinks">
-        {location.pathname === "/ms" ? (
+        {location.pathname === "/" ? (
           <div className="navLink currentView" onClick={() => navigate(0)}>
             <HomeIcon fontSize="large" />
             <div>Home</div>
           </div>
         ) : (
-          <div className="navLink" onClick={() => navigate("/ms")}>
+          <div className="navLink" onClick={() => navigate("/")}>
             <HomeIcon fontSize="large" />
             <div>Home</div>
           </div>

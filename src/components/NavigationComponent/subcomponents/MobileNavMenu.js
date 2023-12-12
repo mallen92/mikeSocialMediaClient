@@ -23,12 +23,12 @@ export const MobileNavMenu = () => {
   /*------------------ JSX ------------------*/
   return (
     <div className="mobileNavMenuBody">
-      {location.pathname === "/ms" ? (
+      {location.pathname === "/" ? (
         <div className="mobileNavLink currentView" onClick={() => navigate(0)}>
           <HomeIcon fontSize="large" />
         </div>
       ) : (
-        <div className="mobileNavLink" onClick={() => navigate("/ms")}>
+        <div className="mobileNavLink" onClick={() => navigate("/")}>
           <HomeIcon fontSize="large" />
         </div>
       )}
@@ -69,7 +69,7 @@ export const MobileNavMenu = () => {
         </div>
       )}
 
-      {location.pathname === "/ms/menu" ? (
+      {location.pathname === "/menu" ? (
         <div
           className="lastMobileNavLink currentView"
           onClick={() => navigate("/ms/menu")}
@@ -77,7 +77,7 @@ export const MobileNavMenu = () => {
           <MenuIcon fontSize="large" />
         </div>
       ) : (
-        <div className="lastMobileNavLink" onClick={() => navigate("/ms/menu")}>
+        <div className="lastMobileNavLink" onClick={() => navigate("/menu")}>
           <MenuIcon fontSize="large" />
         </div>
       )}
