@@ -18,12 +18,10 @@ import MailIcon from "@mui/icons-material/Mail";
 import "../styles/LargeNavMenu.css";
 
 export const LargeNavMenu = ({ setError }) => {
-  /*--------- CONFIGURATIONS ---------*/
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  /*--------- STATE VARIABLES ---------*/
+  /*---------- HOOKS ----------*/
   const user = useSelector((state) => state.userSlice.user);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   /*--------- FUNCTIONS ---------*/
   const logOutUser = async () => {
