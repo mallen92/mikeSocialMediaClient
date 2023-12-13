@@ -13,38 +13,30 @@ import MenuIcon from "@mui/icons-material/Menu";
 import "../styles/MobileNavMenu.css";
 
 export const MobileNavMenu = () => {
-  /*--------- CONFIGURATIONS ---------*/
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  /*--------- STATE VARIABLES ---------*/
+  /*----------- HOOKS -----------*/
   const user = useSelector((state) => state.userSlice.user);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   /*------------------ JSX ------------------*/
   return (
     <div className="mobileNavMenuBody">
       {location.pathname === "/" ? (
-        <div className="mobileNavLink currentView" onClick={() => navigate(0)}>
+        <div className="mobileNavLink currentView">
           <HomeIcon fontSize="large" />
         </div>
       ) : (
-        <div className="mobileNavLink" onClick={() => navigate("/")}>
+        <div className="mobileNavLink">
           <HomeIcon fontSize="large" />
         </div>
       )}
 
       {location.pathname === `/${user.id}/friends` ? (
-        <div
-          className="mobileNavLink currentView"
-          onClick={() => navigate(`/${user.id}/friends`)}
-        >
+        <div className="mobileNavLink currentView">
           <GroupIcon fontSize="large" className="currentView" />
         </div>
       ) : (
-        <div
-          className="mobileNavLink"
-          onClick={() => navigate(`/${user.id}/friends`)}
-        >
+        <div className="mobileNavLink">
           <GroupIcon fontSize="large" />
         </div>
       )}
@@ -72,7 +64,7 @@ export const MobileNavMenu = () => {
       {location.pathname === "/menu" ? (
         <div
           className="lastMobileNavLink currentView"
-          onClick={() => navigate("/ms/menu")}
+          onClick={() => navigate("/menu")}
         >
           <MenuIcon fontSize="large" />
         </div>
