@@ -1,7 +1,7 @@
 /*------------- 3RD PARTY IMPORTS -------------*/
 import { Outlet } from "react-router-dom";
 
-/*-------------- CONFIG IMPORTS --------------*/
+/*-------------- REACT IMPORTS --------------*/
 import { useState } from "react";
 
 /*-------------- COMPONENT IMPORTS --------------*/
