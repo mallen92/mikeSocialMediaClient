@@ -1,4 +1,7 @@
+/*------------ 3RD PARTY IMPORTS ------------*/
 import { useNavigate } from "react-router-dom";
+
+/*------------ STYLE IMPORTS ------------*/
 import "./SessionLoading.css";
 
 export const SessionLoading = ({ error }) => {
