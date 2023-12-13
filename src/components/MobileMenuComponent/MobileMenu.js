@@ -14,11 +14,9 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import "./MobileMenu.css";
 
 export const MobileMenu = ({ setError }) => {
-  /*--------- CONFIGURATIONS ---------*/
-  const navigate = useNavigate();
-
-  /*--------- STATE VARIABLES ---------*/
+  /*--------- HOOKS ---------*/
   const user = useSelector((state) => state.userSlice.user);
+  const navigate = useNavigate();
 
   /*--------- FUNCTIONS ---------*/
   const logOutUser = async () => {
@@ -36,7 +34,7 @@ export const MobileMenu = ({ setError }) => {
 
   /*------------------ JSX ------------------*/
   return (
-    <div className="mobileMenuViewBody">
+    <div className="mobileMenu">
       <div className="appUserInfo">
         <img src={user.picUrl} className="appUserPic" alt="profile_picture" />
         <div className="appUserName">
@@ -44,10 +42,7 @@ export const MobileMenu = ({ setError }) => {
         </div>
       </div>
       <div className="mobileMenuLinks">
-        <div
-          className="mobileMenuLink"
-          onClick={() => navigate(`/ms/${user.id}`)}
-        >
+        <div className="mobileMenuLink" onClick={() => navigate(`/${user.id}`)}>
           <AccountBoxIcon fontSize="large" />
           View Your Profile
         </div>

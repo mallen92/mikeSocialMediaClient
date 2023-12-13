@@ -1,6 +1,6 @@
 /* Smartphones */
 @media (min-width: 320px) {
-  .mobileMenuViewBody {
+  .mobileMenu {
     align-items: center;
     display: flex;
     flex-direction: column;
