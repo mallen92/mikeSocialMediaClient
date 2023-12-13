@@ -8,7 +8,7 @@ import { useState } from "react";
 
 /*-------------- CONFIG IMPORTS --------------*/
 import { setUser } from "../../../app/userSlice";
-import { URL } from "../../../util/url";
+import { authURL } from "../../../util/urls";
 
 export const Login = () => {
   /*--------- CONFIGURATIONS ---------*/
@@ -28,7 +28,7 @@ export const Login = () => {
 
     try {
       const response = await axios.post(
-        `${URL}/auth/login`,
+        `${authURL}/login`,
         {
           email,
           password,

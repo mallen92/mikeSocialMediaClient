@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 
 /*-------------- CONFIG IMPORTS --------------*/
-import { URL } from "../../../util/url";
+import { authURL } from "../../../util/urls";
 
 /*-------------- ICON IMPORTS --------------*/
 import HomeIcon from "@mui/icons-material/Home";
@@ -28,7 +28,7 @@ export const LargeNavMenu = ({ setError }) => {
   /*--------- FUNCTIONS ---------*/
   const logOutUser = async () => {
     try {
-      await axios.post(`${URL}/auth/logout`, null, {
+      await axios.post(`${authURL}/logout`, null, {
         withCredentials: true,
       });
 

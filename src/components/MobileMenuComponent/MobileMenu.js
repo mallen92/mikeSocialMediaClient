@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 /*-------------- CONFIG IMPORTS --------------*/
-import { URL } from "../../util/url";
+import { authURL } from "../../util/urls";
 
 /*-------------- ICON IMPORTS --------------*/
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
@@ -23,7 +23,7 @@ export const MobileMenu = ({ setError }) => {
   /*--------- FUNCTIONS ---------*/
   const logOutUser = async () => {
     try {
-      await axios.post(`${URL}/auth/logout`, null, {
+      await axios.post(`${authURL}/logout`, null, {
         withCredentials: true,
       });
 

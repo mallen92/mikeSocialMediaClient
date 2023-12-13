@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 
 /*-------------- CONFIG IMPORTS --------------*/
 import { setUser } from "./app/userSlice";
-import { URL } from "./util/url";
+import { authURL } from "./util/urls";
 
 /*-------------- COMPONENT IMPORTS --------------*/
 import { SessionLoading } from "./components/SessionLoadingComponent/SessionLoading";
@@ -22,26 +22,26 @@ import { MobileMenu } from "./components/MobileMenuComponent/MobileMenu";
 import "./App.css";
 
 function App() {
-  /*--------- CONFIGURATIONS ---------*/
+  /*--------- HOOKS ---------*/
   const dispatch = useDispatch();
   let user = useSelector((state) => state.userSlice.user);
-  let isLoggedIn = user.accessToken;
-  const key = localStorage.getItem("x");
 
   /*--------- STATE VARIABLES ---------*/
-  let [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  /*--------- NON-STATE VARIABLES ---------*/
+  let isLoggedIn = user.accessToken;
+  const key = localStorage.getItem("x");
 
   /*--------- USEEFFECT HOOK ---------*/
   useEffect(() => {
     const verifyRefreshToken = async () => {
       try {
-        const response = await axios.get(`${URL}/auth/refresh`, {
+        const response = await axios.get(`${authURL}/refresh`, {
           withCredentials: true,
         });
-
         dispatch(setUser(response.data));
-
         // eslint-disable-next-line
         isLoggedIn = response.data.accessToken;
         setIsLoading(false);
