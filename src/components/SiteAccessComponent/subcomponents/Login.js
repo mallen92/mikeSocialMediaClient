@@ -11,7 +11,7 @@ import { setUser } from "../../../app/userSlice";
 import { authURL } from "../../../util/urls";
 
 export const Login = () => {
-  /*--------- CONFIGURATIONS ---------*/
+  /*--------- HOOKS ---------*/
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

@@ -1,6 +1,6 @@
 /* Smartphones */
 @media (min-width: 320px) {
-  .siteAccessBody {
+  .siteAccess {
     display: flex;
     height: 100vh;
     background-color: var(--default);
@@ -77,7 +77,7 @@
 
 /* Tablets */
 @media (min-width: 425px) {
-  .siteAccessBody {
+  .siteAccess {
     background-color: var(--white);
   }
 

@@ -3,7 +3,7 @@ import "./SiteAccess.css";
 
 export const SiteAccess = () => {
   return (
-    <div className="siteAccessBody">
+    <div className="siteAccess">
       <div className="formContainer">
         <div className="branding">TheSocial</div>
         <Outlet />
