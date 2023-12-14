@@ -14,24 +14,26 @@ import { authURL } from "./util/urls";
 import { SessionLoading } from "./components/SessionLoadingComponent/SessionLoading";
 import { SiteAccess } from "./components/SiteAccessComponent/SiteAccess";
 import { Login } from "./components/SiteAccessComponent/subcomponents/Login";
-import { AuthSite } from "./components/AuthSiteComponent/AuthSite";
+import { MainSite } from "./components/MainSiteComponent/MainSite";
 import { NewsFeed } from "./components/NewsFeedComponent/NewsFeed";
 import { MobileMenu } from "./components/MobileMenuComponent/MobileMenu";
 
 /*-------------- STYLING IMPORTS --------------*/
 import "./App.css";
+import { Profile } from "./components/ProfileComponent/Profile";
 
 function App() {
-  /*--------- HOOKS ---------*/
+  /*--------- HOOK VARIABLES ---------*/
   const dispatch = useDispatch();
-  let user = useSelector((state) => state.userSlice.user);
 
-  /*--------- STATE VARIABLES ---------*/
+  /*--------- REDUX STATE VARIABLES ---------*/
+  let isLoggedIn = useSelector((state) => state.userSlice.user.accessToken);
+
+  /*--------- COMPONENT STATE VARIABLES ---------*/
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
-  /*--------- NON-STATE VARIABLES ---------*/
-  let isLoggedIn = user.accessToken;
+  /*--------- REGULAR VARIABLES ---------*/
   const key = localStorage.getItem("x");
 
   /*--------- USEEFFECT HOOK ---------*/
@@ -64,6 +66,10 @@ function App() {
             <Route path="/" element={<SessionLoading error={error} />}>
               <Route path="menu" element={<SessionLoading error={error} />} />
             </Route>
+            <Route
+              path="/:id"
+              element={<SessionLoading error={error} />}
+            ></Route>
           </>
         ) : (
           <>
@@ -76,10 +82,14 @@ function App() {
 
             <Route
               path="/"
-              element={isLoggedIn ? <AuthSite /> : <Navigate to="/access" />}
+              element={isLoggedIn ? <MainSite /> : <Navigate to="/access" />}
             >
               <Route index element={<NewsFeed />} />
               <Route path="menu" element={<MobileMenu />} />
+            </Route>
+
+            <Route path="/:id" element={<MainSite />}>
+              <Route index element={<Profile />} />
             </Route>
           </>
         )}

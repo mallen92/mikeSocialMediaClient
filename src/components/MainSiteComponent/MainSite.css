@@ -1,6 +1,6 @@
 /* Smartphones */
 @media (min-width: 320px) {
-  .authSite {
+  .mainSite {
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -20,7 +20,7 @@
 
 /* Large tablets */
 @media (min-width: 768px) {
-  .authSite {
+  .mainSite {
     flex-direction: unset;
   }
 

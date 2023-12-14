@@ -54,7 +54,7 @@ export const LargeNavMenu = ({ setError }) => {
             <div>Home</div>
           </div>
         ) : (
-          <div className="navLink">
+          <div className="navLink" onClick={() => navigate("/")}>
             <HomeIcon fontSize="large" />
             <div>Home</div>
           </div>

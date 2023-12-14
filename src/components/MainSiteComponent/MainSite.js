@@ -9,9 +9,9 @@ import { NavigationContainer } from "../NavigationComponent/NavigationContainer"
 import { MessageBanner } from "../MessageBannerComponent/MessageBanner";
 
 /*-------------- STYLE IMPORTS --------------*/
-import "./AuthSite.css";
+import "./MainSite.css";
 
-export const AuthSite = () => {
+export const MainSite = () => {
   /*--------- STATE VARIABLES ---------*/
   const [successMsg, setSuccess] = useState("");
   const [warningMsg, setWarning] = useState("");
@@ -19,7 +19,7 @@ export const AuthSite = () => {
 
   /*--------- JSX ---------*/
   return (
-    <div className="authSite">
+    <div className="mainSite">
       <NavigationContainer setError={setError} />
 
       <div className="contentSection">
