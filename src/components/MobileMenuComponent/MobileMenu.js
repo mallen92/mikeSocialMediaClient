@@ -1,9 +1,10 @@
 /*------------- 3RD PARTY IMPORTS -------------*/
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 /*-------------- CONFIG IMPORTS --------------*/
+import { unsetUser } from "../../app/userSlice";
 import { authURL } from "../../util/urls";
 
 /*-------------- ICON IMPORTS --------------*/
@@ -15,8 +16,11 @@ import "./MobileMenu.css";
 
 export const MobileMenu = ({ setError }) => {
   /*--------- HOOKS ---------*/
-  const user = useSelector((state) => state.userSlice.user);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  /*---------- REACT STATE VARIABLES ----------*/
+  const user = useSelector((state) => state.userSlice.user);
 
   /*--------- FUNCTIONS ---------*/
   const logOutUser = async () => {
@@ -25,8 +29,9 @@ export const MobileMenu = ({ setError }) => {
         withCredentials: true,
       });
 
+      dispatch(unsetUser());
       localStorage.clear();
-      navigate(0);
+      navigate("/access");
     } catch (error) {
       setError(error);
     }

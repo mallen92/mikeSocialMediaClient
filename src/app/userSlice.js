@@ -11,13 +11,20 @@ export const userSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload;
     },
-    // updateUserPic: (state, action) => {
-    //   state.user.picUrl = action.payload.newPic;
-    //   state.user.picFilename = action.payload.newPicFilename;
-    // },
+    unsetUser: (state) => {
+      state.user = {};
+    },
+    updateAccessToken: (state, action) => {
+      state.user.accessToken = action.payload;
+    },
+    updateUserPic: (state, action) => {
+      state.user.picUrl = action.payload.newPic;
+      state.user.picFilename = action.payload.newPicFilename;
+    },
   },
 });
 
-export const { setUser, updateUserPic } = userSlice.actions;
+export const { setUser, unsetUser, updateAccessToken, updateUserPic } =
+  userSlice.actions;
 
 export default userSlice.reducer;
