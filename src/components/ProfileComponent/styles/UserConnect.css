@@ -1,0 +1,113 @@
+/* Smartphones */
+@media (min-width: 320px) {
+  .userConnect {
+    display: flex;
+    column-gap: 15px;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .userConnectBtn {
+    padding: 10px;
+
+    border: 2px solid rgb(199, 199, 199);
+    border-radius: 10px;
+    font-family: "Lato Black";
+    text-align: center;
+  }
+
+  .requestResponse {
+    display: flex;
+    gap: 20px;
+    position: relative;
+  }
+
+  .connectOptionsMenu {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 10px;
+    position: absolute;
+    top: 55px;
+    left: 35px;
+    z-index: 1000;
+
+    background-color: #283044;
+    border: 1px solid var(--borderWhite);
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px #181b24;
+  }
+
+  .optionBtn {
+    background-color: var(--hover);
+    font-size: 17px;
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .removeFriendBtn {
+    width: 175px;
+
+    background-color: var(--dangerRed);
+  }
+}
+
+/* Tablets */
+@media (min-width: 425px) {
+  .userConnectBtn {
+    padding: 10px 20px;
+
+    font-family: "Lato Black";
+    font-size: 20px;
+    text-align: center;
+  }
+}
+
+/* Large tablets */
+@media (min-width: 768px) {
+  .userConnect {
+    justify-content: unset;
+    margin-left: 20px;
+    margin-top: 20px;
+  }
+
+  .userConnectBtn:hover,
+  .optionBtn:hover {
+    background-color: var(--hover);
+    cursor: pointer;
+  }
+
+  .responseOptionsMenu {
+    gap: 5px;
+  }
+
+  .optionBtn {
+    background-color: unset;
+    border-radius: 10px;
+  }
+
+  .removeFriendBtn:hover {
+    background-color: var(--dangerRed);
+  }
+}
+
+/* Large screens*/
+@media (min-width: 1024px) {
+  .userConnect {
+    justify-content: unset;
+    margin-left: 50px;
+  }
+
+  .responseOptionsMenu {
+    left: 130px;
+  }
+
+  .connectOptionsMenu {
+    margin-top: 10px;
+  }
+}
+
+/* Extra large screens */
+@media (min-width: 1440px) {
+}

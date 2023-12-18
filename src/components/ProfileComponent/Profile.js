@@ -16,6 +16,7 @@ import { UploadImageWindow } from "./subcomponents/UploadImageWindow";
 import { SavePicWindow } from "./subcomponents/SavePicWindow";
 import { LoadingWindow } from "./subcomponents/LoadingWindow";
 import { DeletePicWindow } from "./subcomponents/DeletePicWindow";
+import { UserConnect } from "./subcomponents/UserConnect";
 
 /*-------------- IMAGE IMPORTS --------------*/
 import placeholder from "./images/Placeholder.png";
@@ -102,7 +103,7 @@ export const Profile = () => {
         <>
           <div className="requestedUserIntro">
             <ProfilePic
-              requestedUser={profile}
+              viewedUser={profile}
               uploadImage={setShowUploadImageWindow}
               confirmDelete={setShowDeletePicWindow}
             />
@@ -110,6 +111,26 @@ export const Profile = () => {
               {profile.firstName} {profile.lastName}
             </div>
           </div>
+
+          {user.accessToken && user.id === requestedUserId ? (
+            <div className="editProfile">
+              <div className="editProfileBtn">Edit Profile</div>
+            </div>
+          ) : (
+            <></>
+          )}
+
+          {user.accessToken && user.id !== requestedUserId ? (
+            <UserConnect
+              viewedUser={profile}
+              updateViewedUser={setProfile}
+              showSuccess={setSuccessMessage}
+              showWarning={setWarningMessage}
+              showError={setErrorMessage}
+            />
+          ) : (
+            <></>
+          )}
         </>
       )}
 

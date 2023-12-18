@@ -44,6 +44,23 @@
     font-size: 20px;
     font-weight: bold;
   }
+
+  .editProfile {
+    display: flex;
+    column-gap: 15px;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .editProfileBtn {
+    padding: 10px 15px;
+
+    border: 2px solid rgb(199, 199, 199);
+    border-radius: 10px;
+    font-family: "Lato Black";
+    font-size: 20px;
+    text-align: center;
+  }
 }
 
 /* Tablets */
@@ -62,6 +79,14 @@
 
   .requestedUserName {
     font-size: 30px;
+  }
+
+  .editConnectBtn {
+    padding: 10px 20px;
+
+    font-family: "Lato Black";
+    font-size: 20px;
+    text-align: center;
   }
 }
 
@@ -103,6 +128,17 @@
   .requestedUserName {
     font-size: 40px;
   }
+
+  .editProfile {
+    justify-content: unset;
+    margin-left: 20px;
+    margin-top: 20px;
+  }
+
+  .editProfileBtn:hover {
+    background-color: var(--hover);
+    cursor: pointer;
+  }
 }
 
 /* Large screens*/
@@ -114,6 +150,11 @@
   .requestedUserIntro {
     gap: 30px;
     padding-left: 50px;
+  }
+
+  .editProfile {
+    justify-content: unset;
+    margin-left: 50px;
   }
 }
 

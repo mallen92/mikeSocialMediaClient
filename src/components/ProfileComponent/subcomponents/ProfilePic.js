@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { ProfilePicOptionsMenu } from "./ProfilePicOptionsMenu";
 import "../styles/ProfilePic.css";
 
-export const ProfilePic = ({ requestedUser, uploadImage, confirmDelete }) => {
+export const ProfilePic = ({ viewedUser, uploadImage, confirmDelete }) => {
   /*------------------------ HOOK VARIABLES -----------------------*/
   const newRef = useRef(null);
 
@@ -19,7 +19,7 @@ export const ProfilePic = ({ requestedUser, uploadImage, confirmDelete }) => {
   });
 
   const toggleProfilePicOptions = () => {
-    if (requestedUser.id === user.id) {
+    if (viewedUser.id === user.id) {
       if (showProfilePicOptions) setShowProfilePicOptions(false);
       else setShowProfilePicOptions(true);
     }
@@ -33,19 +33,15 @@ export const ProfilePic = ({ requestedUser, uploadImage, confirmDelete }) => {
 
   return (
     <div className="profilePicBody" ref={newRef}>
-      {userToken && requestedUser.id === user.id ? (
+      {userToken && viewedUser.id === user.id ? (
         <img
-          src={requestedUser.picUrl}
+          src={viewedUser.picUrl}
           className="authUserPic"
           alt="User"
           onClick={toggleProfilePicOptions}
         />
       ) : (
-        <img
-          src={requestedUser.picUrl}
-          className="requestedUserPic"
-          alt="User"
-        />
+        <img src={viewedUser.picUrl} className="viewedUserPic" alt="User" />
       )}
 
       {showProfilePicOptions ? (
