@@ -15,6 +15,7 @@ import { ProfilePic } from "./subcomponents/ProfilePic";
 import { UploadImageWindow } from "./subcomponents/UploadImageWindow";
 import { SavePicWindow } from "./subcomponents/SavePicWindow";
 import { LoadingWindow } from "./subcomponents/LoadingWindow";
+import { DeletePicWindow } from "./subcomponents/DeletePicWindow";
 
 /*-------------- IMAGE IMPORTS --------------*/
 import placeholder from "./images/Placeholder.png";
@@ -39,6 +40,7 @@ export const Profile = () => {
   const [showUploadImageWindow, setShowUploadImageWindow] = useState(false);
   const [showSavePicWindow, setShowSavePicWindow] = useState(false);
   const [showLoadingWindow, setShowLoadingWindow] = useState(false);
+  const [showDeletePicWindow, setShowDeletePicWindow] = useState(false);
 
   /*---------------------- REGULAR VARIABLES ---------------------*/
   const requestedUserId = location.pathname.split("/")[1];
@@ -102,7 +104,7 @@ export const Profile = () => {
             <ProfilePic
               requestedUser={profile}
               uploadImage={setShowUploadImageWindow}
-              // confirmDelete={setShowDeletePicWindow}
+              confirmDelete={setShowDeletePicWindow}
             />
             <div className="requestedUserName">
               {profile.firstName} {profile.lastName}
@@ -130,6 +132,19 @@ export const Profile = () => {
           viewedUser={profile}
           updateViewedUser={setProfile}
           showThisWindow={setShowSavePicWindow}
+          showLoadingWindow={setShowLoadingWindow}
+          showError={setErrorMessage}
+        />
+      ) : (
+        <></>
+      )}
+
+      {showDeletePicWindow ? (
+        <DeletePicWindow
+          profileKey={key}
+          viewedUser={profile}
+          updateViewedUser={setProfile}
+          showThisWindow={setShowDeletePicWindow}
           showLoadingWindow={setShowLoadingWindow}
           showError={setErrorMessage}
         />
