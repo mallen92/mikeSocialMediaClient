@@ -2,7 +2,7 @@
 import axios from "axios";
 import imageCompression from "browser-image-compression";
 import Cropper from "react-easy-crop";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 /*--------------- REACT IMPORTS ---------------*/
 import { useState } from "react";
@@ -16,6 +16,7 @@ import { updateAccessToken, updateUserPic } from "../../../app/userSlice";
 import "../styles/SavePicWindow.css";
 
 export const SavePicWindow = ({
+  appUser,
   image,
   profileKey,
   viewedUser,
@@ -27,24 +28,24 @@ export const SavePicWindow = ({
   /*------------------------ HOOK VARIABLES -----------------------*/
   const dispatch = useDispatch();
 
-  /*-------------------- REDUX STATE VARIABLES -------------------*/
-  const user = useSelector((state) => state.userSlice.user);
-
   /*------------------ COMPONENT STATE VARIABLES -----------------*/
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+
+  /*------------------ REGULAR VARIABLES -----------------*/
+  let formData = new FormData();
 
   /*----------------------- FUNCTIONS ----------------------*/
   const onCropComplete = (croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
   };
 
-  const uploadImageAPI = async (formData, token) => {
+  const uploadImageAPI = async (data, token) => {
     try {
-      const response = await axios.post(`${imagesURL}`, formData, {
+      const response = await axios.post(`${imagesURL}`, data, {
         headers: {
           "Content-Type": "multipart/form-data",
-          "Profile-Cache-Key": `${profileKey}`,
+          "Profile-Cache-Key": profileKey,
           Authorization: `Bearer ${token}`,
         },
         withCredentials: true,
@@ -68,7 +69,7 @@ export const SavePicWindow = ({
     }
   };
 
-  const saveProfilePic = async () => {
+  const processProfilePic = async () => {
     showThisWindow(false);
     showLoadingWindow(true);
 
@@ -85,26 +86,27 @@ export const SavePicWindow = ({
       options
     );
 
-    const formData = new FormData();
     formData.append("image", newProfilePic);
+    await saveProfilePic(formData, appUser.accessToken);
+  };
 
-    try {
-      let uploadResponse = await uploadImageAPI(formData, user.accessToken);
+  const saveProfilePic = async (data, token) => {
+    let uploadResponse = await uploadImageAPI(data, token);
+    const errorCode = uploadResponse.response?.status;
+    const errorMsg = uploadResponse.response?.data.message;
 
-      if (uploadResponse.response?.status === 403) {
+    if (errorCode) {
+      if (errorCode === 403) {
         const newAPIResponse = await newAccessTokenAPI();
         const newToken = newAPIResponse.data.accessToken;
         dispatch(updateAccessToken(newToken));
-        uploadResponse = await uploadImageAPI(formData, newToken);
-      }
-
+        saveProfilePic(formData, newToken);
+      } else showError(errorMsg);
+    } else {
       changeProfilePic(
         uploadResponse.data.picUrl,
         uploadResponse.data.picFilename
       );
-      showLoadingWindow(false);
-    } catch (error) {
-      showError(error.response.data.message);
       showLoadingWindow(false);
     }
   };
@@ -133,7 +135,7 @@ export const SavePicWindow = ({
         <div className="savePicWindowBtns">
           <div
             className="savePicWindowBtn saveCropBtn"
-            onClick={saveProfilePic}
+            onClick={processProfilePic}
           >
             Save
           </div>

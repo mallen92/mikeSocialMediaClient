@@ -33,7 +33,7 @@
     z-index: 1000;
 
     background-color: #283044;
-    border: 1px solid var(--borderWhite);
+    border: 1px solid var(--white);
     border-radius: 10px;
     box-shadow: 5px 5px 5px #181b24;
   }

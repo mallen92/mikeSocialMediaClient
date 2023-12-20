@@ -1,15 +1,20 @@
 /*------------- 3RD PARTY IMPORTS -------------*/
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 /*--------------- REACT IMPORTS ---------------*/
 import { useEffect, useRef, useState } from "react";
 
 /*-------------- CONFIG IMPORTS --------------*/
-import { userURL } from "../../../util/urls";
+import { authURL, connectURL } from "../../../util/urls";
+import { updateAccessToken } from "../../../app/userSlice";
+
+/*-------------- STYLE IMPORTS --------------*/
 import "../styles/UserConnect.css";
 
 export const UserConnect = ({
+  appUser,
+  viewedUserKey,
   viewedUser,
   updateViewedUser,
   showSuccess,
@@ -17,50 +22,21 @@ export const UserConnect = ({
   showError,
 }) => {
   /*------------------------ HOOK VARIABLES -----------------------*/
+  const dispatch = useDispatch();
   const responseRef = useRef(null);
   const friendsRef = useRef(null);
-
-  /*-------------------- REDUX STATE VARIABLES -------------------*/
-  const user = useSelector((state) => state.userSlice.user);
 
   /*------------------ COMPONENT STATE VARIABLES -----------------*/
   const [showResponseOptions, setShowResponseOptions] = useState(false);
   const [showFriendsOptions, setShowFriendsOptions] = useState(false);
 
   /*---------------------- REGULAR VARIABLES ---------------------*/
-  const viewedUserFName = viewedUser.firstName;
-  const viewedUserLName = viewedUser.lastName;
+  const accessToken = appUser.accessToken;
   const viewedUserId = viewedUser.id;
-  const requestURL = `${userURL}/request`;
-  const friendURL = `${userURL}/friend`;
-
-  const sendReqInfo = {
-    senderFName: user.firstName,
-    senderLName: user.lastName,
-    senderPicFile: user.picFilename,
-    recipFName: viewedUserFName,
-    recipLName: viewedUserLName,
-    recipPicFile: viewedUser.picFilename,
-  };
-
-  const acceptReqInfo = {
-    senderFName: viewedUserFName,
-    senderLName: viewedUserLName,
-    senderPicFile: viewedUser.picFilename,
-    recipFName: user.firstName,
-    recipLName: user.lastName,
-    recipPicFile: user.picFilename,
-  };
-
-  const reqHeader = {
-    headers: {
-      Authorization: `Bearer ${user.accessToken}`,
-    },
-  };
-
+  const viewedUserName = `${viewedUser.firstName} ${viewedUser.lastName}`;
   let friendStatus = viewedUser.friendStatus;
 
-  /*------------------------- CONNECT OPTIONS MENUS ------------------------*/
+  /*------------------------- FUNCTIONALITY: OPTION MENUS ------------------------*/
 
   const toggleShowResponseOptions = () => {
     if (showResponseOptions) setShowResponseOptions(false);
@@ -85,102 +61,88 @@ export const UserConnect = ({
     }
   };
 
-  /*------------------------- END CONNECT OPTIONS MENUS ------------------------*/
+  /*------------------------- END FUNCTIONALITY: OPTION MENUS ------------------------*/
+
+  /*---------------------------- FUNCTIONALITY: API CALLS ----------------------------*/
+
+  const connectAPI = async (action, token) => {
+    try {
+      const response = await axios.post(
+        `${connectURL}/${action}?id=${viewedUserId}`,
+        null,
+        {
+          headers: {
+            "Profile-Cache-Key": viewedUserKey,
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
+        }
+      );
+
+      return response;
+    } catch (error) {
+      return error;
+    }
+  };
+
+  const newAccessTokenAPI = async () => {
+    try {
+      const response = await axios.get(`${authURL}/refresh`, {
+        withCredentials: true,
+      });
+
+      return response;
+    } catch (error) {
+      return error;
+    }
+  };
+
+  /*---------------------- END FUNCTIONALITY: API CALLS ----------------------*/
 
   /*------------------------- HANDLE FRIEND CONNECT ------------------------*/
 
-  const sendRequest = () => {
-    axios
-      .put(`${requestURL}?id=${viewedUserId}`, sendReqInfo, reqHeader)
-      .then((response) => {
-        viewedUser.friendStatus = response.data.status;
-        updateViewedUser(viewedUser);
-        updateStatusInCache(response.data.status);
-        showSuccess(`Friend request sent to ${viewedUserFName}!`);
-      })
-      .catch((error) => {
-        showError(error.response.data.message);
-      });
-  };
+  const handleConnect = async (action, token) => {
+    let reqResponse = await connectAPI(action, token);
+    const errorCode = reqResponse.response?.status;
+    const errorMsg = reqResponse.response?.data.message;
 
-  const cancelRequest = () => {
-    axios
-      .delete(`${requestURL}/cancel?id=${viewedUserId}`, reqHeader)
-      .then((response) => {
-        viewedUser.friendStatus = response.data.status;
-        updateViewedUser(viewedUser);
-        updateStatusInCache(response.data.status);
-        showWarning(`Friend request to ${viewedUserFName} cancelled.`);
-      })
-      .catch((error) => {
-        showError(error.response.data.message);
-      });
-  };
-
-  const acceptRequest = () => {
-    axios
-      .put(`${friendURL}?id=${viewedUserId}`, acceptReqInfo, reqHeader)
-      .then((response) => {
-        viewedUser.friendStatus = response.data.status;
-        updateViewedUser(viewedUser);
-        updateStatusInCache(response.data.status);
-        showSuccess(`You are now friends with ${viewedUserFName}!`);
-      })
-      .catch((error) => {
-        showError(error.response.data.message);
-      });
-  };
-
-  const rejectRequest = () => {
-    axios
-      .delete(`${requestURL}/reject?id=${viewedUserId}`, reqHeader)
-      .then((response) => {
-        viewedUser.friendStatus = response.data.status;
-        updateViewedUser(viewedUser);
-        updateStatusInCache(response.data.status);
-        showWarning(`Friend request from ${viewedUserFName} rejected.`);
-      })
-      .catch((error) => {
-        showError(error.response.data.message);
-      });
-  };
-
-  const removeFriend = () => {
-    axios
-      .delete(`${friendURL}?id=${viewedUserId}`, reqHeader)
-      .then((response) => {
-        viewedUser.friendStatus = response.data.status;
-        updateViewedUser(viewedUser);
-        updateStatusInCache(response.data.status);
-        showWarning(`You are no longer friends with ${viewedUserFName}.`);
-      })
-      .catch((error) => {
-        showError(error.response.data.message);
-      });
+    if (errorCode) {
+      if (errorCode === 403) {
+        const newAPIResponse = await newAccessTokenAPI();
+        const newToken = newAPIResponse.data.accessToken;
+        dispatch(updateAccessToken(newToken));
+        handleConnect(action, newToken);
+      } else showError(errorMsg);
+    } else {
+      viewedUser.friendStatus = reqResponse.data.status;
+      updateViewedUser(viewedUser);
+      // eslint-disable-next-line
+      switch (action) {
+        case "send": {
+          showSuccess(`Friend request sent to ${viewedUserName}!`);
+          break;
+        }
+        case "cancel": {
+          showWarning(`Friend request to ${viewedUserName} cancelled.`);
+          break;
+        }
+        case "reject": {
+          showWarning(`Friend request from ${viewedUserName} rejected.`);
+          break;
+        }
+        case "accept": {
+          showSuccess(`You are now friends with ${viewedUserName}!`);
+          break;
+        }
+        case "removeFriend": {
+          showWarning(`You are no longer friends with ${viewedUserName}.`);
+          break;
+        }
+      }
+    }
   };
 
   /*------------------------- END HANDLE FRIEND CONNECT ------------------------*/
-
-  /*------------------------- CACHE FRIEND STATUS UPDATE ------------------------*/
-
-  const updateStatusInCache = (status) => {
-    // const visitedProfilesCache =
-    //   window.localStorage.getItem("visited_profiles");
-    // let visitedProfilesArray = JSON.parse(visitedProfilesCache);
-    // for (let i = 0; i < visitedProfilesArray.length; i++) {
-    //   const visitedProfile = visitedProfilesArray[i];
-    //   if (visitedProfile.id === viewedUserId) {
-    //     visitedProfile.friendStatus = status;
-    //     break;
-    //   }
-    // }
-    // window.localStorage.setItem(
-    //   "visited_profiles",
-    //   JSON.stringify(visitedProfilesArray)
-    // );
-  };
-
-  /*------------------------- END CACHE FRIEND STATUS UPDATE ------------------------*/
 
   return (
     <div className="userConnect">
@@ -188,14 +150,20 @@ export const UserConnect = ({
         switch (friendStatus) {
           case "not a friend":
             return (
-              <div className="userConnectBtn" onClick={sendRequest}>
+              <div
+                className="userConnectBtn"
+                onClick={() => handleConnect("send", accessToken)}
+              >
                 Send Request
               </div>
             );
           case "sent request to":
             return (
               <div>
-                <div className="userConnectBtn" onClick={cancelRequest}>
+                <div
+                  className="userConnectBtn"
+                  onClick={() => handleConnect("cancel", accessToken)}
+                >
                   Cancel Request
                 </div>
               </div>
@@ -212,10 +180,16 @@ export const UserConnect = ({
 
                 {showResponseOptions ? (
                   <div className="connectOptionsMenu">
-                    <div className="optionBtn" onClick={acceptRequest}>
+                    <div
+                      className="optionBtn"
+                      onClick={() => handleConnect("accept", accessToken)}
+                    >
                       Accept
                     </div>
-                    <div className="optionBtn" onClick={rejectRequest}>
+                    <div
+                      className="optionBtn"
+                      onClick={() => handleConnect("reject", accessToken)}
+                    >
                       Reject
                     </div>
                   </div>
@@ -240,7 +214,7 @@ export const UserConnect = ({
                   <div className="connectOptionsMenu">
                     <div
                       className="optionBtn removeFriendBtn"
-                      onClick={removeFriend}
+                      onClick={() => handleConnect("removeFriend", accessToken)}
                     >
                       Unfriend This User
                     </div>

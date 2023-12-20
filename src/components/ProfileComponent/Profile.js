@@ -84,7 +84,7 @@ export const Profile = () => {
         setErrorMessage(error.response.data.message);
       });
     //eslint-disable-next-line
-  }, []);
+  }, [requestedUserId]);
 
   /*------------------------- END USEEFFECT HOOK ------------------------*/
 
@@ -103,6 +103,7 @@ export const Profile = () => {
         <>
           <div className="requestedUserIntro">
             <ProfilePic
+              appUser={user}
               viewedUser={profile}
               uploadImage={setShowUploadImageWindow}
               confirmDelete={setShowDeletePicWindow}
@@ -122,6 +123,8 @@ export const Profile = () => {
 
           {user.accessToken && user.id !== requestedUserId ? (
             <UserConnect
+              appUser={user}
+              viewedUserKey={key}
               viewedUser={profile}
               updateViewedUser={setProfile}
               showSuccess={setSuccessMessage}
@@ -148,6 +151,7 @@ export const Profile = () => {
 
       {showSavePicWindow ? (
         <SavePicWindow
+          appUser={user}
           image={image}
           profileKey={key}
           viewedUser={profile}

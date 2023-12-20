@@ -1,25 +1,24 @@
-import { useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 import { ProfilePicOptionsMenu } from "./ProfilePicOptionsMenu";
 import "../styles/ProfilePic.css";
 
-export const ProfilePic = ({ viewedUser, uploadImage, confirmDelete }) => {
-  /*------------------------ HOOK VARIABLES -----------------------*/
+export const ProfilePic = ({
+  appUser,
+  viewedUser,
+  uploadImage,
+  confirmDelete,
+}) => {
   const newRef = useRef(null);
-
-  /*-------------------- REDUX STATE VARIABLES -------------------*/
-  const user = useSelector((state) => state.userSlice.user);
-  const userToken = user.accessToken;
-
-  /*------------------ COMPONENT STATE VARIABLES -----------------*/
+  const userToken = appUser.accessToken;
   const [showProfilePicOptions, setShowProfilePicOptions] = useState(false);
 
+  /*------------------ FUNCTIONS -----------------*/
   useEffect(() => {
     document.addEventListener("click", handleOutsideClick);
   });
 
   const toggleProfilePicOptions = () => {
-    if (viewedUser.id === user.id) {
+    if (viewedUser.id === appUser.id) {
       if (showProfilePicOptions) setShowProfilePicOptions(false);
       else setShowProfilePicOptions(true);
     }
@@ -33,7 +32,7 @@ export const ProfilePic = ({ viewedUser, uploadImage, confirmDelete }) => {
 
   return (
     <div className="profilePicBody" ref={newRef}>
-      {userToken && viewedUser.id === user.id ? (
+      {userToken && viewedUser.id === appUser.id ? (
         <img
           src={viewedUser.picUrl}
           className="authUserPic"
@@ -41,7 +40,7 @@ export const ProfilePic = ({ viewedUser, uploadImage, confirmDelete }) => {
           onClick={toggleProfilePicOptions}
         />
       ) : (
-        <img src={viewedUser.picUrl} className="viewedUserPic" alt="User" />
+        <img src={viewedUser.picUrl} className="requestedUserPic" alt="User" />
       )}
 
       {showProfilePicOptions ? (
