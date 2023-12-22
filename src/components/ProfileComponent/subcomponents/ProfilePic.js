@@ -13,10 +13,6 @@ export const ProfilePic = ({
   const [showProfilePicOptions, setShowProfilePicOptions] = useState(false);
 
   /*------------------ FUNCTIONS -----------------*/
-  useEffect(() => {
-    document.addEventListener("click", handleOutsideClick);
-  });
-
   const toggleProfilePicOptions = () => {
     if (viewedUser.id === appUser.id) {
       if (showProfilePicOptions) setShowProfilePicOptions(false);
@@ -29,6 +25,11 @@ export const ProfilePic = ({
       setShowProfilePicOptions(false);
     }
   };
+
+  /*----------------------- USEEFFECT HOOK ----------------------*/
+  useEffect(() => {
+    document.addEventListener("click", handleOutsideClick);
+  });
 
   return (
     <div className="profilePicBody" ref={newRef}>

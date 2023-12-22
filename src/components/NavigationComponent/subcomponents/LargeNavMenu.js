@@ -83,7 +83,10 @@ export const LargeNavMenu = ({ setError }) => {
             <div>Friends</div>
           </div>
         ) : (
-          <div className="navLink">
+          <div
+            className="navLink"
+            onClick={() => navigate(`/${user.id}/friends`)}
+          >
             <GroupIcon fontSize="large" />
             <div>Friends</div>
           </div>

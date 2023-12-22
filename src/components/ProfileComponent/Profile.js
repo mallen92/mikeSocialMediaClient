@@ -1,7 +1,7 @@
 /*------------- 3RD PARTY IMPORTS -------------*/
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useLocation, Outlet } from "react-router-dom";
 
 /*--------------- REACT IMPORTS ---------------*/
 import { useEffect, useState } from "react";
@@ -194,7 +194,7 @@ export const Profile = () => {
 
       {/*-------------------------- END DIALOGUE WINDOWS ---------------------------------*/}
 
-      {/* <Outlet context={setErrorMessage} /> */}
+      <Outlet context={setErrorMessage} />
     </div>
   );
 };

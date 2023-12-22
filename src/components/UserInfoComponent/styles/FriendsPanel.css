@@ -1,0 +1,130 @@
+/* Smartphones */
+@media (min-width: 320px) {
+  .friendsPanel {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    background-color: rgba(0, 0, 0, 0.25);
+    border: 2px solid var(--hover);
+    border-radius: 20px;
+  }
+
+  .panelHeader {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 0;
+    width: 100%;
+
+    background-color: rgba(0, 0, 0, 0.5);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    text-align: center;
+  }
+
+  .panelTitle {
+    font-size: 25px;
+    font-weight: bold;
+  }
+
+  .viewMoreBtn {
+    padding: 8px;
+    text-align: center;
+
+    background-color: var(--hover);
+    border: 2px solid rgb(199, 199, 199);
+    border-radius: 10px;
+    font-size: 15px;
+  }
+
+  .panelFriendList {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px 0;
+    row-gap: 20px;
+  }
+
+  .panelFriend {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .panelPic {
+    width: 70px;
+  }
+
+  .panelName {
+    text-align: center;
+    width: 100px;
+  }
+}
+
+/* Tablets */
+@media (min-width: 425px) {
+  .panelFriendList {
+    margin-left: 20px;
+    margin-right: 20px;
+    gap: 15px;
+  }
+
+  .panelPic {
+    width: 100px;
+  }
+}
+
+/* Large tablets */
+@media (min-width: 768px) {
+  .panelFriendList {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .panelFriend:hover {
+    cursor: pointer;
+    background-color: var(--hover);
+  }
+
+  .viewMoreBtn:hover {
+    cursor: pointer;
+    background-color: var(--default);
+  }
+}
+
+/* Large screens*/
+@media (min-width: 1024px) {
+  .friendsPanel {
+    height: 500px;
+    width: 600px;
+  }
+
+  .panelName {
+    font-size: 18px;
+  }
+
+  .panelFriendList {
+    column-gap: 30px;
+    columns: 2;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 30px;
+    overflow: auto;
+  }
+
+  .panelPic {
+    width: 100px;
+  }
+
+  .panelName {
+    font-size: 15px;
+  }
+}
+
+/* Extra large screens */
+@media (min-width: 1440px) {
+  .panelName {
+    font-size: 18px;
+  }
+}

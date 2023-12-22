@@ -17,6 +17,8 @@ import { Login } from "./components/SiteAccessComponent/subcomponents/Login";
 import { MainSite } from "./components/MainSiteComponent/MainSite";
 import { NewsFeed } from "./components/NewsFeedComponent/NewsFeed";
 import { MobileMenu } from "./components/MobileMenuComponent/MobileMenu";
+import { Friends } from "./components/FriendsComponent/Friends";
+import { UserInfo } from "./components/UserInfoComponent/UserInfo";
 
 /*-------------- STYLING IMPORTS --------------*/
 import "./App.css";
@@ -89,7 +91,10 @@ function App() {
             </Route>
 
             <Route path="/:id" element={<MainSite />}>
-              <Route index element={<Profile />} />
+              <Route path="/:id" element={<Profile />}>
+                <Route index element={<UserInfo />} />
+              </Route>
+              <Route path="friends" element={<Friends />} />
             </Route>
           </>
         )}
