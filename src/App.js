@@ -14,6 +14,7 @@ import { authURL } from "./util/urls";
 import { SessionLoading } from "./components/SessionLoadingComponent/SessionLoading";
 import { SiteAccess } from "./components/SiteAccessComponent/SiteAccess";
 import { Login } from "./components/SiteAccessComponent/subcomponents/Login";
+import { Signup } from "./components/SiteAccessComponent/subcomponents/Signup";
 import { MainSite } from "./components/MainSiteComponent/MainSite";
 import { NewsFeed } from "./components/NewsFeedComponent/NewsFeed";
 import { MobileMenu } from "./components/MobileMenuComponent/MobileMenu";
@@ -63,16 +64,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         {isLoading ? (
-          <>
-            <Route path="/access" element={<SessionLoading error={error} />} />
-            <Route path="/" element={<SessionLoading error={error} />}>
-              <Route path="menu" element={<SessionLoading error={error} />} />
-            </Route>
-            <Route
-              path="/:id"
-              element={<SessionLoading error={error} />}
-            ></Route>
-          </>
+          <Route path="*" element={<SessionLoading error={error} />} />
         ) : (
           <>
             <Route
@@ -80,6 +72,7 @@ function App() {
               element={isLoggedIn ? <Navigate to="/" /> : <SiteAccess />}
             >
               <Route index element={<Login />} />
+              <Route path="signup" element={<Signup />} />
             </Route>
 
             <Route

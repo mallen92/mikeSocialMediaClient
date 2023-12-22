@@ -15,7 +15,7 @@ export const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  /*--------- STATE VARIABLES ---------*/
+  /*--------- COMPONENT STATE VARIABLES ---------*/
   const [error, setError] = useState("");
 
   /*--------- FUNCTIONS ---------*/
@@ -79,7 +79,7 @@ export const Login = () => {
             className="accessFormButton loginFormSignUpButton"
             onClick={(e) => {
               e.preventDefault();
-              navigate("/signup");
+              navigate("/access/signup");
             }}
           >
             Sign Up
