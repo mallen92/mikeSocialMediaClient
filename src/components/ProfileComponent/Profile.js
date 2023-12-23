@@ -33,6 +33,7 @@ export const Profile = () => {
 
   /*------------------ COMPONENT STATE VARIABLES -----------------*/
   const [isLoading, setLoading] = useState(true);
+  const [profileExists, setProfileExists] = useState(true);
   const [profile, setProfile] = useState({});
   const [image, setImage] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
@@ -66,9 +67,11 @@ export const Profile = () => {
         },
       })
       .then((response) => {
-        if (Object.keys(response.data).length === 0)
-          console.log("The requested user doesn't exist!");
-        else {
+        if (Object.keys(response.data).length === 0) {
+          setLoading(false);
+          setProfileExists(false);
+        } else {
+          setProfileExists(true);
           setProfile(response.data);
           setLoading(false);
 
@@ -91,110 +94,144 @@ export const Profile = () => {
   return (
     <div className="profilePageContent">
       {isLoading ? (
-        <div className="loading">
-          <div className="requestedUserIntro">
-            <img src={placeholder} className="loadingUserPic" alt="loading" />
-            <img src={placeholder} className="loadingName" alt="loading" />
-          </div>
+        <>
+          <div className="loading">
+            <div className="requestedUserIntro">
+              <img src={placeholder} className="loadingUserPic" alt="loading" />
+              <img src={placeholder} className="loadingName" alt="loading" />
+            </div>
 
-          <img src={placeholder} className="loadingUserConnect" alt="loading" />
-        </div>
+            <img
+              src={placeholder}
+              className="loadingUserConnect"
+              alt="loading"
+            />
+          </div>
+        </>
       ) : (
         <>
-          <div className="requestedUserIntro">
-            <ProfilePic
-              appUser={user}
-              viewedUser={profile}
-              uploadImage={setShowUploadImageWindow}
-              confirmDelete={setShowDeletePicWindow}
-            />
-            <div className="requestedUserName">
-              {profile.firstName} {profile.lastName}
-            </div>
-          </div>
+          {!profileExists ? (
+            <>
+              <div className="loading">
+                <div className="requestedUserIntro">
+                  <img
+                    src={placeholder}
+                    className="loadingUserPic"
+                    alt="loading"
+                  />
+                  <img
+                    src={placeholder}
+                    className="loadingName"
+                    alt="loading"
+                  />
+                </div>
 
-          {user.accessToken && user.id === requestedUserId ? (
-            <div className="editProfile">
-              <div className="editProfileBtn">Edit Profile</div>
-            </div>
+                <img
+                  src={placeholder}
+                  className="loadingUserConnect"
+                  alt="loading"
+                />
+              </div>
+              <div className="noUserMsg">
+                Oops... <br /> That user doesn't exist!
+              </div>
+            </>
           ) : (
-            <></>
-          )}
+            <>
+              <div className="requestedUserIntro">
+                <ProfilePic
+                  appUser={user}
+                  viewedUser={profile}
+                  uploadImage={setShowUploadImageWindow}
+                  confirmDelete={setShowDeletePicWindow}
+                />
+                <div className="requestedUserName">
+                  {profile.firstName} {profile.lastName}
+                </div>
+              </div>
+              {user.accessToken && user.id === requestedUserId ? (
+                <div className="editProfile">
+                  <div className="editProfileBtn">Edit Profile</div>
+                </div>
+              ) : (
+                <></>
+              )}
+              {user.accessToken && user.id !== requestedUserId ? (
+                <UserConnect
+                  appUser={user}
+                  viewedUserKey={key}
+                  viewedUser={profile}
+                  updateViewedUser={setProfile}
+                  showSuccess={setSuccessMessage}
+                  showWarning={setWarningMessage}
+                  showError={setErrorMessage}
+                />
+              ) : (
+                <></>
+              )}
 
-          {user.accessToken && user.id !== requestedUserId ? (
-            <UserConnect
-              appUser={user}
-              viewedUserKey={key}
-              viewedUser={profile}
-              updateViewedUser={setProfile}
-              showSuccess={setSuccessMessage}
-              showWarning={setWarningMessage}
-              showError={setErrorMessage}
-            />
-          ) : (
-            <></>
+              {/*-------------------------- DIALOGUE WINDOWS ---------------------------------*/}
+
+              {showUploadImageWindow ? (
+                <UploadImageWindow
+                  showThisWindow={setShowUploadImageWindow}
+                  setImage={setImage}
+                  openNextWindow={setShowSavePicWindow}
+                />
+              ) : (
+                <></>
+              )}
+
+              {showSavePicWindow ? (
+                <SavePicWindow
+                  appUser={user}
+                  image={image}
+                  profileKey={key}
+                  viewedUser={profile}
+                  updateViewedUser={setProfile}
+                  showThisWindow={setShowSavePicWindow}
+                  showLoadingWindow={setShowLoadingWindow}
+                  showError={setErrorMessage}
+                />
+              ) : (
+                <></>
+              )}
+
+              {showDeletePicWindow ? (
+                <DeletePicWindow
+                  profileKey={key}
+                  viewedUser={profile}
+                  updateViewedUser={setProfile}
+                  showThisWindow={setShowDeletePicWindow}
+                  showLoadingWindow={setShowLoadingWindow}
+                  showError={setErrorMessage}
+                />
+              ) : (
+                <></>
+              )}
+
+              {showLoadingWindow ? <LoadingWindow /> : <></>}
+
+              {successMessage || warningMessage || errorMessage ? (
+                <MessageBanner
+                  success={successMessage}
+                  closeSuccess={setSuccessMessage}
+                  warning={warningMessage}
+                  closeWarning={setWarningMessage}
+                  error={errorMessage}
+                  closeError={setErrorMessage}
+                />
+              ) : (
+                <></>
+              )}
+
+              {/*-------------------------- END DIALOGUE WINDOWS ---------------------------------*/}
+
+              <Outlet context={setErrorMessage} />
+            </>
           )}
         </>
       )}
-
-      {/*-------------------------- DIALOGUE WINDOWS ---------------------------------*/}
-
-      {showUploadImageWindow ? (
-        <UploadImageWindow
-          showThisWindow={setShowUploadImageWindow}
-          setImage={setImage}
-          openNextWindow={setShowSavePicWindow}
-        />
-      ) : (
-        <></>
-      )}
-
-      {showSavePicWindow ? (
-        <SavePicWindow
-          appUser={user}
-          image={image}
-          profileKey={key}
-          viewedUser={profile}
-          updateViewedUser={setProfile}
-          showThisWindow={setShowSavePicWindow}
-          showLoadingWindow={setShowLoadingWindow}
-          showError={setErrorMessage}
-        />
-      ) : (
-        <></>
-      )}
-
-      {showDeletePicWindow ? (
-        <DeletePicWindow
-          profileKey={key}
-          viewedUser={profile}
-          updateViewedUser={setProfile}
-          showThisWindow={setShowDeletePicWindow}
-          showLoadingWindow={setShowLoadingWindow}
-          showError={setErrorMessage}
-        />
-      ) : (
-        <></>
-      )}
-
-      {showLoadingWindow ? <LoadingWindow /> : <></>}
-
-      {successMessage || warningMessage || errorMessage ? (
-        <MessageBanner
-          success={successMessage}
-          closeSuccess={setSuccessMessage}
-          warning={warningMessage}
-          closeWarning={setWarningMessage}
-          error={errorMessage}
-          closeError={setErrorMessage}
-        />
-      ) : (
-        <></>
-      )}
-
-      {/*-------------------------- END DIALOGUE WINDOWS ---------------------------------*/}
-
-      <Outlet context={setErrorMessage} />
     </div>
   );
 };

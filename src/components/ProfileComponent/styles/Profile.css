@@ -31,6 +31,20 @@
     border-radius: 10px;
   }
 
+  .noUserMsg {
+    margin: 30px auto;
+    padding: 20px;
+    width: 75%;
+
+    background-color: var(--dangerRed);
+    border-radius: 20px;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.75);
+    color: rgb(25, 25, 25);
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+  }
+
   .requestedUserIntro {
     align-items: center;
     display: flex;
@@ -145,6 +159,10 @@
 @media (min-width: 1024px) {
   .loadingUserConnect {
     margin-left: 50px;
+  }
+
+  .noUserMsg {
+    width: 50%;
   }
 
   .requestedUserIntro {
