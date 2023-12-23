@@ -42,7 +42,7 @@
     text-align: center;
 
     background-color: var(--hover);
-    border: 2px solid rgb(199, 199, 199);
+    border: 2px solid var(--white);
     border-radius: 10px;
     font-size: 15px;
   }
@@ -51,9 +51,7 @@
     display: flex;
     gap: 10px;
     justify-content: center;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    width: 90%;
+    width: 75%;
   }
 
   .searchForm input:focus {
@@ -62,8 +60,9 @@
 
   .friendSearch {
     padding: 5px 10px;
-    width: 80%;
+    width: 100%;
 
+    border: none;
     border-radius: 10px;
     font-size: 20px;
   }
@@ -71,6 +70,10 @@
   .submit {
     width: 85px;
     border-radius: 10px;
+
+    background-color: var(--button);
+    border: none;
+    color: var(--white);
   }
 
   .noFriendsMsg {
@@ -106,8 +109,7 @@
 /* Tablets */
 @media (min-width: 425px) {
   .searchForm {
-    margin-bottom: 10px;
-    width: 80%;
+    width: 60%;
   }
 }
 
@@ -118,13 +120,17 @@
     font-size: 30px;
   }
 
+  .friendsViewHeader {
+    gap: 20px;
+  }
+
   .friendsViewTitle {
     font-size: 30px;
   }
 
   .submit:hover {
     cursor: pointer;
-    background-color: rgb(177, 177, 177);
+    background-color: var(--buttonHover);
   }
 
   .submit:active {
@@ -133,6 +139,7 @@
 
   .friendList {
     padding: 0 20px;
+    gap: 20px;
   }
 
   .listedFriend:hover {
@@ -145,63 +152,26 @@
     background-color: var(--default);
   }
 
-  .searchForm {
-    width: 300px;
+  .friendPic {
+    width: 150px;
+  }
+
+  .friendName {
+    width: unset;
+
+    font-size: 18px;
+    text-align: unset;
   }
 }
 
 /* Large screens*/
 @media (min-width: 1024px) {
-  .friendsViewHeader {
-    flex-direction: row;
-    padding: 15px 20px;
-    justify-content: space-between;
-  }
-
-  .friendsViewHeader :nth-child(1) {
-    order: 2;
-  }
-  .friendsViewHeader :nth-child(2) {
-    order: 1;
-  }
-  .friendsViewHeader :nth-child(3) {
-    order: 3;
-  }
-
-  .searchForm :nth-child(1) {
-    order: 2;
-  }
-
-  .searchForm :nth-child(1) {
-    order: 1;
-  }
-
-  .friendsViewTitle {
-    margin-left: 175px;
+  .friendPic {
+    width: 200px;
   }
 
   .searchForm {
-    justify-content: end;
-  }
-
-  .friendSearch {
-    width: 150px;
-  }
-
-  .friendList {
-    column-gap: 30px;
-    columns: 2;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 30px;
-  }
-
-  .friendPic {
-    width: 100px;
-  }
-
-  .friendName {
-    font-size: 18px;
+    width: 50%;
   }
 }
 
@@ -209,5 +179,13 @@
 @media (min-width: 1440px) {
   .friendSearch {
     width: 400px;
+  }
+
+  .friendPic {
+    width: 250px;
+  }
+
+  .friendName {
+    font-size: 25px;
   }
 }

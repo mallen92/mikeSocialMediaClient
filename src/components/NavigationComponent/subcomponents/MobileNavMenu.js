@@ -36,7 +36,10 @@ export const MobileNavMenu = () => {
           <GroupIcon fontSize="large" className="currentView" />
         </div>
       ) : (
-        <div className="mobileNavLink">
+        <div
+          className="mobileNavLink"
+          onClick={() => navigate(`/${user.id}/friends`)}
+        >
           <GroupIcon fontSize="large" />
         </div>
       )}

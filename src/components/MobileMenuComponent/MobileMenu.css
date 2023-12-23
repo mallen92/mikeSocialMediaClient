@@ -29,17 +29,17 @@
   .mobileMenuLinks {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
   }
 
   .mobileMenuLink {
     align-items: center;
     display: flex;
     gap: 20px;
-    padding: 20px;
+    padding: 10px 20px;
 
     background-color: var(--hover);
-    border-radius: 30px;
+    border-radius: 20px;
     font-size: 20px;
   }
 }

@@ -1,0 +1,132 @@
+/* Large tablets */
+@media (min-width: 768px) {
+  .largeSearch {
+    display: flex;
+    flex-direction: column;
+    margin: 0 20px;
+    position: relative;
+
+    background-color: rgba(0, 0, 0, 0.25);
+    border: 2px solid var(--hover);
+    border-radius: 20px;
+  }
+
+  .lSearchHeader {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px 0;
+    width: 100%;
+
+    background-color: rgba(0, 0, 0, 0.5);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    text-align: center;
+  }
+
+  .lSearchForm {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .lSearchFormTitle {
+    width: 100%;
+
+    font-size: 30px;
+    font-weight: bold;
+  }
+
+  .lSearchFormInput,
+  .lSearchSubmit {
+    padding: 5px 10px;
+
+    border: none;
+    border-radius: 5px;
+  }
+
+  .lSearchFormInput {
+    width: 23%;
+  }
+
+  .lSearchSubmit {
+    width: 75px;
+  }
+
+  .lSearchSubmit {
+    background-color: var(--button);
+    color: white;
+    font-weight: bold;
+  }
+
+  .clearButton {
+    padding: 8px;
+    text-align: center;
+
+    background-color: var(--hover);
+    border: 2px solid rgb(199, 199, 199);
+    border-radius: 10px;
+    font-size: 15px;
+  }
+
+  .loadingMsg,
+  .noFriendsMsg {
+    font-size: 30px;
+  }
+
+  .lResultList {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px 0;
+    padding: 0 20px;
+    gap: 20px;
+  }
+
+  .lListedUser {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .lUserPic {
+    width: 150px;
+  }
+
+  .lUserName {
+    font-size: 18px;
+  }
+}
+
+/* Large screens*/
+@media (min-width: 1024px) {
+  .lResultList {
+    column-gap: 30px;
+    columns: 2;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .lUserPic {
+    width: 200px;
+  }
+}
+
+/* Extra large screens */
+@media (min-width: 1440px) {
+  .lSearchForm {
+    width: 60%;
+  }
+
+  .lSearchSubmit {
+    width: 100px;
+  }
+
+  .lUserPic {
+    width: 250px;
+  }
+
+  .lUserName {
+    font-size: 25px;
+  }
+}

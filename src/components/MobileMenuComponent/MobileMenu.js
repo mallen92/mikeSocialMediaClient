@@ -9,6 +9,7 @@ import { authURL } from "../../util/urls";
 
 /*-------------- ICON IMPORTS --------------*/
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import SearchIcon from "@mui/icons-material/Search";
 import LogoutIcon from "@mui/icons-material/Logout";
 
 /*-------------- STYLE IMPORTS --------------*/
@@ -50,6 +51,10 @@ export const MobileMenu = ({ setError }) => {
         <div className="mobileMenuLink" onClick={() => navigate(`/${user.id}`)}>
           <AccountBoxIcon fontSize="large" />
           View Your Profile
+        </div>
+        <div className="mobileMenuLink" onClick={() => navigate("/search")}>
+          <SearchIcon fontSize="large" />
+          Search for Users
         </div>
         <div className="mobileMenuLink" onClick={logOutUser}>
           <LogoutIcon fontSize="large" />

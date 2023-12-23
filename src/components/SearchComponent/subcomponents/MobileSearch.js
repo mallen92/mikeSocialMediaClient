@@ -63,12 +63,12 @@ export const MobileSearch = ({ setError }) => {
     <div className="mobileSearch">
       <div className="searchPageHeader">
         {showSearchForm ? (
-          <div className="searchFormTitle">Search for Users</div>
+          <div className="searchFormTitle">User Search</div>
         ) : (
           <div className="resultPageHeader">
             <div className="resultPageTitle">Users</div>
             <div className="backButton" onClick={() => setShowSearchForm(true)}>
-              Back to Search Form
+              New Search
             </div>
           </div>
         )}

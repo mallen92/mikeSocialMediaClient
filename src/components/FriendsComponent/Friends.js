@@ -88,9 +88,6 @@ export const Friends = () => {
       <div className="friendsViewContent">
         <div className="friendsViewHeader">
           <div className="friendsViewTitle">Friends</div>
-          <div className="backBtn" onClick={() => navigate(`/${reqUserId}`)}>
-            Back to Profile
-          </div>
           <form className="searchForm" onSubmit={searchForFriends}>
             <input
               name="keyword"
@@ -101,6 +98,9 @@ export const Friends = () => {
               <SearchIcon style={{ fontSize: "40px" }} />
             </button>
           </form>
+          <div className="backBtn" onClick={() => navigate(`/${reqUserId}`)}>
+            Back to Profile
+          </div>
         </div>
 
         {isLoading ? (

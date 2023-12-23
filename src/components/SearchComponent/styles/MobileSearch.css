@@ -1,22 +1,27 @@
 /* Smartphones */
 @media (min-width: 320px) {
   .mobileSearch {
-    align-items: center;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    justify-content: center;
     margin: 0 20px;
-    padding: 20px 0;
+    position: relative;
 
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.25);
+    border: 2px solid var(--hover);
     border-radius: 20px;
   }
 
   .searchPageHeader {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px 0;
     width: 100%;
 
-    border-bottom: 1px solid var(--white);
+    background-color: rgba(0, 0, 0, 0.5);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
     text-align: center;
   }
 
@@ -26,16 +31,13 @@
     font-weight: bold;
   }
 
-  .searchFormTitle,
-  .resultPageHeader {
-    margin-bottom: 20px;
-  }
-
   .searchPageForm {
+    align-self: center;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: 90%;
+    padding: 20px 0;
+    width: 60%;
   }
 
   .searchFormInput,
@@ -71,11 +73,33 @@
     border-radius: 10px;
     font-size: 15px;
   }
+
+  .resultList {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px 0;
+    padding: 0 20px;
+    row-gap: 20px;
+  }
+
+  .listedUser {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .userPic {
+    width: 100px;
+  }
+
+  .userName {
+    font-size: 18px;
+  }
 }
 
 /* Tablets */
 @media (min-width: 425px) {
-  .searchPageForm {
-    width: 75%;
+  .userPic {
+    width: 125px;
   }
 }
