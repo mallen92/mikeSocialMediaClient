@@ -110,7 +110,7 @@ export const LargeNavMenu = ({ setError }) => {
             <div>Search</div>
           </div>
         ) : (
-          <div className="navLink">
+          <div className="navLink" onClick={() => navigate("/search")}>
             <SearchIcon fontSize="large" />
             <div>Search</div>
           </div>

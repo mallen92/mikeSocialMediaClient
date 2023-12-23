@@ -1,9 +1,5 @@
 /* Smartphones */
 @media (min-width: 320px) {
-  .hideOnMobile {
-    display: none;
-  }
-
   .branding {
     margin-top: 10px;
   }
@@ -54,14 +50,6 @@
 
 /* Large tablets */
 @media (min-width: 768px) {
-  .hideOnLarge {
-    display: none;
-  }
-
-  .hideOnMobile {
-    display: unset;
-  }
-
   .largeNavMenuContainer {
     display: flex;
     justify-content: center;

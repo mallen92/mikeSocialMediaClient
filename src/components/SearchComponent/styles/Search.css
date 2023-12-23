@@ -1,0 +1,57 @@
+/* Smartphones */
+@media (min-width: 320px) {
+  .searchPage {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .noResultsMsg {
+    padding: 20px 0;
+
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .resultList {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px 0;
+    row-gap: 20px;
+  }
+
+  .listedUser {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .userPic {
+    width: 70px;
+  }
+
+  .userName {
+    text-align: center;
+    width: 100px;
+  }
+}
+
+/* Tablets */
+@media (min-width: 425px) {
+  .userPic {
+    width: 110px;
+  }
+}
+
+/* Large tablets */
+@media (min-width: 768px) {
+}
+
+/* Large screens*/
+@media (min-width: 1024px) {
+}
+
+/* Extra large screens */
+@media (min-width: 1440px) {
+}

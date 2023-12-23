@@ -11,9 +11,11 @@ import { friendsURL } from "../../util/urls";
 /*-------------- COMPONENT IMPORTS --------------*/
 import { MessageBanner } from "../MessageBannerComponent/MessageBanner";
 
+/*-------------- IMAGE IMPORTS --------------*/
+import Loading from "../../images/Loading.gif";
+
 /*-------------- ICON IMPORTS --------------*/
 import SearchIcon from "@mui/icons-material/Search";
-import Loading from "../../images/Loading.gif";
 
 /*-------------- STYLE IMPORTS --------------*/
 import "./Friends.css";

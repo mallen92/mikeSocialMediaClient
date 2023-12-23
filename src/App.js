@@ -20,6 +20,7 @@ import { NewsFeed } from "./components/NewsFeedComponent/NewsFeed";
 import { MobileMenu } from "./components/MobileMenuComponent/MobileMenu";
 import { Friends } from "./components/FriendsComponent/Friends";
 import { UserInfo } from "./components/UserInfoComponent/UserInfo";
+import { Search } from "./components/SearchComponent/Search";
 
 /*-------------- STYLING IMPORTS --------------*/
 import "./App.css";
@@ -88,6 +89,10 @@ function App() {
                 <Route index element={<UserInfo />} />
               </Route>
               <Route path="friends" element={<Friends />} />
+            </Route>
+
+            <Route path="/search" element={<MainSite />}>
+              <Route index element={<Search />} />
             </Route>
           </>
         )}
