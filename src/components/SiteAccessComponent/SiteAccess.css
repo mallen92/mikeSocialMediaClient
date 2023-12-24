@@ -141,6 +141,10 @@
     background-color: #afafafe8;
   }
 
+  .errorContainer {
+    font-size: 18px;
+  }
+
   .toolTipContainer {
     padding: 5px;
 

@@ -49,15 +49,17 @@
   .lSearchFormInput {
     width: 23%;
   }
-
   .lSearchSubmit {
     width: 75px;
-  }
 
-  .lSearchSubmit {
     background-color: var(--button);
     color: white;
     font-weight: bold;
+  }
+
+  .lSearchSubmit:hover {
+    cursor: pointer;
+    background-color: var(--buttonHover);
   }
 
   .clearButton {
@@ -87,6 +89,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  .lListedUser:hover {
+    cursor: pointer;
+    background-color: var(--hover);
   }
 
   .lUserPic {

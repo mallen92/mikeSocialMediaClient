@@ -26,6 +26,7 @@
   }
 
   .callToActionBtns {
+    align-items: center;
     display: flex;
     gap: 20px;
     justify-content: center;
@@ -40,6 +41,7 @@
 
     background-color: var(--button);
     border-radius: 40px;
+    font-size: 15px;
     font-weight: bold;
   }
 }
@@ -74,6 +76,7 @@
 
   .callToActionBtn {
     width: 75%;
+    font-size: 20px;
   }
 
   .callToActionBtn:hover {

@@ -38,6 +38,12 @@ export const NavigationContainer = ({ setError }) => {
             >
               Sign Up
             </div>
+            <div
+              className="callToActionBtn"
+              onClick={() => navigate("/search")}
+            >
+              Search
+            </div>
           </div>
         </>
       ) : (
