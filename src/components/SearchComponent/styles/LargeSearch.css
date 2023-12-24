@@ -72,6 +72,11 @@
     font-size: 15px;
   }
 
+  .clearButton:hover {
+    cursor: pointer;
+    background-color: var(--default);
+  }
+
   .loadingMsg,
   .noFriendsMsg {
     font-size: 30px;
