@@ -26,7 +26,7 @@ export const MobileNavMenu = () => {
           <HomeIcon fontSize="large" />
         </div>
       ) : (
-        <div className="mobileNavLink">
+        <div className="mobileNavLink" onClick={() => navigate("/")}>
           <HomeIcon fontSize="large" />
         </div>
       )}

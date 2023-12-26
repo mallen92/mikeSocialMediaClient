@@ -11,6 +11,7 @@
     top: 0;
     z-index: 1000;
 
+    background-color: var(--default);
     border-bottom: 1px solid var(--white);
     color: var(--white);
   }
@@ -52,19 +53,18 @@
 
 /* Large tablets */
 @media (min-width: 768px) {
-  .largeNavMenuContainer {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-  }
-
   .navigationContainerBody {
     align-items: center;
     gap: 20px;
-    width: 250px;
+    width: 300px;
 
     border-bottom: unset;
     border-right: 1px solid var(--white);
+  }
+
+  .largeNavMenuContainer {
+    display: flex;
+    justify-content: center;
   }
 
   .callToActionBtns {
@@ -87,9 +87,6 @@
 
 /* Large screens*/
 @media (min-width: 1024px) {
-  .navigationContainerBody {
-    width: 300px;
-  }
 }
 
 /* Extra large screens */

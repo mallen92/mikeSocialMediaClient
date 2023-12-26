@@ -227,7 +227,9 @@ export const Profile = () => {
 
               {/*-------------------------- END DIALOGUE WINDOWS ---------------------------------*/}
 
-              <Outlet context={setErrorMessage} />
+              <div className="profileContent">
+                <Outlet context={setErrorMessage} />
+              </div>
             </>
           )}
         </>

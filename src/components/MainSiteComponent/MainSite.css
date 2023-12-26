@@ -11,6 +11,7 @@
 
   .contentSection {
     position: relative;
+    overflow-y: scroll;
   }
 }
 
@@ -25,8 +26,7 @@
   }
 
   .contentSection {
-    position: relative;
-    width: 100vw;
+    width: 85vw;
   }
 }
 

@@ -1,5 +1,9 @@
 /* Smartphones */
 @media (min-width: 320px) {
+  .profileContent {
+    padding: 0 20px;
+  }
+
   .authUserPic,
   .requestedUserPic {
     width: 100px;
