@@ -32,7 +32,7 @@ export const UserConnect = ({
 
   /*---------------------- REGULAR VARIABLES ---------------------*/
   const accessToken = appUser.accessToken;
-  const viewedUserId = viewedUser.id;
+  const viewedUserId = viewedUser.username;
   const viewedUserName = `${viewedUser.firstName} ${viewedUser.lastName}`;
   let friendStatus = viewedUser.friendStatus;
 

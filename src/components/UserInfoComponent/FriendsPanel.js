@@ -25,14 +25,14 @@ export const FriendsPanel = ({ showError }) => {
   const [moreFriends, setMoreFriends] = useState(null);
 
   /*---------------------- REGULAR VARIABLES ---------------------*/
-  const reqUserId = location.pathname.split("/")[1];
+  const reqUser = location.pathname.split("/")[1];
 
   /*----------------------- USEEFFECT HOOK ----------------------*/
   useEffect(() => {
     setLoading(true);
 
     axios
-      .get(`${friendsURL}?id=${reqUserId}&panel=${true}`)
+      .get(`${friendsURL}?u=${reqUser}&panel=${true}`)
       .then((response) => {
         setFriendsList(response.data.friends);
         setMoreFriends(response.data.moreFriendsKey);
@@ -41,7 +41,7 @@ export const FriendsPanel = ({ showError }) => {
       .catch((error) => {
         showError(error.response.data.message);
       });
-  }, [reqUserId, showError]);
+  }, [reqUser, showError]);
 
   /*----------------------------- JSX ----------------------------*/
   return (
@@ -66,7 +66,7 @@ export const FriendsPanel = ({ showError }) => {
                 <div
                   key={friend.resultId}
                   className="panelFriend"
-                  onClick={() => navigate(`/${friend.id}`)}
+                  onClick={() => navigate(`/${friend.username}`)}
                 >
                   <div className="panelProfPic">
                     <img

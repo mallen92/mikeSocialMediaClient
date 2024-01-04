@@ -45,7 +45,10 @@ export const LargeNavMenu = ({ setError }) => {
   /*------------------ JSX ------------------*/
   return (
     <div className="largeNavMenuBody">
-      <div className="appUserInfo" onClick={() => navigate(`/${user.id}`)}>
+      <div
+        className="appUserInfo"
+        onClick={() => navigate(`/${user.username}`)}
+      >
         <img src={user.picUrl} className="appUserPic" alt="profile_picture" />
         <div className="appUserName">
           {user.firstName} {user.lastName}
@@ -77,7 +80,7 @@ export const LargeNavMenu = ({ setError }) => {
           </div>
         )}
 
-        {location.pathname === `/${user.id}/friends` ? (
+        {location.pathname === `/${user.username}/friends` ? (
           <div className="navLink currentView">
             <GroupIcon fontSize="large" />
             <div>Friends</div>
@@ -85,7 +88,7 @@ export const LargeNavMenu = ({ setError }) => {
         ) : (
           <div
             className="navLink"
-            onClick={() => navigate(`/${user.id}/friends`)}
+            onClick={() => navigate(`/${user.username}/friends`)}
           >
             <GroupIcon fontSize="large" />
             <div>Friends</div>

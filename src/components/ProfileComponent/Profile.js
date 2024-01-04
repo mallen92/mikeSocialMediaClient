@@ -45,25 +45,25 @@ export const Profile = () => {
   const [showDeletePicWindow, setShowDeletePicWindow] = useState(false);
 
   /*---------------------- REGULAR VARIABLES ---------------------*/
-  const requestedUserId = location.pathname.split("/")[1];
-  const visitedProfile = window.localStorage.getItem(`vp#${requestedUserId}`);
+  const requestedUser = location.pathname.split("/")[1];
+  const visitedProfile = window.localStorage.getItem(`vp#${requestedUser}`);
   const key = JSON.parse(visitedProfile);
 
   /*----------------------- USEEFFECT HOOK ----------------------*/
   useEffect(() => {
-    let requestingUserId = null;
+    let requestingUser = null;
     let url = "";
 
-    if (user.accessToken && user.id !== requestedUserId)
-      requestingUserId = user.id;
+    if (user.accessToken && user.username !== requestedUser)
+      requestingUser = user.username;
 
-    if (key) url = `${userURL}?id=${requestedUserId}&key=${key}`;
-    else url = `${userURL}?id=${requestedUserId}`;
+    if (key) url = `${userURL}?u=${requestedUser}&ck=${key}`;
+    else url = `${userURL}?u=${requestedUser}`;
 
     axios
       .get(url, {
         headers: {
-          "Requesting-User-ID": requestingUserId,
+          "Requesting-User": requestingUser,
         },
       })
       .then((response) => {
@@ -77,7 +77,7 @@ export const Profile = () => {
 
           if (response.data.cacheKey) {
             window.localStorage.setItem(
-              `vp#${requestedUserId}`,
+              `vp#${requestedUser}`,
               JSON.stringify(response.data.cacheKey)
             );
           }
@@ -87,7 +87,7 @@ export const Profile = () => {
         setErrorMessage(error.response.data.message);
       });
     //eslint-disable-next-line
-  }, [requestedUserId]);
+  }, [requestedUser]);
 
   /*------------------------- END USEEFFECT HOOK ------------------------*/
 
@@ -149,14 +149,14 @@ export const Profile = () => {
                   {profile.firstName} {profile.lastName}
                 </div>
               </div>
-              {user.accessToken && user.id === requestedUserId ? (
+              {user.accessToken && user.username === requestedUser ? (
                 <div className="editProfile">
                   <div className="editProfileBtn">Edit Profile</div>
                 </div>
               ) : (
                 <></>
               )}
-              {user.accessToken && user.id !== requestedUserId ? (
+              {user.accessToken && user.username !== requestedUser ? (
                 <UserConnect
                   appUser={user}
                   viewedUserKey={key}

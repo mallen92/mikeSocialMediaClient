@@ -14,7 +14,7 @@ export const ProfilePic = ({
 
   /*------------------ FUNCTIONS -----------------*/
   const toggleProfilePicOptions = () => {
-    if (viewedUser.id === appUser.id) {
+    if (viewedUser.username === appUser.username) {
       if (showProfilePicOptions) setShowProfilePicOptions(false);
       else setShowProfilePicOptions(true);
     }
@@ -33,7 +33,7 @@ export const ProfilePic = ({
 
   return (
     <div className="profilePicBody" ref={newRef}>
-      {userToken && viewedUser.id === appUser.id ? (
+      {userToken && viewedUser.username === appUser.username ? (
         <img
           src={viewedUser.picUrl}
           className="authUserPic"

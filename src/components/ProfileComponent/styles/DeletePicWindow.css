@@ -8,6 +8,7 @@
     padding: 10px;
     position: absolute;
     width: 100%;
+    z-index: 1000;
 
     background-color: var(--hover);
     border: 1px solid var(--white);

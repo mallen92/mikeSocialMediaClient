@@ -48,7 +48,10 @@ export const MobileMenu = ({ setError }) => {
         </div>
       </div>
       <div className="mobileMenuLinks">
-        <div className="mobileMenuLink" onClick={() => navigate(`/${user.id}`)}>
+        <div
+          className="mobileMenuLink"
+          onClick={() => navigate(`/${user.username}`)}
+        >
           <AccountBoxIcon fontSize="large" />
           View Your Profile
         </div>

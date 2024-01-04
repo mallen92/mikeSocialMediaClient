@@ -33,7 +33,7 @@ export const Friends = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   /*---------------------- REGULAR VARIABLES ---------------------*/
-  const reqUserId = location.pathname.split("/")[1];
+  const reqUser = location.pathname.split("/")[1];
 
   /*--------------------------- FUNCTIONS --------------------------*/
   const searchForFriends = (e) => {
@@ -62,8 +62,8 @@ export const Friends = () => {
     setLoading(true);
 
     let url;
-    if (searchMode) url = `${friendsURL}?id=${reqUserId}&keyword=${keyword}`;
-    else url = `${friendsURL}?id=${reqUserId}`;
+    if (searchMode) url = `${friendsURL}?u=${reqUser}&keyword=${keyword}`;
+    else url = `${friendsURL}?u=${reqUser}`;
 
     axios
       .get(url)
@@ -74,7 +74,7 @@ export const Friends = () => {
       .catch((error) => {
         setErrorMessage(error.response.data.message);
       });
-  }, [searchMode, reqUserId, keyword]);
+  }, [searchMode, reqUser, keyword]);
 
   /*----------------------------------- JSX ----------------------------------*/
   return (
@@ -98,7 +98,7 @@ export const Friends = () => {
               <SearchIcon style={{ fontSize: "40px" }} />
             </button>
           </form>
-          <div className="backBtn" onClick={() => navigate(`/${reqUserId}`)}>
+          <div className="backBtn" onClick={() => navigate(`/${reqUser}`)}>
             Back to Profile
           </div>
         </div>
@@ -113,7 +113,7 @@ export const Friends = () => {
                   <div
                     key={friend.resultId}
                     className="listedFriend"
-                    onClick={() => navigate(`/${friend.id}`)}
+                    onClick={() => navigate(`/${friend.username}`)}
                   >
                     <div className="friendProfPic">
                       <img

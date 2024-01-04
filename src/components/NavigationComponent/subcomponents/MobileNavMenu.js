@@ -31,14 +31,14 @@ export const MobileNavMenu = () => {
         </div>
       )}
 
-      {location.pathname === `/${user.id}/friends` ? (
+      {location.pathname === `/${user.username}/friends` ? (
         <div className="mobileNavLink currentView">
           <GroupIcon fontSize="large" className="currentView" />
         </div>
       ) : (
         <div
           className="mobileNavLink"
-          onClick={() => navigate(`/${user.id}/friends`)}
+          onClick={() => navigate(`/${user.username}/friends`)}
         >
           <GroupIcon fontSize="large" />
         </div>

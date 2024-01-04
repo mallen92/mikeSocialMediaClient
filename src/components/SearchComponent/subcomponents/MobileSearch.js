@@ -29,25 +29,26 @@ export const MobileSearch = ({ setError }) => {
 
     const formData = new FormData(e.target);
     const formEntries = Object.fromEntries(formData.entries());
-    let { fName, lName, id } = formEntries;
+    let { fName, lName, username } = formEntries;
 
     fName = fName.trim();
     if (fName === "") fName = null;
     lName = lName.trim();
     if (lName === "") lName = null;
-    id = id.trim();
-    if (id === "") id = null;
+    username = username.trim();
+    if (username === "") username = null;
 
-    if (!fName && !lName && !id) setError("Please enter a search keyword.");
+    if (!fName && !lName && !username)
+      setError("Please enter a search keyword.");
     else {
-      if (fName?.length === 1 || lName?.length === 1 || id?.length === 1)
+      if (fName?.length === 1 || lName?.length === 1 || username?.length === 1)
         setError("Search keywords must contain at least 2 characters.");
       else {
         setShowSearchForm(false);
         setLoading(true);
 
         axios
-          .post(`${userURL}/search`, { id, fName, lName })
+          .post(`${userURL}/search`, { username, fName, lName })
           .then((response) => {
             setResultsList(response.data.results);
             setLoading(false);
@@ -86,7 +87,11 @@ export const MobileSearch = ({ setError }) => {
             className="searchFormInput"
             placeholder="Last name"
           />
-          <input name="id" className="searchFormInput" placeholder="Username" />
+          <input
+            name="username"
+            className="searchFormInput"
+            placeholder="Username"
+          />
 
           <button type="submit" className="searchFormSubmit">
             Search
@@ -104,7 +109,7 @@ export const MobileSearch = ({ setError }) => {
                     <div
                       key={result.resultId}
                       className="listedUser"
-                      onClick={() => navigate(`/${result.id}`)}
+                      onClick={() => navigate(`/${result.username}`)}
                     >
                       <div className="userProfPic">
                         <img
